@@ -530,6 +530,7 @@
           <select id="regRoleCode">
             <option value="4">ผู้เรียน</option>
             <option value="3">ครูผู้สอน</option>
+            <option value="2">ผู้บริหาร / ผู้อำนวยการ</option>
           </select>
         </div>
         <div class="form-group">
@@ -546,18 +547,17 @@
         </div>
         <div class="form-group">
           <label>โรงเรียน</label>
-          <select id="regSchoolSelect">
-            <option value="">-- เลือกโรงเรียน --</option>
-            <option value="__NEW__">+ เพิ่มโรงเรียนใหม่ (สำหรับครู)</option>
+          <select id="regSchoolSelect" required>
+            <option value="โรงเรียนกมลาไสย" data-province="กาฬสินธุ์">โรงเรียนกมลาไสย (กาฬสินธุ์)</option>
           </select>
         </div>
         <div class="form-group" id="newSchoolGroup" style="display:none;">
-          <label>ชื่อโรงเรียนใหม่</label>
-          <input type="text" id="regNewSchoolName" />
+          <label>ชื่อโรงเรียนใหม่ (สำหรับครูหรือ ผอ.)</label>
+          <input type="text" id="regNewSchoolName" placeholder="กรอกชื่อโรงเรียน" />
         </div>
         <div class="form-group">
           <label>จังหวัดที่ตั้งโรงเรียน</label>
-          <input type="text" id="regProvince" required />
+          <input type="text" id="regProvince" value="กาฬสินธุ์" required />
         </div>
         <button class="btn btn-primary" type="submit" style="width:100%;">ยืนยันการสมัคร</button>
       </form>
@@ -649,29 +649,71 @@
     const loginForm = document.getElementById('loginForm');
     const registerForm = document.getElementById('registerForm');
     const modalMsg = document.getElementById('modalMsg');
+    const regRoleCode = document.getElementById('regRoleCode');
     const regSchoolSelect = document.getElementById('regSchoolSelect');
     const newSchoolGroup = document.getElementById('newSchoolGroup');
+    const regProvince = document.getElementById('regProvince');
 
-    async function loadSchoolsDropdown() {
-      try {
-        const res = await callBackend('getSchools', {});
-        const schools = (res && res.schools) || [];
-        regSchoolSelect.innerHTML = '<option value="">-- เลือกโรงเรียน --</option>';
-        schools.forEach((s) => {
-          const opt = document.createElement('option');
-          opt.value = s.schoolName;
-          opt.textContent = `${s.schoolName} (${s.province})`;
-          opt.dataset.province = s.province;
-          regSchoolSelect.appendChild(opt);
-        });
+    function rebuildSchoolOptions(schools) {
+      const roleVal = Number(regRoleCode.value);
+      const canAddSchool = roleVal === 2 || roleVal === 3;
+      const list = (schools && schools.length)
+        ? schools
+        : [{ schoolName: 'โรงเรียนกมลาไสย', province: 'กาฬสินธุ์' }];
+
+      regSchoolSelect.innerHTML = '';
+      list.forEach((s) => {
+        const opt = document.createElement('option');
+        opt.value = s.schoolName;
+        opt.textContent = `${s.schoolName} (${s.province})`;
+        opt.dataset.province = s.province;
+        regSchoolSelect.appendChild(opt);
+      });
+
+      if (canAddSchool) {
         const newOpt = document.createElement('option');
         newOpt.value = '__NEW__';
-        newOpt.textContent = '+ เพิ่มโรงเรียนใหม่ (สำหรับครู)';
+        newOpt.textContent = '+ เพิ่มโรงเรียนใหม่';
         regSchoolSelect.appendChild(newOpt);
-      } catch (err) {
-        // คงตัวเลือกเริ่มต้นไว้
+      }
+
+      handleSchoolChange();
+    }
+
+    function handleSchoolChange() {
+      const roleVal = Number(regRoleCode.value);
+      const canAddSchool = roleVal === 2 || roleVal === 3;
+      if (canAddSchool && regSchoolSelect.value === '__NEW__') {
+        newSchoolGroup.style.display = 'block';
+        regProvince.value = '';
+        regProvince.readOnly = false;
+      } else {
+        newSchoolGroup.style.display = 'none';
+        const selected = regSchoolSelect.selectedOptions[0];
+        if (selected && selected.dataset.province) {
+          regProvince.value = selected.dataset.province;
+        }
+        regProvince.readOnly = true;
       }
     }
+
+    let cachedSchools = [{ schoolName: 'โรงเรียนกมลาไสย', province: 'กาฬสินธุ์' }];
+
+    async function loadSchoolsDropdown() {
+      rebuildSchoolOptions(cachedSchools);
+      try {
+        const res = await callBackend('getSchools', {});
+        if (res && Array.isArray(res.schools) && res.schools.length > 0) {
+          cachedSchools = res.schools;
+          rebuildSchoolOptions(cachedSchools);
+        }
+      } catch (err) {
+        // ใช้รายชื่อโรงเรียนที่มีอยู่
+      }
+    }
+
+    regRoleCode.onchange = () => rebuildSchoolOptions(cachedSchools);
+    regSchoolSelect.onchange = handleSchoolChange;
 
     function openModal(mode) {
       modalMsg.style.color = 'var(--text-muted)';
@@ -694,14 +736,6 @@
     document.getElementById('openRegisterBtn').onclick = () => openModal('register');
     document.getElementById('heroRegisterBtn').onclick = () => openModal('register');
     document.getElementById('closeModalBtn').onclick = () => authModal.classList.remove('open');
-
-    regSchoolSelect.onchange = () => {
-      newSchoolGroup.style.display = regSchoolSelect.value === '__NEW__' ? 'block' : 'none';
-      const selected = regSchoolSelect.selectedOptions[0];
-      if (selected && selected.dataset.province) {
-        document.getElementById('regProvince').value = selected.dataset.province;
-      }
-    };
 
     loginForm.onsubmit = async (e) => {
       e.preventDefault();
@@ -742,20 +776,20 @@
 
       try {
         const res = await callBackend('register', {
-          roleCode: document.getElementById('regRoleCode').value,
+          roleCode: regRoleCode.value,
           fullName: document.getElementById('regFullName').value.trim(),
           username: document.getElementById('regUsername').value.trim(),
           password: document.getElementById('regPassword').value.trim(),
           isNewSchool: isNewSchool,
           schoolName,
-          province: document.getElementById('regProvince').value.trim()
+          province: regProvince.value.trim()
         });
 
         modalMsg.style.color = (res && res.success) ? '#15803D' : 'var(--primary)';
         modalMsg.textContent = (res && res.message) || 'เกิดข้อผิดพลาด';
         if (res && res.success) {
           registerForm.reset();
-          newSchoolGroup.style.display = 'none';
+          await loadSchoolsDropdown();
         }
       } catch (err) {
         modalMsg.style.color = 'var(--primary)';
