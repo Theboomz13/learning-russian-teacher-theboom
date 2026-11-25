@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Русский сезон — ระบบเรียนรู้และแดชบอร์ดความก้าวหน้า А1</title>
+  <title>Русский сезон — ระบบเข้าสู่ระบบและแดชบอร์ดความก้าวหน้า А1</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600;700&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
@@ -131,8 +131,18 @@
       margin-bottom: 10px;
     }
 
-    /* Admin Dashboard */
-    #adminDashboard {
+    .role-strip {
+      margin-top: 14px;
+      padding: 12px 16px;
+      border-radius: var(--radius-md);
+      background: var(--bg-soft-card);
+      border: 1px solid var(--border-soft);
+      font-size: 0.88rem;
+      color: var(--text-main);
+    }
+
+    /* Dashboard Section */
+    #dashboardSection {
       display: none;
       padding: 36px 0 64px;
       background: var(--bg-cool);
@@ -304,15 +314,17 @@
   <section class="hero">
     <div class="container">
       <div class="hero-box">
-        <div style="max-width:680px;">
-          <span class="eyebrow">ระบบจัดการผู้เรียนและติดตามความก้าวหน้า А1</span>
-          <h1 style="font-size:clamp(1.7rem, 3.2vw, 2.4rem); line-height:1.25; margin-bottom:10px;">
-            Русский сезон — แดชบอร์ดและระบบเข้าสู่ระบบ
+        <div style="max-width:720px;">
+          <span class="eyebrow">ตรวจสอบตัวตนจากชีต "ผู้มีสิทธิ์" และอ้างอิงสิทธิ์จากชีต "รหัสสิทธิ์"</span>
+          <h1 style="font-size:clamp(1.7rem, 3.2vw, 2.35rem); line-height:1.25; margin-bottom:10px;">
+            Русский сезон — ระบบเข้าสู่ระบบและแดชบอร์ด А1
           </h1>
           <p style="color:var(--text-muted);">
-            ลงชื่อเข้าใช้ด้วยบัญชีผู้มีสิทธิ์ใน Google Sheets เพื่อเข้าถึงระบบตามระดับสิทธิ์
-            เมื่อเข้าสู่ระบบด้วยบัญชี <strong>Admin (รหัสสิทธิ์ 1)</strong> ระบบจะเปิดแดชบอร์ดความก้าวหน้าของนักเรียนแบบ <strong>รายบุคคล</strong> และ <strong>รายโรงเรียน</strong>
+            ระบบตรวจสอบบัญชีจากชีต <strong>ผู้มีสิทธิ์</strong> และควบคุมขอบเขตการเข้าถึงตามหมายเลขในชีต <strong>รหัสสิทธิ์</strong> (1: Admin, 2: ผู้บริหารระดับสูง, 3: ผู้ดูแลนักเรียน, 4: ผู้เรียน)
           </p>
+          <div class="role-strip" id="activeRoleInfo">
+            สถานะ: ยังไม่ได้เข้าสู่ระบบ — กรุณาลงชื่อเข้าใช้ด้วยบัญชีที่มีในชีต <strong>ผู้มีสิทธิ์</strong>
+          </div>
         </div>
         <div style="display:flex; gap:10px; flex-wrap:wrap;">
           <button class="btn btn-primary" id="heroLoginBtn" type="button">ลงชื่อเข้าใช้ระบบ</button>
@@ -322,41 +334,41 @@
     </div>
   </section>
 
-  <!-- แดชบอร์ดความก้าวหน้าสำหรับ Admin (รหัสสิทธิ์ 1) -->
-  <section id="adminDashboard">
+  <!-- แดชบอร์ดตามระดับสิทธิ์ (รหัสสิทธิ์ 1–4) -->
+  <section id="dashboardSection">
     <div class="container">
       <div class="dash-header">
         <div>
-          <span class="eyebrow">ADMIN DASHBOARD · รหัสสิทธิ์ 1</span>
-          <h2 style="font-size:1.5rem;">แดชบอร์ดความก้าวหน้าของนักเรียน</h2>
+          <span class="eyebrow" id="dashRoleBadge">ขอบเขตสิทธิ์</span>
+          <h2 style="font-size:1.5rem;" id="dashTitle">แดชบอร์ดความก้าวหน้าของนักเรียน</h2>
         </div>
-        <button class="btn btn-dark btn-sm" id="refreshDashBtn" type="button">↻ รีเฟรชข้อมูลล่าสุด</button>
+        <button class="btn btn-dark btn-sm" id="refreshDashBtn" type="button">↻ รีเฟรชข้อมูลจากชีต</button>
       </div>
 
       <div class="kpi-grid">
         <div class="kpi-card">
-          <div class="kpi-label">นักเรียนที่มีข้อมูลคะแนน</div>
+          <div class="kpi-label">นักเรียนในขอบเขตสิทธิ์</div>
           <div class="kpi-value" id="kpiStudents">0 คน</div>
         </div>
         <div class="kpi-card">
-          <div class="kpi-label">จำนวนโรงเรียนที่เข้าร่วม</div>
+          <div class="kpi-label">จำนวนโรงเรียนในขอบเขตสิทธิ์</div>
           <div class="kpi-value" id="kpiSchools">0 แห่ง</div>
         </div>
         <div class="kpi-card">
-          <div class="kpi-label">คะแนนเฉลี่ยรวมทุกหน่วย</div>
+          <div class="kpi-label">คะแนนเฉลี่ยรวม</div>
           <div class="kpi-value" id="kpiAvgScore">0%</div>
         </div>
         <div class="kpi-card">
-          <div class="kpi-label">อัตราการทำแบบฝึกหัดผ่าน</div>
+          <div class="kpi-label">อัตราผ่านแบบฝึกหัด</div>
           <div class="kpi-value" id="kpiPassRate">0%</div>
         </div>
       </div>
 
       <div class="dash-panel">
         <div class="view-tabs">
-          <button class="tab-btn active" id="tabBySchool" type="button">🏫 เรียกดูรายโรงเรียน</button>
-          <button class="tab-btn" id="tabByStudent" type="button">👤 เรียกดูรายบุคคล</button>
-          <button class="tab-btn" id="tabRawRecords" type="button">📋 รายการบันทึกคะแนนทั้งหมด</button>
+          <button class="tab-btn active" id="tabBySchool" type="button">🏫 รายโรงเรียน</button>
+          <button class="tab-btn" id="tabByStudent" type="button">👤 รายบุคคล</button>
+          <button class="tab-btn" id="tabRawRecords" type="button">📋 รายการบันทึกคะแนน</button>
         </div>
 
         <div class="filter-bar">
@@ -369,7 +381,6 @@
           </select>
         </div>
 
-        <!-- มุมมองที่ 1: รายโรงเรียน -->
         <div id="schoolView" class="table-wrap">
           <table>
             <thead>
@@ -387,7 +398,6 @@
           </table>
         </div>
 
-        <!-- มุมมองที่ 2: รายบุคคล -->
         <div id="studentView" class="table-wrap" style="display:none;">
           <table>
             <thead>
@@ -406,7 +416,6 @@
           </table>
         </div>
 
-        <!-- มุมมองที่ 3: รายการบันทึกคะแนนทั้งหมด -->
         <div id="recordsView" class="table-wrap" style="display:none;">
           <table>
             <thead>
@@ -440,21 +449,21 @@
       <form id="loginForm">
         <div class="form-group">
           <label>ชื่อผู้ใช้ (User)</label>
-          <input type="text" id="loginUser" required placeholder="กรอกชื่อผู้ใช้" />
+          <input type="text" id="loginUser" required placeholder="กรอก User จากชีต ผู้มีสิทธิ์" />
         </div>
         <div class="form-group">
           <label>รหัสผ่าน (Password)</label>
-          <input type="password" id="loginPass" required placeholder="กรอกรหัสผ่าน" />
+          <input type="password" id="loginPass" required placeholder="กรอก Password จากชีต ผู้มีสิทธิ์" />
         </div>
         <button class="btn btn-primary" type="submit" style="width:100%;">เข้าสู่ระบบ</button>
       </form>
 
       <form id="registerForm" style="display:none;">
         <div class="form-group">
-          <label>บทบาทผู้สมัคร</label>
+          <label>บทบาทผู้สมัคร (อ้างอิงชีต รหัสสิทธิ์)</label>
           <select id="regRoleCode">
-            <option value="4">ผู้เรียน (รหัสสิทธิ์ 4)</option>
-            <option value="3">ครู / ผู้ดูแลนักเรียน (รหัสสิทธิ์ 3)</option>
+            <option value="4">4 — ผู้เรียน</option>
+            <option value="3">3 — ผู้ดูแลนักเรียน (ครู)</option>
           </select>
         </div>
         <div class="form-group">
@@ -494,93 +503,54 @@
   <footer>
     <div class="container" style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; font-size:0.88rem;">
       <strong>Русский сезон · А1</strong>
-      <span>ระบบติดตามความก้าวหน้าผู้เรียนรายบุคคลและรายโรงเรียน</span>
+      <span>อ้างอิงบัญชีจากชีต "ผู้มีสิทธิ์" และขอบเขตสิทธิ์จากชีต "รหัสสิทธิ์"</span>
     </div>
   </footer>
 
   <script>
-    // ใส่ Web App URL ของ Google Apps Script ที่ Deploy แล้วที่นี่
-    // หากยังไม่ได้ใส่ ระบบจะใช้ข้อมูลสำรองจากชีตเพื่อทดสอบการล็อกอินและแดชบอร์ดได้ทันที
+    // ใส่ Web App URL ของ Google Apps Script ที่ Deploy แล้วที่นี่ (ลงท้ายด้วย /exec)
     const API_URL = '';
 
-    const FALLBACK_USERS = [
-      {
-        rowIndex: 2,
-        username: 'Theboom',
-        password: String(13092525),
-        roleName: 'Admin',
-        roleCode: 1,
-        fullName: 'นายกัมพล วรรณลักษณ์ ประยูรรัตนวงศ์',
-        school: 'ศูนย์บริหารจัดการระบบ',
-        province: 'กรุงเทพมหานคร'
-      }
-    ];
-
-    const FALLBACK_SCHOOLS = [
-      { schoolName: 'โรงเรียนสาธิตจุฬาลงกรณ์มหาวิทยาลัย', province: 'กรุงเทพมหานคร' },
-      { schoolName: 'โรงเรียนสวนกุหลาบวิทยาลัย', province: 'กรุงเทพมหานคร' },
-      { schoolName: 'โรงเรียนเตรียมอุดมศึกษา', province: 'กรุงเทพมหานคร' },
-      { schoolName: 'โรงเรียนมงฟอร์ตวิทยาลัย', province: 'เชียงใหม่' },
-      { schoolName: 'โรงเรียนหาดใหญ่วิทยาลัย', province: 'สงขลา' }
-    ];
-
-    const FALLBACK_PROGRESS = [
-      { username: 'std001', fullName: 'เด็กชายธนภัทร ใจดี', school: 'โรงเรียนสวนกุหลาบวิทยาลัย', province: 'กรุงเทพมหานคร', unit: 'หน่วยที่ 1', score: 18, maxScore: 20, status: 'ผ่าน', date: '2024-02-01' },
-      { username: 'std001', fullName: 'เด็กชายธนภัทร ใจดี', school: 'โรงเรียนสวนกุหลาบวิทยาลัย', province: 'กรุงเทพมหานคร', unit: 'หน่วยที่ 2', score: 19, maxScore: 20, status: 'ผ่าน', date: '2024-02-10' },
-      { username: 'std002', fullName: 'เด็กหญิงกานดา สดใส', school: 'โรงเรียนสวนกุหลาบวิทยาลัย', province: 'กรุงเทพมหานคร', unit: 'หน่วยที่ 1', score: 15, maxScore: 20, status: 'ผ่าน', date: '2024-02-02' },
-      { username: 'std003', fullName: 'เด็กชายนพรัตน์ วงศ์สว่าง', school: 'โรงเรียนเตรียมอุดมศึกษา', province: 'กรุงเทพมหานคร', unit: 'หน่วยที่ 1', score: 20, maxScore: 20, status: 'ผ่าน', date: '2024-02-03' },
-      { username: 'std004', fullName: 'เด็กหญิงศิริพร บุญมา', school: 'โรงเรียนมงฟอร์ตวิทยาลัย', province: 'เชียงใหม่', unit: 'หน่วยที่ 1', score: 12, maxScore: 20, status: 'กำลังปรับปรุง', date: '2024-02-05' },
-      { username: 'std004', fullName: 'เด็กหญิงศิริพร บุญมา', school: 'โรงเรียนมงฟอร์ตวิทยาลัย', province: 'เชียงใหม่', unit: 'หน่วยที่ 2', score: 17, maxScore: 20, status: 'ผ่าน', date: '2024-02-12' },
-      { username: 'std005', fullName: 'เด็กชายชญานนท์ รุ่งเรือง', school: 'โรงเรียนหาดใหญ่วิทยาลัย', province: 'สงขลา', unit: 'หน่วยที่ 1', score: 16, maxScore: 20, status: 'ผ่าน', date: '2024-02-08' }
-    ];
-
+    let authCredentials = null; // { username, password }
     let currentUser = null;
-    let allProgress = [...FALLBACK_PROGRESS];
-    let allSchools = [...FALLBACK_SCHOOLS];
+    let progressRows = [];
 
-    async function callApi(payload) {
-      if (!API_URL) {
-        if (payload.action === 'login') {
-          const found = FALLBACK_USERS.find(
-            (u) => u.username.trim() === String(payload.username).trim() &&
-                   String(u.password).trim() === String(payload.password).trim()
-          );
-          return found
-            ? { success: true, user: found }
-            : { success: false, message: 'ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง' };
+    function callApiJsonp(params) {
+      return new Promise((resolve, reject) => {
+        if (!API_URL || !API_URL.startsWith('http')) {
+          reject(new Error('ยังไม่ได้ตั้งค่า API_URL ของ Google Apps Script Web App ในโค้ดหน้าเว็บ'));
+          return;
         }
-        if (payload.action === 'getSchools') {
-          return { success: true, schools: allSchools };
-        }
-        if (payload.action === 'register') {
-          if (payload.isNewSchool && payload.schoolName) {
-            allSchools.push({ schoolName: payload.schoolName, province: payload.province });
-          }
-          FALLBACK_USERS.push({
-            username: payload.username,
-            password: String(payload.password),
-            roleCode: Number(payload.roleCode),
-            roleName: Number(payload.roleCode) === 3 ? 'ผู้ดูแลนักเรียน' : 'ผู้เรียน',
-            fullName: payload.fullName,
-            school: payload.schoolName,
-            province: payload.province
-          });
-          return { success: true, message: 'สมัครสมาชิกสำเร็จ (โหมดทดสอบในเครื่อง)' };
-        }
-        if (payload.action === 'getAdminDashboard') {
-          return { success: true, progress: allProgress, schools: allSchools };
-        }
-      }
+        const cbName = 'cb_' + Date.now() + '_' + Math.floor(Math.random() * 100000);
+        const script = document.createElement('script');
+        const query = new URLSearchParams({ ...params, callback: cbName });
 
-      const res = await fetch(API_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body: JSON.stringify(payload)
+        const timer = setTimeout(() => {
+          cleanup();
+          reject(new Error('การเชื่อมต่อ Google Apps Script ใช้เวลานานเกินกำหนด'));
+        }, 15000);
+
+        function cleanup() {
+          clearTimeout(timer);
+          if (script.parentNode) script.parentNode.removeChild(script);
+          delete window[cbName];
+        }
+
+        window[cbName] = (data) => {
+          cleanup();
+          resolve(data);
+        };
+
+        script.onerror = () => {
+          cleanup();
+          reject(new Error('ไม่สามารถโหลดสคริปต์จาก Web App URL ได้ (ตรวจสอบสิทธิ์การ Deploy เป็น Anyone)'));
+        };
+
+        script.src = `${API_URL}?${query.toString()}`;
+        document.body.appendChild(script);
       });
-      return await res.json();
     }
 
-    // Modal & Auth
     const authModal = document.getElementById('authModal');
     const modalTitle = document.getElementById('modalTitle');
     const loginForm = document.getElementById('loginForm');
@@ -589,27 +559,29 @@
     const regSchoolSelect = document.getElementById('regSchoolSelect');
     const newSchoolGroup = document.getElementById('newSchoolGroup');
 
-    async function populateSchoolDropdown() {
-      const resp = await callApi({ action: 'getSchools' });
-      const schools = (resp && resp.schools) ? resp.schools : allSchools;
-      allSchools = schools;
-
-      regSchoolSelect.innerHTML = '<option value="">-- เลือกโรงเรียน --</option>';
-      schools.forEach((s) => {
-        const opt = document.createElement('option');
-        opt.value = s.schoolName;
-        opt.textContent = `${s.schoolName} (${s.province})`;
-        opt.dataset.province = s.province;
-        regSchoolSelect.appendChild(opt);
-      });
-
-      const addOpt = document.createElement('option');
-      addOpt.value = '__NEW__';
-      addOpt.textContent = '+ เพิ่มโรงเรียนใหม่ (สำหรับครู)';
-      regSchoolSelect.appendChild(addOpt);
+    async function loadSchoolsDropdown() {
+      try {
+        const res = await callApiJsonp({ action: 'getSchools' });
+        const schools = (res && res.schools) || [];
+        regSchoolSelect.innerHTML = '<option value="">-- เลือกโรงเรียน --</option>';
+        schools.forEach((s) => {
+          const opt = document.createElement('option');
+          opt.value = s.schoolName;
+          opt.textContent = `${s.schoolName} (${s.province})`;
+          opt.dataset.province = s.province;
+          regSchoolSelect.appendChild(opt);
+        });
+        const newOpt = document.createElement('option');
+        newOpt.value = '__NEW__';
+        newOpt.textContent = '+ เพิ่มโรงเรียนใหม่ (สำหรับครู)';
+        regSchoolSelect.appendChild(newOpt);
+      } catch (e) {
+        // คงตัวเลือกเริ่มต้นไว้หากยังไม่ตั้งค่า API_URL
+      }
     }
 
     function openModal(mode) {
+      modalMsg.style.color = 'var(--text-muted)';
       modalMsg.textContent = '';
       if (mode === 'login') {
         modalTitle.textContent = 'ลงชื่อเข้าใช้';
@@ -619,7 +591,7 @@
         modalTitle.textContent = 'สมัครเข้าใช้ระบบ';
         loginForm.style.display = 'none';
         registerForm.style.display = 'block';
-        populateSchoolDropdown();
+        loadSchoolsDropdown();
       }
       authModal.classList.add('open');
     }
@@ -640,26 +612,28 @@
 
     loginForm.onsubmit = async (e) => {
       e.preventDefault();
-      modalMsg.style.color = 'var(--text-muted)';
-      modalMsg.textContent = 'กำลังตรวจสอบข้อมูล...';
-
       const username = document.getElementById('loginUser').value.trim();
       const password = document.getElementById('loginPass').value.trim();
-      const result = await callApi({ action: 'login', username, password });
 
-      if (!result.success) {
+      modalMsg.style.color = 'var(--text-muted)';
+      modalMsg.textContent = 'กำลังตรวจสอบข้อมูลในชีต ผู้มีสิทธิ์...';
+
+      try {
+        const res = await callApiJsonp({ action: 'login', username, password });
+        if (!res.success) {
+          modalMsg.style.color = 'var(--primary)';
+          modalMsg.textContent = res.message || 'ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง';
+          return;
+        }
+
+        authCredentials = { username, password };
+        currentUser = res.user;
+        authModal.classList.remove('open');
+        updateSessionUI();
+        await fetchAndRenderDashboard();
+      } catch (err) {
         modalMsg.style.color = 'var(--primary)';
-        modalMsg.textContent = result.message || 'เข้าสู่ระบบไม่สำเร็จ';
-        return;
-      }
-
-      currentUser = result.user;
-      authModal.classList.remove('open');
-      updateAuthUI();
-
-      if (Number(currentUser.roleCode) === 1) {
-        document.getElementById('adminDashboard').style.display = 'block';
-        await loadAdminDashboard();
+        modalMsg.textContent = err.message;
       }
     };
 
@@ -670,61 +644,90 @@
         ? document.getElementById('regNewSchoolName').value.trim()
         : regSchoolSelect.value.trim();
 
-      const payload = {
-        action: 'register',
-        roleCode: Number(document.getElementById('regRoleCode').value),
-        fullName: document.getElementById('regFullName').value.trim(),
-        username: document.getElementById('regUsername').value.trim(),
-        password: document.getElementById('regPassword').value.trim(),
-        isNewSchool,
-        schoolName,
-        province: document.getElementById('regProvince').value.trim()
-      };
+      modalMsg.style.color = 'var(--text-muted)';
+      modalMsg.textContent = 'กำลังบันทึกข้อมูลลงชีต ผู้มีสิทธิ์...';
 
-      const res = await callApi(payload);
-      modalMsg.style.color = res.success ? '#15803D' : 'var(--primary)';
-      modalMsg.textContent = res.message;
-      if (res.success) {
-        registerForm.reset();
-        newSchoolGroup.style.display = 'none';
+      try {
+        const res = await callApiJsonp({
+          action: 'register',
+          roleCode: document.getElementById('regRoleCode').value,
+          fullName: document.getElementById('regFullName').value.trim(),
+          username: document.getElementById('regUsername').value.trim(),
+          password: document.getElementById('regPassword').value.trim(),
+          isNewSchool: String(isNewSchool),
+          schoolName,
+          province: document.getElementById('regProvince').value.trim()
+        });
+
+        modalMsg.style.color = res.success ? '#15803D' : 'var(--primary)';
+        modalMsg.textContent = res.message;
+        if (res.success) {
+          registerForm.reset();
+          newSchoolGroup.style.display = 'none';
+        }
+      } catch (err) {
+        modalMsg.style.color = 'var(--primary)';
+        modalMsg.textContent = err.message;
       }
     };
 
-    function updateAuthUI() {
+    function updateSessionUI() {
       const guestActions = document.getElementById('guestActions');
       const userActions = document.getElementById('userActions');
+      const roleInfo = document.getElementById('activeRoleInfo');
+
       if (currentUser) {
         guestActions.style.display = 'none';
         userActions.style.display = 'flex';
         document.getElementById('currentUserBadge').textContent =
-          `${currentUser.fullName} (${currentUser.roleName} · รหัส ${currentUser.roleCode})`;
+          `${currentUser.fullName} · ${currentUser.roleName} (รหัสสิทธิ์ ${currentUser.roleCode})`;
+        roleInfo.innerHTML =
+          `เข้าสู่ระบบด้วยบัญชี <strong>${currentUser.username}</strong> | สิทธิ์: <strong>${currentUser.roleName} (รหัส ${currentUser.roleCode})</strong> | ขอบเขตสิทธิ์ตามชีต รหัสสิทธิ์: <strong>${currentUser.scope || '-'}</strong>`;
       } else {
         guestActions.style.display = 'flex';
         userActions.style.display = 'none';
-        document.getElementById('adminDashboard').style.display = 'none';
+        document.getElementById('dashboardSection').style.display = 'none';
+        roleInfo.innerHTML =
+          'สถานะ: ยังไม่ได้เข้าสู่ระบบ — กรุณาลงชื่อเข้าใช้ด้วยบัญชีที่มีในชีต <strong>ผู้มีสิทธิ์</strong>';
       }
     }
 
     document.getElementById('logoutBtn').onclick = () => {
+      authCredentials = null;
       currentUser = null;
-      updateAuthUI();
+      progressRows = [];
+      updateSessionUI();
     };
 
-    // Admin Dashboard Rendering
-    async function loadAdminDashboard() {
-      const resp = await callApi({ action: 'getAdminDashboard', roleCode: currentUser.roleCode });
-      if (resp && resp.success && Array.isArray(resp.progress)) {
-        allProgress = resp.progress;
+    async function fetchAndRenderDashboard() {
+      if (!authCredentials || !currentUser) return;
+      try {
+        const res = await callApiJsonp({
+          action: 'getDashboard',
+          username: authCredentials.username,
+          password: authCredentials.password
+        });
+        if (!res.success) {
+          alert(res.message || 'ไม่สามารถดึงข้อมูลแดชบอร์ดได้');
+          return;
+        }
+        currentUser = res.user;
+        progressRows = res.progress || [];
+        document.getElementById('dashboardSection').style.display = 'block';
+        document.getElementById('dashRoleBadge').textContent =
+          `รหัสสิทธิ์ ${currentUser.roleCode} · ${currentUser.roleName} (${currentUser.scope || ''})`;
+        setupFilters();
+        renderTables();
+      } catch (err) {
+        alert(err.message);
       }
-      initFilters();
-      renderDashboard();
     }
 
-    function initFilters() {
+    function setupFilters() {
       const schoolFilter = document.getElementById('schoolFilter');
       const unitFilter = document.getElementById('unitFilter');
 
-      const schools = [...new Set(allProgress.map((r) => r.school).filter(Boolean))];
+      const schools = [...new Set(progressRows.map((r) => r.school).filter(Boolean))];
       schoolFilter.innerHTML = '<option value="">ทุกโรงเรียน</option>';
       schools.forEach((sc) => {
         const opt = document.createElement('option');
@@ -732,6 +735,14 @@
         opt.textContent = sc;
         schoolFilter.appendChild(opt);
       });
+
+      // หากเป็นรหัสสิทธิ์ 3 (ผู้ดูแลนักเรียน) ให้ล็อกเฉพาะโรงเรียนตนเองตามเงื่อนไขชีต รหัสสิทธิ์
+      if (Number(currentUser.roleCode) === 3 && currentUser.school) {
+        schoolFilter.value = currentUser.school;
+        schoolFilter.disabled = true;
+      } else {
+        schoolFilter.disabled = false;
+      }
 
       unitFilter.innerHTML = '<option value="">ทุกหน่วยการเรียน (1–10)</option>';
       for (let u = 1; u <= 10; u++) {
@@ -743,12 +754,12 @@
       }
     }
 
-    function getFilteredRows() {
+    function getFilteredProgress() {
       const q = document.getElementById('searchInput').value.trim().toLowerCase();
       const sc = document.getElementById('schoolFilter').value;
       const un = document.getElementById('unitFilter').value;
 
-      return allProgress.filter((r) => {
+      return progressRows.filter((r) => {
         const matchSchool = !sc || r.school === sc;
         const matchUnit = !un || r.unit === un;
         const matchQuery = !q ||
@@ -759,14 +770,13 @@
       });
     }
 
-    function renderDashboard() {
-      const rows = getFilteredRows();
+    function renderTables() {
+      const rows = getFilteredProgress();
 
-      // KPIs
       const uniqueStudents = new Set(rows.map((r) => r.username));
       const uniqueSchools = new Set(rows.map((r) => r.school).filter(Boolean));
-      const totalPct = rows.reduce((sum, r) => sum + ((Number(r.score) / (Number(r.maxScore) || 20)) * 100), 0);
-      const avgPct = rows.length ? (totalPct / rows.length).toFixed(1) : '0.0';
+      const pctSumAll = rows.reduce((acc, r) => acc + ((Number(r.score) / (Number(r.maxScore) || 20)) * 100), 0);
+      const avgPct = rows.length ? (pctSumAll / rows.length).toFixed(1) : '0.0';
       const passCount = rows.filter((r) => String(r.status).includes('ผ่าน')).length;
       const passRate = rows.length ? ((passCount / rows.length) * 100).toFixed(1) : '0.0';
 
@@ -775,7 +785,7 @@
       document.getElementById('kpiAvgScore').textContent = `${avgPct}%`;
       document.getElementById('kpiPassRate').textContent = `${passRate}%`;
 
-      // 1. มุมมองรายโรงเรียน
+      // รายโรงเรียน
       const schoolMap = new Map();
       rows.forEach((r) => {
         const key = r.school || 'ไม่ระบุโรงเรียน';
@@ -796,11 +806,11 @@
         if (r.unit) item.completedUnits.add(`${r.username}_${r.unit}`);
       });
 
-      const schoolRows = [...schoolMap.values()];
-      document.getElementById('schoolTableBody').innerHTML = schoolRows.map((s, idx) => {
+      const schoolList = [...schoolMap.values()];
+      document.getElementById('schoolTableBody').innerHTML = schoolList.map((s, idx) => {
         const avgScore = (s.pctSum / s.submissions).toFixed(1);
-        const maxPossibleUnitSlots = Math.max(s.students.size * 10, 1);
-        const progressPct = Math.min(100, ((s.completedUnits.size / maxPossibleUnitSlots) * 100)).toFixed(0);
+        const maxSlots = Math.max(s.students.size * 10, 1);
+        const progressPct = Math.min(100, ((s.completedUnits.size / maxSlots) * 100)).toFixed(0);
         return `
           <tr>
             <td>${idx + 1}</td>
@@ -815,9 +825,9 @@
             </td>
           </tr>
         `;
-      }).join('') || '<tr><td colspan="7">ไม่พบข้อมูลตามเงื่อนไข</td></tr>';
+      }).join('') || '<tr><td colspan="7">ไม่พบข้อมูลตามขอบเขตสิทธิ์</td></tr>';
 
-      // 2. มุมมองรายบุคคล
+      // รายบุคคล
       const studentMap = new Map();
       rows.forEach((r) => {
         const key = r.username;
@@ -839,8 +849,8 @@
         st.latestStatus = r.status;
       });
 
-      const studentRows = [...studentMap.values()];
-      document.getElementById('studentTableBody').innerHTML = studentRows.map((st, idx) => {
+      const studentList = [...studentMap.values()];
+      document.getElementById('studentTableBody').innerHTML = studentList.map((st, idx) => {
         const avgScore = (st.pctSum / st.count).toFixed(1);
         const progressPct = Math.min(100, (st.units.size / 10) * 100).toFixed(0);
         const isPass = String(st.latestStatus).includes('ผ่าน');
@@ -859,9 +869,9 @@
             <td><span class="badge ${isPass ? 'badge-pass' : 'badge-warn'}">${st.latestStatus || '-'}</span></td>
           </tr>
         `;
-      }).join('') || '<tr><td colspan="8">ไม่พบข้อมูลตามเงื่อนไข</td></tr>';
+      }).join('') || '<tr><td colspan="8">ไม่พบข้อมูลตามขอบเขตสิทธิ์</td></tr>';
 
-      // 3. รายการบันทึกคะแนนทั้งหมด
+      // รายการบันทึกคะแนน
       document.getElementById('recordsTableBody').innerHTML = rows.map((r, idx) => {
         const isPass = String(r.status).includes('ผ่าน');
         return `
@@ -877,10 +887,9 @@
             <td>${r.date}</td>
           </tr>
         `;
-      }).join('') || '<tr><td colspan="9">ไม่พบข้อมูลตามเงื่อนไข</td></tr>';
+      }).join('') || '<tr><td colspan="9">ไม่พบข้อมูลตามขอบเขตสิทธิ์</td></tr>';
     }
 
-    // สลับแท็บมุมมองในแดชบอร์ด
     function switchTab(mode) {
       document.getElementById('tabBySchool').classList.toggle('active', mode === 'school');
       document.getElementById('tabByStudent').classList.toggle('active', mode === 'student');
@@ -895,10 +904,10 @@
     document.getElementById('tabByStudent').onclick = () => switchTab('student');
     document.getElementById('tabRawRecords').onclick = () => switchTab('records');
 
-    document.getElementById('searchInput').oninput = renderDashboard;
-    document.getElementById('schoolFilter').onchange = renderDashboard;
-    document.getElementById('unitFilter').onchange = renderDashboard;
-    document.getElementById('refreshDashBtn').onclick = loadAdminDashboard;
+    document.getElementById('searchInput').oninput = renderTables;
+    document.getElementById('schoolFilter').onchange = renderTables;
+    document.getElementById('unitFilter').onchange = renderTables;
+    document.getElementById('refreshDashBtn').onclick = fetchAndRenderDashboard;
   </script>
 </body>
 </html>
