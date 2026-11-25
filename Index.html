@@ -78,50 +78,51 @@
 <body>
 <div class="wrap">
 
-  <!-- ส่วนหัวและเข้าสู่ระบบ -->
+  <!-- ส่วนหัวและตรวจสอบสิทธิ์ -->
   <div class="card">
     <h1>Русский сезон А1 — คลังข้อสอบและแบบฝึกหัด</h1>
-    <div id="authSection">
+
+    <div id="authBox">
       <div class="row" style="margin-bottom: 10px;">
         <input id="loginUser" type="text" placeholder="ชื่อผู้ใช้ (User)" />
         <input id="loginPass" type="password" placeholder="รหัสผ่าน (Password)" />
-        <button onclick="doLogin()">เข้าสู่ระบบ</button>
+        <button onclick="onLogin()">ลงชื่อเข้าใช้</button>
         <button class="secondary" onclick="toggleRegister()">สมัครผู้เรียนใหม่</button>
       </div>
       <div id="authMsg"></div>
 
-      <div id="registerBox" style="display:none; margin-top:12px; padding-top:12px; border-top:1px dashed #cbd5e1;">
+      <div id="registerPanel" style="display:none; margin-top:12px; padding-top:12px; border-top:1px dashed #cbd5e1;">
         <h3>สมัครบัญชีผู้เรียนใหม่</h3>
         <div class="grid-2" style="margin-bottom:8px;">
           <input id="regUser" type="text" placeholder="ชื่อผู้ใช้ (User) *" />
           <input id="regPass" type="password" placeholder="รหัสผ่าน (Password) *" />
           <input id="regName" type="text" placeholder="ชื่อ-นามสกุล *" />
-          <select id="regSchool" onchange="onSchoolChange()">
+          <select id="regSchool" onchange="onSelectSchool()">
             <option value="">-- เลือกโรงเรียน --</option>
           </select>
           <input id="regProvince" type="text" placeholder="จังหวัด" />
-          <input id="regLevel" type="text" placeholder="ระดับชั้น (เช่น ม.4, ม.5)" />
+          <input id="regLevel" type="text" placeholder="ระดับชั้น" />
         </div>
         <div class="row">
           <input id="regContact" type="text" style="flex:1;" placeholder="อีเมลหรือเบอร์ติดต่อ" />
-          <button onclick="doRegister()">ยืนยันสมัครสมาชิก</button>
+          <button onclick="onRegister()">ยืนยันสมัครสมาชิก</button>
         </div>
       </div>
     </div>
 
-    <div id="loggedInBar" style="display:none;" class="row">
-      <span id="userBadge"></span>
-      <button class="secondary" onclick="doLogout()">ออกจากระบบ</button>
+    <div id="sessionBar" style="display:none;" class="row">
+      <span id="sessionInfo"></span>
+      <button class="secondary" onclick="onLogout()">ออกจากระบบ</button>
     </div>
 
     <div class="grid-3" style="margin-top:16px;">
       <div class="kpi">
-        <div class="kpi-num" id="kpiTotal">-</div>
-        <div class="kpi-label">จำนวนข้อสอบทั้งหมดในคลัง (เปลี่ยนตามจริง)</div>
+        <div class="kpi-num" id="statTotal">-</div>
+        <div class="kpi-label">จำนวนข้อสอบทั้งหมดในคลัง</div>
       </div>
       <div class="kpi">
-        <div class="kpi-num" id="kpiChapter">-</div>
-        <div class="kpi-label">จำนวนข้อในบทที่เลือก</div>
+        <div class="kpi-num" id="statChapter">-</div>
+        <div class="kpi-label">จำนวนข้อสอบในบทที่เลือก</div>
       </div>
       <div class="kpi">
         <div class="kpi-num">20</div>
@@ -130,130 +131,177 @@
     </div>
   </div>
 
-  <!-- แท็บเมนูหลัก -->
+  <!-- แท็บเมนู -->
   <div class="tabs">
-    <button class="tab-btn active" id="tabQuizBtn" onclick="switchTab('quiz')">ทำแบบฝึกหัด (สุ่ม 20 ข้อ)</button>
-    <button class="tab-btn" id="tabKnowledgeBtn" onclick="switchTab('knowledge')">ชีทความรู้ А1</button>
-    <button class="tab-btn" id="tabHistoryBtn" onclick="switchTab('history')">ประวัติผลการเรียน</button>
-    <button class="tab-btn" id="tabAdminBtn" style="display:none;" onclick="switchTab('admin')">เพิ่มข้อสอบ (Admin)</button>
+    <button class="tab-btn active" id="btnTabQuiz" onclick="openTab('quiz')">ทำแบบฝึกหัด (สุ่ม 20 ข้อ)</button>
+    <button class="tab-btn" id="btnTabHistory" onclick="openTab('history')">ประวัติผลการเรียน</button>
+    <button class="tab-btn" id="btnTabAdmin" style="display:none;" onclick="openTab('admin')">เพิ่มข้อสอบ (Admin)</button>
   </div>
 
-  <!-- แท็บ 1: ทำแบบฝึกหัด -->
-  <div class="card" id="panelQuiz">
+  <!-- ทำแบบฝึกหัด -->
+  <div class="card" id="secQuiz">
     <h2>ทำแบบฝึกหัดรายบท (สุ่ม 20 ข้อต่อบท)</h2>
     <div class="row">
-      <label for="chapterSelect">เลือกบทเรียน:</label>
-      <select id="chapterSelect" onchange="updateChapterKpi()"></select>
-      <button onclick="loadRandomQuiz()">สุ่มข้อสอบ (20 ข้อ)</button>
+      <label for="chapterSelect">เลือกบทที่:</label>
+      <select id="chapterSelect" onchange="updateChapterStat()"></select>
+      <button onclick="startChapterQuiz()">สุ่มข้อสอบ (20 ข้อ)</button>
     </div>
-    <div id="quizInfo" class="muted" style="margin-top:8px;"></div>
-    <form id="quizForm" onsubmit="handleQuizSubmit(event)" style="margin-top:12px;"></form>
-    <div id="quizScoreBox" style="margin-top:16px;"></div>
+    <div id="quizMeta" class="muted" style="margin-top:8px;"></div>
+    <form id="quizForm" onsubmit="submitQuiz(event)" style="margin-top:12px;"></form>
+    <div id="quizResult" style="margin-top:14px;"></div>
   </div>
 
-  <!-- แท็บ 2: ชีทความรู้ -->
-  <div class="card" id="panelKnowledge" style="display:none;">
-    <h2>ชีทความรู้ภาษารัสเซีย А1</h2>
-    <div id="knowledgeList">กำลังโหลด...</div>
-  </div>
-
-  <!-- แท็บ 3: ประวัติผลการเรียน -->
-  <div class="card" id="panelHistory" style="display:none;">
+  <!-- ประวัติผลการเรียน -->
+  <div class="card" id="secHistory" style="display:none;">
     <h2>ประวัติผลการเรียนและแบบฝึกหัด</h2>
-    <div class="row">
-      <button class="secondary" onclick="loadHistory()">รีเฟรชข้อมูล</button>
-    </div>
-    <div id="historyTableWrap">กรุณาเข้าสู่ระบบเพื่อดูประวัติ</div>
+    <div class="row"><button class="secondary" onclick="loadHistory()">รีเฟรชข้อมูล</button></div>
+    <div id="historyContent">กรุณาลงชื่อเข้าใช้ก่อนดูประวัติ</div>
   </div>
 
-  <!-- แท็บ 4: เพิ่มข้อสอบสำหรับ Admin -->
-  <div class="card" id="panelAdmin" style="display:none;">
-    <h2>เพิ่มข้อสอบใหม่เข้าคลัง (สำหรับ Admin)</h2>
+  <!-- เพิ่มข้อสอบสำหรับ Admin -->
+  <div class="card" id="secAdmin" style="display:none;">
+    <h2>เพิ่มข้อสอบเข้าคลัง (สำหรับ Admin)</h2>
     <div class="grid-2" style="margin-bottom:10px;">
-      <input id="admChapter" type="number" min="1" placeholder="สำหรับบทที่ (เช่น 1–10)" />
-      <input id="admWeight" type="number" min="1" value="1" placeholder="น้ำหนักคะแนน (ค่าเริ่มต้น 1)" />
+      <input id="addChapter" type="number" min="1" placeholder="สำหรับบทที่ (เช่น 1–10)" />
+      <input id="addWeight" type="number" min="1" value="1" placeholder="น้ำหนักคะแนน (ค่าเริ่มต้น 1)" />
     </div>
     <div style="margin-bottom:10px;">
-      <input id="admQuestion" type="text" style="width:100%;" placeholder="โจทย์คำถาม" />
+      <input id="addQuestion" type="text" style="width:100%;" placeholder="โจทย์คำถาม" />
     </div>
     <div class="grid-2" style="margin-bottom:10px;">
-      <input id="admC1" type="text" placeholder="ตัวเลือก 1" />
-      <input id="admC2" type="text" placeholder="ตัวเลือก 2" />
-      <input id="admC3" type="text" placeholder="ตัวเลือก 3" />
-      <input id="admC4" type="text" placeholder="ตัวเลือก 4" />
+      <input id="addC1" type="text" placeholder="ตัวเลือก 1" />
+      <input id="addC2" type="text" placeholder="ตัวเลือก 2" />
+      <input id="addC3" type="text" placeholder="ตัวเลือก 3" />
+      <input id="addC4" type="text" placeholder="ตัวเลือก 4" />
     </div>
     <div class="row">
-      <input id="admAnswer" type="text" style="flex:1;" placeholder="เฉลย (ระบุให้ตรงกับตัวเลือกที่ถูก)" />
-      <button onclick="handleAddQuestion()">บันทึกเข้าคลังข้อสอบ</button>
+      <input id="addAnswer" type="text" style="flex:1;" placeholder="เฉลย (ระบุให้ตรงกับตัวเลือกที่ถูก)" />
+      <button onclick="saveNewQuestion()">บันทึกเข้าคลังข้อสอบ</button>
     </div>
-    <div id="admMsg" style="margin-top:10px;"></div>
+    <div id="addMsg" style="margin-top:10px;"></div>
   </div>
 
 </div>
 
 <script>
+  const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwYWUqzGEftT4yRQceF_Hu2dUAkD5ZC93vlRbJC7dr-4teTpgBJwAJ9si5Uttg72JsC/exec";
+
   let currentUser = null;
-  let bankStats = null;
-  let schoolList = [];
-  let activeQuizQuestions = [];
+  let currentStats = null;
+  let schoolCache = [];
+  let quizList = [];
 
-  window.onload = function() {
-    refreshBankStats();
-    loadSchools();
-    loadKnowledge();
-  };
+  function callServer(fnName, argsObj, cb) {
+    if (window.google && google.script && google.script.run && window.location.hostname.includes('googleusercontent.com')) {
+      const runner = google.script.run
+        .withSuccessHandler(res => cb(null, res))
+        .withFailureHandler(err => cb(err, null));
 
-  function switchTab(name) {
-    ['quiz', 'knowledge', 'history', 'admin'].forEach(t => {
-      document.getElementById('panel' + cap(t)).style.display = (t === name) ? 'block' : 'none';
-      const btn = document.getElementById('tab' + cap(t) + 'Btn');
-      if (btn) btn.classList.toggle('active', t === name);
-    });
-    if (name === 'history') loadHistory();
+      if (fnName === 'verifyLogin') runner.verifyLogin(argsObj.username, argsObj.password);
+      else if (fnName === 'registerUser') runner.registerUser(argsObj);
+      else if (fnName === 'getSchools') runner.getSchools();
+      else if (fnName === 'getQuestionBankStats') runner.getQuestionBankStats();
+      else if (fnName === 'getRandomQuestions') runner.getRandomQuestions(argsObj.chapter, argsObj.limit);
+      else if (fnName === 'submitQuizResult') runner.submitQuizResult(argsObj);
+      else if (fnName === 'addQuestion') runner.addQuestion(argsObj.user, argsObj.questionData);
+      else if (fnName === 'getLearningHistory') runner.getLearningHistory(argsObj.user);
+      return;
+    }
+
+    const actionMap = {
+      verifyLogin: 'login',
+      registerUser: 'register',
+      getSchools: 'schools',
+      getQuestionBankStats: 'stats',
+      getRandomQuestions: 'quiz',
+      submitQuizResult: 'submit',
+      addQuestion: 'addQuestion',
+      getLearningHistory: 'history'
+    };
+
+    const payload = Object.assign({ action: actionMap[fnName] }, argsObj || {});
+    fetch(WEB_APP_URL, {
+      method: 'POST',
+      redirect: 'follow',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify(payload)
+    })
+      .then(r => {
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        return r.json();
+      })
+      .then(data => {
+        if (fnName === 'getQuestionBankStats') cb(null, data.stats);
+        else if (fnName === 'getSchools') cb(null, data.schools);
+        else if (fnName === 'getRandomQuestions') cb(null, data.quiz);
+        else if (fnName === 'getLearningHistory') cb(null, data.records);
+        else cb(null, data);
+      })
+      .catch(err => cb(err, null));
   }
 
-  function cap(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
+  window.onload = function() {
+    refreshStats();
+    loadSchools();
+  };
+
+  function openTab(tab) {
+    ['quiz', 'history', 'admin'].forEach(name => {
+      const capName = name.charAt(0).toUpperCase() + name.slice(1);
+      document.getElementById('sec' + capName).style.display = (name === tab) ? 'block' : 'none';
+      const btn = document.getElementById('btnTab' + capName);
+      if (btn) btn.classList.toggle('active', name === tab);
+    });
+    if (tab === 'history') loadHistory();
+  }
 
   function toggleRegister() {
-    const box = document.getElementById('registerBox');
-    box.style.display = (box.style.display === 'none') ? 'block' : 'none';
+    const el = document.getElementById('registerPanel');
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
   }
 
   function loadSchools() {
-    google.script.run.withSuccessHandler(function(list) {
-      schoolList = list || [];
+    callServer('getSchools', {}, (err, list) => {
+      if (err || !list) return;
+      schoolCache = list;
       const sel = document.getElementById('regSchool');
       sel.innerHTML = '<option value="">-- เลือกโรงเรียน --</option>';
-      schoolList.forEach(item => {
+      list.forEach(item => {
         const opt = document.createElement('option');
         opt.value = item.school;
         opt.textContent = item.school + (item.province ? ' (' + item.province + ')' : '');
         sel.appendChild(opt);
       });
-    }).getSchoolList();
+    });
   }
 
-  function onSchoolChange() {
-    const chosen = document.getElementById('regSchool').value;
-    const found = schoolList.find(s => s.school === chosen);
+  function onSelectSchool() {
+    const val = document.getElementById('regSchool').value;
+    const found = schoolCache.find(s => s.school === val);
     if (found && found.province) {
       document.getElementById('regProvince').value = found.province;
     }
   }
 
-  function doLogin() {
-    const u = document.getElementById('loginUser').value;
-    const p = document.getElementById('loginPass').value;
-    google.script.run.withSuccessHandler(function(res) {
-      if (!res.ok) {
-        document.getElementById('authMsg').innerHTML = `<span class="err-text">${res.message}</span>`;
+  function onLogin() {
+    const username = document.getElementById('loginUser').value;
+    const password = document.getElementById('loginPass').value;
+    callServer('verifyLogin', { username, password }, (err, res) => {
+      const msg = document.getElementById('authMsg');
+      if (err) {
+        msg.innerHTML = '<span class="err-text">ไม่สามารถเชื่อมต่อ Web App ได้ กรุณาตรวจสอบสิทธิ์การเข้าถึงเป็น Anyone</span>';
         return;
       }
-      applyLoggedInUser(res.user);
-    }).loginUser(u, p);
+      if (!res || !res.ok) {
+        msg.innerHTML = `<span class="err-text">${(res && res.message) || 'เข้าสู่ระบบไม่สำเร็จ'}</span>`;
+        return;
+      }
+      msg.innerHTML = '';
+      setActiveSession(res.user);
+    });
   }
 
-  function doRegister() {
+  function onRegister() {
     const payload = {
       username: document.getElementById('regUser').value,
       password: document.getElementById('regPass').value,
@@ -263,194 +311,172 @@
       levelOrPos: document.getElementById('regLevel').value,
       contact: document.getElementById('regContact').value
     };
-    google.script.run.withSuccessHandler(function(res) {
-      const el = document.getElementById('authMsg');
-      if (!res.ok) {
-        el.innerHTML = `<span class="err-text">${res.message}</span>`;
+    callServer('registerUser', payload, (err, res) => {
+      const msg = document.getElementById('authMsg');
+      if (err || !res || !res.ok) {
+        msg.innerHTML = `<span class="err-text">${(res && res.message) || 'สมัครสมาชิกไม่สำเร็จ'}</span>`;
         return;
       }
-      el.innerHTML = `<span class="ok-text">${res.message}</span>`;
-      document.getElementById('registerBox').style.display = 'none';
-      applyLoggedInUser(res.user);
-    }).registerLearner(payload);
+      msg.innerHTML = `<span class="ok-text">${res.message}</span>`;
+      document.getElementById('registerPanel').style.display = 'none';
+      setActiveSession(res.user);
+    });
   }
 
-  function applyLoggedInUser(user) {
+  function setActiveSession(user) {
     currentUser = user;
-    document.getElementById('authSection').style.display = 'none';
-    document.getElementById('loggedInBar').style.display = 'flex';
-    document.getElementById('userBadge').innerHTML =
+    document.getElementById('authBox').style.display = 'none';
+    document.getElementById('sessionBar').style.display = 'flex';
+    document.getElementById('sessionInfo').innerHTML =
       `<b>${user.fullName}</b> (@${user.username}) · สิทธิ์: <b>${user.role}</b> · ${user.school || '-'}`;
 
     const isAdmin = (user.role === 'Admin' || Number(user.roleId) === 1);
-    document.getElementById('tabAdminBtn').style.display = isAdmin ? 'inline-block' : 'none';
-    if (!isAdmin && document.getElementById('panelAdmin').style.display === 'block') {
-      switchTab('quiz');
-    }
+    document.getElementById('btnTabAdmin').style.display = isAdmin ? 'inline-block' : 'none';
+    if (!isAdmin) openTab('quiz');
     loadHistory();
   }
 
-  function doLogout() {
+  function onLogout() {
     currentUser = null;
-    document.getElementById('authSection').style.display = 'block';
-    document.getElementById('loggedInBar').style.display = 'none';
-    document.getElementById('tabAdminBtn').style.display = 'none';
-    document.getElementById('panelAdmin').style.display = 'none';
-    document.getElementById('historyTableWrap').innerHTML = 'กรุณาเข้าสู่ระบบเพื่อดูประวัติ';
-    switchTab('quiz');
+    document.getElementById('authBox').style.display = 'block';
+    document.getElementById('sessionBar').style.display = 'none';
+    document.getElementById('btnTabAdmin').style.display = 'none';
+    document.getElementById('historyContent').innerHTML = 'กรุณาลงชื่อเข้าใช้ก่อนดูประวัติ';
+    openTab('quiz');
   }
 
-  function refreshBankStats() {
-    google.script.run.withSuccessHandler(function(stats) {
-      bankStats = stats;
-      document.getElementById('kpiTotal').textContent = stats.totalQuestions + ' ข้อ';
+  function refreshStats() {
+    callServer('getQuestionBankStats', {}, (err, stats) => {
+      if (err || !stats) return;
+      currentStats = stats;
+      document.getElementById('statTotal').textContent = stats.totalQuestions + ' ข้อ';
 
       const sel = document.getElementById('chapterSelect');
-      const prevVal = sel.value;
+      const prev = sel.value;
       sel.innerHTML = '';
 
-      stats.chapters.forEach(ch => {
+      stats.chapters.forEach(c => {
         const opt = document.createElement('option');
-        opt.value = ch.chapter;
-        opt.textContent = `บทที่ ${ch.chapter}: ${ch.title} (ในคลัง ${ch.count} ข้อ · สุ่ม ${ch.drawCount} ข้อ)`;
+        opt.value = c.chapter;
+        opt.textContent = `บทที่ ${c.chapter} (ในคลัง ${c.availableCount} ข้อ · สุ่ม ${c.quizCount} ข้อ)`;
         sel.appendChild(opt);
       });
 
-      if (prevVal) sel.value = prevVal;
-      updateChapterKpi();
-    }).getQuestionBankStats();
+      if (prev) sel.value = prev;
+      updateChapterStat();
+    });
   }
 
-  function updateChapterKpi() {
-    if (!bankStats) return;
-    const chNum = Number(document.getElementById('chapterSelect').value);
-    const found = bankStats.chapters.find(c => c.chapter === chNum);
-    document.getElementById('kpiChapter').textContent = (found ? found.count : 0) + ' ข้อ';
+  function updateChapterStat() {
+    if (!currentStats) return;
+    const ch = Number(document.getElementById('chapterSelect').value);
+    const found = currentStats.chapters.find(item => item.chapter === ch);
+    document.getElementById('statChapter').textContent = (found ? found.availableCount : 0) + ' ข้อ';
   }
 
-  function loadRandomQuiz() {
-    const chNum = Number(document.getElementById('chapterSelect').value);
-    document.getElementById('quizScoreBox').innerHTML = '';
-    document.getElementById('quizInfo').textContent = 'กำลังสุ่มข้อสอบ...';
+  function startChapterQuiz() {
+    const ch = Number(document.getElementById('chapterSelect').value);
+    document.getElementById('quizResult').innerHTML = '';
+    document.getElementById('quizMeta').textContent = 'กำลังสุ่มคำถาม 20 ข้อ...';
 
-    google.script.run.withSuccessHandler(function(data) {
-      activeQuizQuestions = data.questions || [];
-      document.getElementById('quizInfo').textContent =
-        `บทที่ ${data.chapter} — มีข้อสอบในคลังทั้งหมด ${data.availableCount} ข้อ | สุ่มมาทำรอบนี้ ${activeQuizQuestions.length} ข้อ`;
+    callServer('getRandomQuestions', { chapter: ch, limit: 20 }, (err, data) => {
+      if (err || !data) return;
+      quizList = data.questions || [];
+      document.getElementById('quizMeta').textContent =
+        `บทที่ ${data.chapter} — มีข้อสอบในคลังทั้งหมด ${data.availableInBank} ข้อ | สุ่มมาใช้รอบนี้ ${quizList.length} ข้อ`;
 
       const form = document.getElementById('quizForm');
       form.innerHTML = '';
 
-      if (activeQuizQuestions.length === 0) {
+      if (quizList.length === 0) {
         form.innerHTML = '<p>ยังไม่มีข้อสอบในบทนี้</p>';
         return;
       }
 
-      activeQuizQuestions.forEach(q => {
-        const box = document.createElement('div');
-        box.className = 'q-box';
-        let choicesHtml = '';
+      quizList.forEach(q => {
+        const div = document.createElement('div');
+        div.className = 'q-box';
+        let htmlChoices = '';
         q.choices.forEach((choice, idx) => {
-          const escaped = choice.replace(/"/g, '&quot;');
-          choicesHtml += `
+          const safeChoice = choice.replace(/"/g, '&quot;');
+          htmlChoices += `
             <label class="choice">
-              <input type="radio" name="ans_${q.rowNumber}" value="${escaped}" />
+              <input type="radio" name="q_${q.rowNumber}" value="${safeChoice}" />
               ${idx + 1}. ${choice}
             </label>`;
         });
-        box.innerHTML = `<div><b>ข้อที่ ${q.qNo}:</b> ${q.question}</div>${choicesHtml}`;
-        form.appendChild(box);
+        div.innerHTML = `<div><b>ข้อที่ ${q.index}:</b> ${q.question}</div>${htmlChoices}`;
+        form.appendChild(div);
       });
 
-      const btn = document.createElement('button');
-      btn.type = 'submit';
-      btn.textContent = 'ส่งคำตอบและบันทึกคะแนน';
-      form.appendChild(btn);
-    }).getRandomQuizByChapter(chNum, 20);
+      const submitBtn = document.createElement('button');
+      submitBtn.type = 'submit';
+      submitBtn.textContent = 'ส่งคำตอบและบันทึกคะแนน';
+      form.appendChild(submitBtn);
+    });
   }
 
-  function handleQuizSubmit(e) {
+  function submitQuiz(e) {
     e.preventDefault();
-    const chNum = Number(document.getElementById('chapterSelect').value);
+    const ch = Number(document.getElementById('chapterSelect').value);
     const answers = {};
-    activeQuizQuestions.forEach(q => {
-      const picked = document.querySelector(`input[name="ans_${q.rowNumber}"]:checked`);
-      answers[q.rowNumber] = picked ? picked.value : '';
+    quizList.forEach(q => {
+      const checked = document.querySelector(`input[name="q_${q.rowNumber}"]:checked`);
+      answers[q.rowNumber] = checked ? checked.value : '';
     });
 
-    google.script.run.withSuccessHandler(function(res) {
-      document.getElementById('quizScoreBox').innerHTML = `
+    callServer('submitQuizResult', { user: currentUser, chapter: ch, answers: answers }, (err, res) => {
+      if (err || !res) return;
+      document.getElementById('quizResult').innerHTML = `
         <div class="kpi">
           <div><b>คะแนนที่ได้:</b> ${res.score} / ${res.fullScore} (${res.percent}%) — <b>สถานะ:</b> ${res.status}</div>
           <div class="muted" style="margin-top:4px;">บันทึกผลลงชีต "ผลการเรียนและแบบฝึกหัด" เรียบร้อยแล้ว</div>
         </div>`;
       loadHistory();
-    }).submitQuizAndSave({
-      user: currentUser,
-      chapter: chNum,
-      answers: answers
     });
   }
 
-  function handleAddQuestion() {
-    const payload = {
-      chapter: document.getElementById('admChapter').value,
-      weight: document.getElementById('admWeight').value,
-      question: document.getElementById('admQuestion').value,
-      choice1: document.getElementById('admC1').value,
-      choice2: document.getElementById('admC2').value,
-      choice3: document.getElementById('admC3').value,
-      choice4: document.getElementById('admC4').value,
-      answer: document.getElementById('admAnswer').value
+  function saveNewQuestion() {
+    const questionData = {
+      chapter: document.getElementById('addChapter').value,
+      weight: document.getElementById('addWeight').value,
+      question: document.getElementById('addQuestion').value,
+      choice1: document.getElementById('addC1').value,
+      choice2: document.getElementById('addC2').value,
+      choice3: document.getElementById('addC3').value,
+      choice4: document.getElementById('addC4').value,
+      answer: document.getElementById('addAnswer').value
     };
 
-    google.script.run.withSuccessHandler(function(res) {
-      const msg = document.getElementById('admMsg');
-      if (!res.ok) {
-        msg.innerHTML = `<span class="err-text">${res.message}</span>`;
+    callServer('addQuestion', { user: currentUser, questionData }, (err, res) => {
+      const msg = document.getElementById('addMsg');
+      if (err || !res || !res.ok) {
+        msg.innerHTML = `<span class="err-text">${(res && res.message) || 'เพิ่มข้อสอบไม่สำเร็จ'}</span>`;
         return;
       }
       msg.innerHTML = `<span class="ok-text">${res.message} (บทนี้มี ${res.chapterCount} ข้อ · รวมทั้งคลัง ${res.totalQuestions} ข้อ)</span>`;
-      ['admQuestion', 'admC1', 'admC2', 'admC3', 'admC4', 'admAnswer'].forEach(id => {
+      ['addQuestion', 'addC1', 'addC2', 'addC3', 'addC4', 'addAnswer'].forEach(id => {
         document.getElementById(id).value = '';
       });
-      refreshBankStats();
-    }).adminAddQuestion(currentUser, payload);
-  }
-
-  function loadKnowledge() {
-    google.script.run.withSuccessHandler(function(items) {
-      const wrap = document.getElementById('knowledgeList');
-      if (!items || items.length === 0) {
-        wrap.innerHTML = '<p>ยังไม่มีข้อมูลชีทความรู้</p>';
-        return;
-      }
-      wrap.innerHTML = items.map(k => `
-        <div class="q-box">
-          <div><b>บทที่ ${k.chapter}: ${k.title}</b></div>
-          <p style="margin:6px 0;"><b>สรุป:</b> ${k.summary}</p>
-          <p style="margin:6px 0;"><b>เนื้อหา:</b> ${k.content}</p>
-          <p style="margin:6px 0;" class="muted"><b>จุดสำคัญ/ตัวอย่าง:</b> ${k.highlights}</p>
-        </div>
-      `).join('');
-    }).getKnowledgeSheets();
+      refreshStats();
+    });
   }
 
   function loadHistory() {
-    const wrap = document.getElementById('historyTableWrap');
+    const wrap = document.getElementById('historyContent');
     if (!currentUser) {
-      wrap.innerHTML = 'กรุณาเข้าสู่ระบบเพื่อดูประวัติ';
+      wrap.innerHTML = 'กรุณาลงชื่อเข้าใช้ก่อนดูประวัติ';
       return;
     }
-    google.script.run.withSuccessHandler(function(rows) {
-      if (!rows || rows.length === 0) {
+    callServer('getLearningHistory', { user: currentUser }, (err, records) => {
+      if (err || !records || records.length === 0) {
         wrap.innerHTML = '<p>ยังไม่มีประวัติการทำแบบฝึกหัด</p>';
         return;
       }
       let html = `<table><thead><tr>
         <th>User</th><th>ชื่อผู้ใช้</th><th>โรงเรียน</th><th>หน่วยที่</th><th>คะแนน</th><th>สถานะ</th><th>วันที่บันทึก</th>
       </tr></thead><tbody>`;
-      rows.forEach(r => {
+      records.forEach(r => {
         html += `<tr>
           <td>${r.username}</td>
           <td>${r.fullName}</td>
@@ -463,7 +489,7 @@
       });
       html += '</tbody></table>';
       wrap.innerHTML = html;
-    }).getResultsByUser(currentUser);
+    });
   }
 </script>
 </body>
