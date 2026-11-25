@@ -424,9 +424,10 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 6px 0;
+      padding: 8px 0;
       border-bottom: 1px dashed var(--border-soft);
-      font-size: 0.9rem;
+      font-size: 0.92rem;
+      gap: 12px;
     }
     .vocab-row:last-child { border-bottom: none; }
 
@@ -521,7 +522,7 @@
       <div class="dash-header">
         <div>
           <span class="eyebrow" id="dashRoleBadge">ผู้เรียน</span>
-          <h2 style="font-size:1.5rem;" id="dashTitle" data-i18n="dashTitle">ความก้าวหน้าการเรียนรู้</h2>
+          <h2 style="font-size:1.5rem;" id="dashTitle" data-i18n="dashTitle">ความก้าวหน้าของนักเรียน</h2>
           <p style="font-size:0.86rem; color:var(--text-muted);" id="scopeNotice"></p>
         </div>
         <button class="btn btn-dark btn-sm" id="refreshDashBtn" type="button" data-i18n="refresh">↻ รีเฟรชข้อมูล</button>
@@ -970,7 +971,10 @@
         ru: 'Алфавит и приветствие',
         th: 'อักษรซีริลลิกและการทักทาย',
         en: 'Alphabet & Greetings',
-        vocab: [['Привет!', 'при-вเย็ต', 'สวัสดี (กันเอง) / Hi'], ['Здравствуйте!', 'ซดรา-สตุฟ-สตุย-เตอ', 'สวัสดีครับ/ค่ะ (สุภาพ) / Hello']],
+        vocab: [
+          ['Привет!', { th: 'สวัสดี (กันเอง)', en: 'Hi (informal)', ru: 'Приветствие (неформальное)' }],
+          ['Здравствуйте!', { th: 'สวัสดีครับ/ค่ะ (สุภาพ)', en: 'Hello (formal)', ru: 'Приветствие (вежливое)' }]
+        ],
         q: { th: 'คำว่า "Здравствуйте!" ใช้ในสถานการณ์ใด?', en: 'When is "Здравствуйте!" used?', ru: 'Когда используется «Здравствуйте!»?' },
         choices: {
           th: ['ทักทายแบบสุภาพ', 'กล่าวลา', 'กล่าวขอบคุณ'],
@@ -984,7 +988,10 @@
         ru: 'Знакомство',
         th: 'การแนะนำตัว',
         en: 'Introductions',
-        vocab: [['Меня зовут...', 'มี-นยา ซะ-วูต...', 'ฉันชื่อ... / My name is...'], ['Как вас зовут?', 'กัก วาส ซะ-วูต', 'คุณชื่ออะไร / What is your name?']],
+        vocab: [
+          ['Меня зовут...', { th: 'ฉันชื่อ...', en: 'My name is...', ru: 'Представление имени' }],
+          ['Как вас зовут?', { th: 'คุณชื่ออะไร', en: 'What is your name?', ru: 'Вопрос об имени' }]
+        ],
         q: { th: 'ประโยค "Как вас зовут?" แปลว่าอะไร?', en: 'What does "Как вас зовут?" mean?', ru: 'Что означает фраза «Как вас зовут?»?' },
         choices: {
           th: ['คุณชื่ออะไร', 'คุณมาจากไหน', 'กี่โมงแล้ว'],
@@ -998,7 +1005,10 @@
         ru: 'Семья и друзья',
         th: 'ครอบครัวและเพื่อน',
         en: 'Family & Friends',
-        vocab: [['семья', 'ซีม-ยา', 'ครอบครัว / Family'], ['друг / подруга', 'ดรุก / ปะ-ดรู-กะ', 'เพื่อน / Friend']],
+        vocab: [
+          ['семья', { th: 'ครอบครัว', en: 'Family', ru: 'Семья' }],
+          ['друг / подруга', { th: 'เพื่อน', en: 'Friend', ru: 'Друг / подруга' }]
+        ],
         q: { th: 'คำว่า "семья" แปลว่าอะไร?', en: 'What does "семья" mean?', ru: 'Что означает слово «семья»?' },
         choices: {
           th: ['ครอบครัว', 'โรงเรียน', 'สมุดบันทึก'],
@@ -1012,7 +1022,10 @@
         ru: 'Профессии',
         th: 'อาชีพต่าง ๆ',
         en: 'Professions',
-        vocab: [['учитель', 'อู-ชี-เตล', 'ครู / Teacher'], ['врач', 'วราช', 'แพทย์ / Doctor']],
+        vocab: [
+          ['учитель', { th: 'ครู', en: 'Teacher', ru: 'Учитель' }],
+          ['врач', { th: 'แพทย์', en: 'Doctor', ru: 'Врач' }]
+        ],
         q: { th: 'คำว่า "учитель" ตรงกับอาชีพใด?', en: 'Which profession is "учитель"?', ru: 'Какая профессия обозначена словом «учитель»?' },
         choices: {
           th: ['ครู', 'แพทย์', 'นักบิน'],
@@ -1026,7 +1039,10 @@
         ru: 'В городе',
         th: 'สถานที่ในเมือง',
         en: 'In the City',
-        vocab: [['школа', 'ชโค-ละ', 'โรงเรียน / School'], ['магазин', 'มะ-กะ-ซีน', 'ร้านค้า / Shop']],
+        vocab: [
+          ['школа', { th: 'โรงเรียน', en: 'School', ru: 'Школа' }],
+          ['магазин', { th: 'ร้านค้า', en: 'Shop', ru: 'Магазин' }]
+        ],
         q: { th: 'คำว่า "школа" หมายถึงสถานที่ใด?', en: 'What place is "школа"?', ru: 'Что означает слово «школа»?' },
         choices: {
           th: ['โรงเรียน', 'โรงพยาบาล', 'สนามบิน'],
@@ -1040,7 +1056,10 @@
         ru: 'Время и дни недели',
         th: 'เวลาและวันในสัปดาห์',
         en: 'Time & Days of Week',
-        vocab: [['сегодня', 'ซี-โวด-นยา', 'วันนี้ / Today'], ['завтра', 'ซาฟ-ตรา', 'พรุ่งนี้ / Tomorrow']],
+        vocab: [
+          ['сегодня', { th: 'วันนี้', en: 'Today', ru: 'Сегодня' }],
+          ['завтра', { th: 'พรุ่งนี้', en: 'Tomorrow', ru: 'Завтра' }]
+        ],
         q: { th: 'คำว่า "завтра" หมายถึงวันใด?', en: 'What day is "завтра"?', ru: 'Что означает слово «завтра»?' },
         choices: {
           th: ['พรุ่งนี้', 'เมื่อวาน', 'วันเสาร์'],
@@ -1054,7 +1073,10 @@
         ru: 'Еда и напитки',
         th: 'อาหารและเครื่องดื่ม',
         en: 'Food & Drinks',
-        vocab: [['вода', 'วะ-ดา', 'น้ำ / Water'], ['хлеб', 'เคลียบ', 'ขนมปัง / Bread']],
+        vocab: [
+          ['вода', { th: 'น้ำ', en: 'Water', ru: 'Вода' }],
+          ['хлеб', { th: 'ขนมปัง', en: 'Bread', ru: 'Хлеб' }]
+        ],
         q: { th: 'คำว่า "вода" แปลว่าอะไร?', en: 'What does "вода" mean?', ru: 'Что означает слово «вода»?' },
         choices: {
           th: ['น้ำ', 'นม', 'ชา'],
@@ -1068,7 +1090,10 @@
         ru: 'Мой день',
         th: 'กิจวัตรประจำวัน',
         en: 'My Day',
-        vocab: [['читать', 'ชี-ตัต', 'อ่าน / To read'], ['писать', 'ปี-ซัต', 'เขียน / To write']],
+        vocab: [
+          ['читать', { th: 'อ่าน', en: 'To read', ru: 'Читать' }],
+          ['писать', { th: 'เขียน', en: 'To write', ru: 'Писать' }]
+        ],
         q: { th: 'คำว่า "читать" หมายถึงการกระทำใด?', en: 'What action is "читать"?', ru: 'Какое действие обозначает «читать»?' },
         choices: {
           th: ['อ่าน', 'วิ่ง', 'นอน'],
@@ -1082,7 +1107,10 @@
         ru: 'Погода и времена года',
         th: 'อากาศและฤดูกาล',
         en: 'Weather & Seasons',
-        vocab: [['солнце', 'ซอน-ตเซอ', 'ดวงอาทิตย์ / Sun'], ['дождь', 'ดอชต์', 'ฝน / Rain']],
+        vocab: [
+          ['солнце', { th: 'ดวงอาทิตย์', en: 'Sun', ru: 'Солнце' }],
+          ['дождь', { th: 'ฝน', en: 'Rain', ru: 'Дождь' }]
+        ],
         q: { th: 'คำว่า "дождь" ตรงกับข้อใด?', en: 'What does "дождь" match?', ru: 'Что означает слово «дождь»?' },
         choices: {
           th: ['ฝน', 'หิมะ', 'ลม'],
@@ -1096,7 +1124,10 @@
         ru: 'Путешествие в Россию',
         th: 'การเดินทางไปรัสเซีย',
         en: 'Trip to Russia',
-        vocab: [['билет', 'บี-ลเยต', 'ตั๋ว / Ticket'], ['вокзал', 'วัก-ซัล', 'สถานีรถไฟ / Railway station']],
+        vocab: [
+          ['билет', { th: 'ตั๋ว', en: 'Ticket', ru: 'Билет' }],
+          ['вокзал', { th: 'สถานีรถไฟ', en: 'Railway station', ru: 'Вокзал' }]
+        ],
         q: { th: 'คำว่า "билет" หมายถึงสิ่งใด?', en: 'What is a "билет"?', ru: 'Что означает слово «билет»?' },
         choices: {
           th: ['ตั๋ว', 'กระเป๋า', 'แผนที่'],
@@ -1447,12 +1478,15 @@
       document.getElementById('lessonModalTitle').textContent = `${item.ru} — ${getLessonSubtitle(item)}`;
       document.getElementById('lessonModalSummary').textContent = dict.lessonSummary;
 
-      document.getElementById('lessonVocabList').innerHTML = item.vocab.map((v) => `
-        <div class="vocab-row">
-          <div><strong class="ru-font">${v[0]}</strong> <span style="color:var(--text-muted);">[${v[1]}]</span></div>
-          <span>${v[2]}</span>
-        </div>
-      `).join('');
+      document.getElementById('lessonVocabList').innerHTML = item.vocab.map((v) => {
+        const meaning = (v[1] && v[1][currentLang]) ? v[1][currentLang] : (v[1] && v[1].th) || '';
+        return `
+          <div class="vocab-row">
+            <strong class="ru-font">${v[0]}</strong>
+            <span>${meaning}</span>
+          </div>
+        `;
+      }).join('');
 
       document.getElementById('quizQuestionLabel').textContent = item.q[currentLang] || item.q.th;
       const choicesArr = item.choices[currentLang] || item.choices.th;
