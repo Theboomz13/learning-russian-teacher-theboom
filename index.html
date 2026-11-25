@@ -42,7 +42,6 @@
     .ru-font { font-family: 'PT Sans', 'Noto Sans Thai', sans-serif; }
     .container { max-width: 1180px; margin: 0 auto; padding: 0 20px; }
 
-    /* ธงชาติสำหรับสลับภาษาและประดับ */
     .flag-icon {
       display: inline-flex;
       flex-direction: column;
@@ -201,7 +200,7 @@
     .btn-sm { padding: 6px 14px; font-size: 0.82rem; }
 
     #guestHeroSection {
-      padding: 44px 0;
+      padding: 40px 0;
       background: var(--bg-warm);
     }
 
@@ -209,7 +208,7 @@
       background: var(--bg-surface);
       border: 1px solid var(--border-soft);
       border-radius: var(--radius-lg);
-      padding: 36px;
+      padding: 32px;
       box-shadow: var(--shadow-card);
       display: flex;
       justify-content: space-between;
@@ -470,7 +469,6 @@
           <span class="ru-font">Русская Дача · А1</span>
         </a>
 
-        <!-- ปุ่มธงมุมซ้ายบนสำหรับเปลี่ยนภาษาเมนู (Default: ไทย) -->
         <div class="lang-switcher" role="group" aria-label="Language Switcher">
           <button type="button" class="lang-btn active" data-lang="th" title="ภาษาไทย">
             <span class="flag-icon flag-th"><span></span><span></span><span></span><span></span><span></span></span>
@@ -498,7 +496,6 @@
     </div>
   </header>
 
-  <!-- แสดงเฉพาะเมื่อยังไม่เข้าสู่ระบบ -->
   <section id="guestHeroSection">
     <div class="container">
       <div class="hero-box">
@@ -519,19 +516,17 @@
     </div>
   </section>
 
-  <!-- พื้นที่ทำงานเมื่อเข้าสู่ระบบแล้ว -->
   <section id="workspaceSection">
     <div class="container">
       <div class="dash-header">
         <div>
-          <span class="eyebrow" id="dashRoleBadge">แดชบอร์ดการเรียนรู้</span>
+          <span class="eyebrow" id="dashRoleBadge">ผู้เรียน</span>
           <h2 style="font-size:1.5rem;" id="dashTitle" data-i18n="dashTitle">ความก้าวหน้าการเรียนรู้</h2>
           <p style="font-size:0.86rem; color:var(--text-muted);" id="scopeNotice"></p>
         </div>
         <button class="btn btn-dark btn-sm" id="refreshDashBtn" type="button" data-i18n="refresh">↻ รีเฟรชข้อมูล</button>
       </div>
 
-      <!-- บทเรียน А1 (1–10 หน่วย) สำหรับผู้เรียน -->
       <div id="lessonsSection">
         <h3 style="font-size:1.15rem; color:var(--footer-bg);" data-i18n="lessonsHeading">บทเรียนภาษารัสเซียระดับ А1 (10 หน่วย)</h3>
         <div class="lessons-grid" id="lessonsGrid"></div>
@@ -648,7 +643,6 @@
     </div>
   </section>
 
-  <!-- Modal ลงชื่อเข้าใช้ / สมัครเข้าใช้ -->
   <div class="modal-backdrop" id="authModal">
     <div class="modal-card">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
@@ -710,7 +704,6 @@
     </div>
   </div>
 
-  <!-- Modal บทเรียนและแบบฝึกหัด А1 -->
   <div class="modal-backdrop" id="lessonModal">
     <div class="modal-card">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
@@ -733,7 +726,6 @@
     </div>
   </div>
 
-  <!-- Modal แก้ไขสิทธิ์ผู้ใช้ (รหัสสิทธิ์ 1 / Admin) -->
   <div class="modal-backdrop" id="editUserModal">
     <div class="modal-card">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
@@ -799,7 +791,7 @@
         logout: 'ออกจากระบบ',
         eyebrow: 'เรียนรู้ภาษารัสเซียระดับ А1',
         heroDesc: 'พื้นที่เรียนรู้และฝึกฝนภาษารัสเซียระดับเริ่มต้น–พื้นฐาน (А1) ฟัง พูด อ่าน เขียน และติดตามความก้าวหน้าของผู้เรียน',
-        dashTitle: 'ความก้าวหน้าการเรียนรู้',
+        dashTitle: 'ความก้าวหน้าของนักเรียน',
         refresh: '↻ รีเฟรชข้อมูล',
         lessonsHeading: 'บทเรียนภาษารัสเซียระดับ А1 (10 หน่วย)',
         startLesson: 'เข้าเรียน / ทำแบบฝึกหัด',
@@ -846,7 +838,7 @@
         submitQuiz: 'ส่งคำตอบและบันทึกคะแนน',
         lessonSummary: 'อ่านคำศัพท์สำคัญและเลือกคำตอบที่ถูกต้องเพื่อบันทึกคะแนน (20 คะแนน)',
         choosePrompt: '-- เลือกคำตอบ --',
-        noData: 'ไม่พบข้อมูล',
+        noData: 'ยังไม่มีคะแนนที่บันทึก',
         scope1: 'รหัสสิทธิ์ 1: จัดการและดูข้อมูลได้ทุกโรงเรียน',
         scope2: 'รหัสสิทธิ์ 2: ดูข้อมูลความก้าวหน้าได้ทุกโรงเรียน',
         scope3: 'รหัสสิทธิ์ 3: ดูข้อมูลได้เฉพาะโรงเรียนตนเอง',
@@ -858,7 +850,7 @@
         logout: 'Sign Out',
         eyebrow: 'Russian Language А1',
         heroDesc: 'Interactive space for learning and practicing beginner Russian (А1): listening, speaking, reading, writing, and progress tracking.',
-        dashTitle: 'Learning Progress',
+        dashTitle: 'Student Progress',
         refresh: '↻ Refresh',
         lessonsHeading: 'Russian А1 Lessons (10 Units)',
         startLesson: 'Lesson & Quiz',
@@ -905,7 +897,7 @@
         submitQuiz: 'Submit & Save Score',
         lessonSummary: 'Read key vocabulary and select the best answer to record your score (20 pts).',
         choosePrompt: '-- Select Answer --',
-        noData: 'No records found',
+        noData: 'No score records yet',
         scope1: 'Role Code 1: Full management & access across all schools',
         scope2: 'Role Code 2: View progress across all schools',
         scope3: 'Role Code 3: View records for your own school only',
@@ -917,7 +909,7 @@
         logout: 'Выйти',
         eyebrow: 'Русский язык А1',
         heroDesc: 'Платформа изучения и практики русского языка уровня А1: аудирование, речь, чтение, письмо и контроль прогресса.',
-        dashTitle: 'Учебный прогресс',
+        dashTitle: 'Прогресс учеников',
         refresh: '↻ Обновить',
         lessonsHeading: 'Уроки русского языка А1 (10 тем)',
         startLesson: 'Урок и тест',
@@ -964,7 +956,7 @@
         submitQuiz: 'Отправить и сохранить',
         lessonSummary: 'Изучите слова и выберите правильный ответ для сохранения результата (20 баллов).',
         choosePrompt: '-- Выберите ответ --',
-        noData: 'Нет данных',
+        noData: 'Пока нет записей об оценках',
         scope1: 'Код роли 1: Полное управление и доступ ко всем школам',
         scope2: 'Код роли 2: Просмотр прогресса по всем школам',
         scope3: 'Код роли 3: Просмотр данных только своей школы',
@@ -1126,7 +1118,6 @@
 
     function getLessonSubtitle(item) {
       if (currentLang === 'en') return item.en;
-      if (currentLang === 'ru') return item.th;
       return item.th;
     }
 
@@ -1286,9 +1277,7 @@
           cachedSchools = res.schools;
           rebuildSchoolOptions(cachedSchools);
         }
-      } catch (err) {
-        // คงรายการเดิมไว้
-      }
+      } catch (err) {}
     }
 
     regRoleCode.onchange = () => rebuildSchoolOptions(cachedSchools);
@@ -1389,7 +1378,7 @@
         guestHero.style.display = 'none';
         workspace.style.display = 'block';
         document.getElementById('currentUserBadge').textContent =
-          `${currentUser.fullName} · ${currentUser.roleName} (${currentUser.school})`;
+          `${currentUser.fullName} · ${currentUser.roleName}`;
 
         const code = Number(currentUser.roleCode);
         document.getElementById('lessonsSection').style.display = code === 4 ? 'block' : 'none';
@@ -1407,7 +1396,7 @@
         } else if (code === 3) {
           scopeEl.textContent = `${dict.scope3} (${currentUser.school})`;
         } else {
-          scopeEl.textContent = dict.scope4;
+          scopeEl.textContent = `${dict.scope4} — ${currentUser.school || ''}`;
         }
 
         if (code === 4) {
@@ -1604,10 +1593,14 @@
           password: authCredentials.password
         });
         if (!res || !res.success) {
-          alert((res && res.message) || 'Error');
+          progressRows = [];
+          usersList = [];
+          updateSessionUI();
+          setupFilters();
+          renderTables();
           return;
         }
-        currentUser = res.user;
+        currentUser = res.user || currentUser;
         progressRows = res.progress || [];
         usersList = res.users || [];
         document.getElementById('dashRoleBadge').textContent = currentUser.roleName;
@@ -1616,7 +1609,9 @@
         renderTables();
         renderUsersManageTable();
       } catch (err) {
-        alert(err.message);
+        updateSessionUI();
+        setupFilters();
+        renderTables();
       }
     }
 
@@ -1624,9 +1619,13 @@
       const schoolFilter = document.getElementById('schoolFilter');
       const unitFilter = document.getElementById('unitFilter');
       const dict = I18N[currentLang];
-      const roleCode = Number(currentUser.roleCode);
+      const roleCode = Number(currentUser && currentUser.roleCode);
 
-      const schools = [...new Set(progressRows.map((r) => r.school).filter(Boolean))];
+      const schools = [...new Set([
+        ...progressRows.map((r) => r.school).filter(Boolean),
+        ...(currentUser && currentUser.school ? [currentUser.school] : [])
+      ])];
+
       schoolFilter.innerHTML = `<option value="">${dict.allSchools}</option>`;
       schools.forEach((sc) => {
         const opt = document.createElement('option');
@@ -1635,13 +1634,7 @@
         schoolFilter.appendChild(opt);
       });
 
-      if ((roleCode === 3 || roleCode === 4) && currentUser.school) {
-        if (![...schoolFilter.options].some((o) => o.value === currentUser.school)) {
-          const opt = document.createElement('option');
-          opt.value = currentUser.school;
-          opt.textContent = currentUser.school;
-          schoolFilter.appendChild(opt);
-        }
+      if ((roleCode === 3 || roleCode === 4) && currentUser && currentUser.school) {
         schoolFilter.value = currentUser.school;
         schoolFilter.disabled = true;
       } else {
