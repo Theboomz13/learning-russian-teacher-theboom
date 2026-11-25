@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Русский сезон — ระบบเข้าสู่ระบบและแดชบอร์ดความก้าวหน้า А1</title>
+  <title>Русская Дача — เรียนรู้ภาษารัสเซีย А1</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600;700&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
@@ -43,8 +43,55 @@
     .ru-font { font-family: 'PT Sans', 'Noto Sans Thai', sans-serif; }
     .container { max-width: 1180px; margin: 0 auto; padding: 0 20px; }
 
+    /* ลายธงชาติรัสเซียและธงชาติไทยประดับ */
+    .flag-ru {
+      display: inline-flex;
+      flex-direction: column;
+      width: 28px;
+      height: 18px;
+      border-radius: 3px;
+      overflow: hidden;
+      border: 1px solid rgba(15, 23, 42, 0.16);
+      flex-shrink: 0;
+    }
+    .flag-ru span:nth-child(1) { flex: 1; background: #FFFFFF; }
+    .flag-ru span:nth-child(2) { flex: 1; background: #0039A6; }
+    .flag-ru span:nth-child(3) { flex: 1; background: #D52B1E; }
+
+    .flag-th {
+      display: inline-flex;
+      flex-direction: column;
+      width: 28px;
+      height: 18px;
+      border-radius: 3px;
+      overflow: hidden;
+      border: 1px solid rgba(15, 23, 42, 0.16);
+      flex-shrink: 0;
+    }
+    .flag-th span:nth-child(1) { flex: 1; background: #A51931; }
+    .flag-th span:nth-child(2) { flex: 1; background: #FFFFFF; }
+    .flag-th span:nth-child(3) { flex: 2; background: #2D2A4A; }
+    .flag-th span:nth-child(4) { flex: 1; background: #FFFFFF; }
+    .flag-th span:nth-child(5) { flex: 1; background: #A51931; }
+
+    .flag-ribbon {
+      height: 5px;
+      width: 100%;
+      background: linear-gradient(
+        90deg,
+        #FFFFFF 0%, #FFFFFF 16.6%,
+        #0039A6 16.6%, #0039A6 33.3%,
+        #D52B1E 33.3%, #D52B1E 50%,
+        #A51931 50%, #A51931 60%,
+        #FFFFFF 60%, #FFFFFF 70%,
+        #2D2A4A 70%, #2D2A4A 80%,
+        #FFFFFF 80%, #FFFFFF 90%,
+        #A51931 90%, #A51931 100%
+      );
+    }
+
     header {
-      background: rgba(255, 255, 255, 0.95);
+      background: rgba(255, 255, 255, 0.96);
       border-bottom: 1px solid var(--border-soft);
       position: sticky;
       top: 0;
@@ -68,7 +115,7 @@
       text-decoration: none;
       color: var(--text-main);
       font-weight: 700;
-      font-size: 1.05rem;
+      font-size: 1.08rem;
     }
 
     .brand-badge {
@@ -80,6 +127,12 @@
       display: grid;
       place-items: center;
       font-weight: 700;
+    }
+
+    .flags-pair {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
     }
 
     .nav-actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
@@ -106,12 +159,12 @@
     .btn-dark { background: var(--footer-bg); color: #fff; }
     .btn-sm { padding: 6px 14px; font-size: 0.82rem; }
 
-    .hero { padding: 44px 0; background: var(--bg-warm); }
+    .hero { padding: 48px 0; background: var(--bg-warm); }
     .hero-box {
       background: var(--bg-surface);
       border: 1px solid var(--border-soft);
       border-radius: var(--radius-lg);
-      padding: 32px;
+      padding: 36px;
       box-shadow: var(--shadow-card);
       display: flex;
       justify-content: space-between;
@@ -121,24 +174,16 @@
     }
 
     .eyebrow {
-      display: inline-block;
-      font-size: 0.82rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.84rem;
       font-weight: 600;
       color: var(--primary);
       background: var(--primary-soft);
-      padding: 4px 12px;
+      padding: 5px 14px;
       border-radius: var(--radius-pill);
-      margin-bottom: 10px;
-    }
-
-    .role-strip {
-      margin-top: 14px;
-      padding: 12px 16px;
-      border-radius: var(--radius-md);
-      background: var(--bg-soft-card);
-      border: 1px solid var(--border-soft);
-      font-size: 0.88rem;
-      color: var(--text-main);
+      margin-bottom: 12px;
     }
 
     /* Dashboard Section */
@@ -281,7 +326,20 @@
     }
     .msg-box { margin-top: 10px; font-size: 0.88rem; font-weight: 600; }
 
-    footer { background: var(--footer-bg); color: #E2E8F0; padding: 20px 0; margin-top: 40px; }
+    footer {
+      background: var(--footer-bg);
+      color: #E2E8F0;
+      margin-top: 40px;
+    }
+    .footer-inner {
+      padding: 18px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 0.88rem;
+    }
 
     @media (max-width: 900px) {
       .kpi-grid { grid-template-columns: repeat(2, 1fr); }
@@ -294,11 +352,16 @@
 </head>
 <body>
 
+  <div class="flag-ribbon"></div>
   <header>
     <div class="container nav-inner">
       <a href="#" class="brand">
         <span class="brand-badge ru-font">Я</span>
-        <span>Русский сезон · А1</span>
+        <span class="ru-font">Русская Дача · А1</span>
+        <span class="flags-pair" aria-label="ธงชาติรัสเซียและธงชาติไทย">
+          <span class="flag-ru" title="ธงชาติรัสเซีย"><span></span><span></span><span></span></span>
+          <span class="flag-th" title="ธงชาติไทย"><span></span><span></span><span></span><span></span><span></span></span>
+        </span>
       </a>
       <div class="nav-actions" id="guestActions">
         <button class="btn btn-outline btn-sm" id="openLoginBtn" type="button">ลงชื่อเข้าใช้</button>
@@ -314,61 +377,64 @@
   <section class="hero">
     <div class="container">
       <div class="hero-box">
-        <div style="max-width:720px;">
-          <span class="eyebrow">ตรวจสอบตัวตนจากชีต "ผู้มีสิทธิ์" และอ้างอิงสิทธิ์จากชีต "รหัสสิทธิ์"</span>
-          <h1 style="font-size:clamp(1.7rem, 3.2vw, 2.35rem); line-height:1.25; margin-bottom:10px;">
-            Русский сезон — ระบบเข้าสู่ระบบและแดชบอร์ด А1
+        <div style="max-width:680px;">
+          <span class="eyebrow">
+            <span class="flags-pair">
+              <span class="flag-ru"><span></span><span></span><span></span></span>
+              <span class="flag-th"><span></span><span></span><span></span><span></span><span></span></span>
+            </span>
+            <span>เรียนรู้ภาษารัสเซียระดับ А1</span>
+          </span>
+          <h1 style="font-size:clamp(1.75rem, 3.4vw, 2.5rem); line-height:1.22; margin-bottom:10px;" class="ru-font">
+            Русская Дача
           </h1>
-          <p style="color:var(--text-muted);">
-            ระบบตรวจสอบบัญชีจากชีต <strong>ผู้มีสิทธิ์</strong> และควบคุมขอบเขตการเข้าถึงตามหมายเลขในชีต <strong>รหัสสิทธิ์</strong> (1: Admin, 2: ผู้บริหารระดับสูง, 3: ผู้ดูแลนักเรียน, 4: ผู้เรียน)
+          <p style="color:var(--text-muted); font-size:0.98rem;">
+            พื้นที่เรียนรู้และฝึกฝนภาษารัสเซียระดับเริ่มต้น–พื้นฐาน (А1) ฟัง พูด อ่าน เขียน และติดตามความก้าวหน้าของผู้เรียน
           </p>
-          <div class="role-strip" id="activeRoleInfo">
-            สถานะ: ยังไม่ได้เข้าสู่ระบบ — กรุณาลงชื่อเข้าใช้ด้วยบัญชีที่มีในชีต <strong>ผู้มีสิทธิ์</strong>
-          </div>
         </div>
         <div style="display:flex; gap:10px; flex-wrap:wrap;">
-          <button class="btn btn-primary" id="heroLoginBtn" type="button">ลงชื่อเข้าใช้ระบบ</button>
-          <button class="btn btn-outline" id="heroRegisterBtn" type="button">สมัครสมาชิกใหม่</button>
+          <button class="btn btn-primary" id="heroLoginBtn" type="button">ลงชื่อเข้าใช้</button>
+          <button class="btn btn-outline" id="heroRegisterBtn" type="button">สมัครเข้าใช้</button>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- แดชบอร์ดตามระดับสิทธิ์ (รหัสสิทธิ์ 1–4) -->
+  <!-- แดชบอร์ดความก้าวหน้า -->
   <section id="dashboardSection">
     <div class="container">
       <div class="dash-header">
         <div>
-          <span class="eyebrow" id="dashRoleBadge">ขอบเขตสิทธิ์</span>
-          <h2 style="font-size:1.5rem;" id="dashTitle">แดชบอร์ดความก้าวหน้าของนักเรียน</h2>
+          <span class="eyebrow" id="dashRoleBadge">แดชบอร์ดการเรียนรู้</span>
+          <h2 style="font-size:1.5rem;" id="dashTitle">ความก้าวหน้าของนักเรียน</h2>
         </div>
-        <button class="btn btn-dark btn-sm" id="refreshDashBtn" type="button">↻ รีเฟรชข้อมูลจากชีต</button>
+        <button class="btn btn-dark btn-sm" id="refreshDashBtn" type="button">↻ รีเฟรชข้อมูล</button>
       </div>
 
       <div class="kpi-grid">
         <div class="kpi-card">
-          <div class="kpi-label">นักเรียนในขอบเขตสิทธิ์</div>
+          <div class="kpi-label">นักเรียน</div>
           <div class="kpi-value" id="kpiStudents">0 คน</div>
         </div>
         <div class="kpi-card">
-          <div class="kpi-label">จำนวนโรงเรียนในขอบเขตสิทธิ์</div>
+          <div class="kpi-label">โรงเรียน</div>
           <div class="kpi-value" id="kpiSchools">0 แห่ง</div>
         </div>
         <div class="kpi-card">
-          <div class="kpi-label">คะแนนเฉลี่ยรวม</div>
+          <div class="kpi-label">คะแนนเฉลี่ย</div>
           <div class="kpi-value" id="kpiAvgScore">0%</div>
         </div>
         <div class="kpi-card">
-          <div class="kpi-label">อัตราผ่านแบบฝึกหัด</div>
+          <div class="kpi-label">อัตราผ่าน</div>
           <div class="kpi-value" id="kpiPassRate">0%</div>
         </div>
       </div>
 
       <div class="dash-panel">
         <div class="view-tabs">
-          <button class="tab-btn active" id="tabBySchool" type="button">🏫 รายโรงเรียน</button>
-          <button class="tab-btn" id="tabByStudent" type="button">👤 รายบุคคล</button>
-          <button class="tab-btn" id="tabRawRecords" type="button">📋 รายการบันทึกคะแนน</button>
+          <button class="tab-btn active" id="tabBySchool" type="button">รายโรงเรียน</button>
+          <button class="tab-btn" id="tabByStudent" type="button">รายบุคคล</button>
+          <button class="tab-btn" id="tabRawRecords" type="button">รายการคะแนน</button>
         </div>
 
         <div class="filter-bar">
@@ -391,7 +457,7 @@
                 <th>จำนวนนักเรียน</th>
                 <th>จำนวนครั้งที่ส่ง</th>
                 <th>คะแนนเฉลี่ย</th>
-                <th>ความก้าวหน้าเฉลี่ย (10 หน่วย)</th>
+                <th>ความก้าวหน้า (10 หน่วย)</th>
               </tr>
             </thead>
             <tbody id="schoolTableBody"></tbody>
@@ -449,21 +515,21 @@
       <form id="loginForm">
         <div class="form-group">
           <label>ชื่อผู้ใช้ (User)</label>
-          <input type="text" id="loginUser" required placeholder="กรอก User จากชีต ผู้มีสิทธิ์" />
+          <input type="text" id="loginUser" required placeholder="กรอกชื่อผู้ใช้" />
         </div>
         <div class="form-group">
           <label>รหัสผ่าน (Password)</label>
-          <input type="password" id="loginPass" required placeholder="กรอก Password จากชีต ผู้มีสิทธิ์" />
+          <input type="password" id="loginPass" required placeholder="กรอกรหัสผ่าน" />
         </div>
         <button class="btn btn-primary" type="submit" style="width:100%;">เข้าสู่ระบบ</button>
       </form>
 
       <form id="registerForm" style="display:none;">
         <div class="form-group">
-          <label>บทบาทผู้สมัคร (อ้างอิงชีต รหัสสิทธิ์)</label>
+          <label>ประเภทผู้สมัคร</label>
           <select id="regRoleCode">
-            <option value="4">4 — ผู้เรียน</option>
-            <option value="3">3 — ผู้ดูแลนักเรียน (ครู)</option>
+            <option value="4">ผู้เรียน</option>
+            <option value="3">ครูผู้สอน</option>
           </select>
         </div>
         <div class="form-group">
@@ -501,33 +567,60 @@
   </div>
 
   <footer>
-    <div class="container" style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; font-size:0.88rem;">
-      <strong>Русский сезон · А1</strong>
-      <span>อ้างอิงบัญชีจากชีต "ผู้มีสิทธิ์" และขอบเขตสิทธิ์จากชีต "รหัสสิทธิ์"</span>
+    <div class="container footer-inner">
+      <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+        <span class="flags-pair">
+          <span class="flag-ru"><span></span><span></span><span></span></span>
+          <span class="flag-th"><span></span><span></span><span></span><span></span><span></span></span>
+        </span>
+        <span>Cr.ออกแบบโดย นายกัมพล วรรณลักษณ์ ประยูรรัตนวงศ์||ศูนย์ภาษารัสเซียโรงเรียนกมลาไสย</span>
+      </div>
+      <div class="ru-font">Русская Дача · А1</div>
     </div>
+    <div class="flag-ribbon"></div>
   </footer>
 
   <script>
-    // ใส่ Web App URL ของ Google Apps Script ที่ Deploy แล้วที่นี่ (ลงท้ายด้วย /exec)
-    const API_URL = '';
+    const API_URL = 'https://script.google.com/macros/s/AKfycbwYWUqzGEftT4yRQceF_Hu2dUAkD5ZC93vlRbJC7dr-4teTpgBJwAJ9si5Uttg72JsC/exec';
 
-    let authCredentials = null; // { username, password }
+    let authCredentials = null;
     let currentUser = null;
     let progressRows = [];
 
-    function callApiJsonp(params) {
+    function callBackend(action, payloadObj) {
       return new Promise((resolve, reject) => {
-        if (!API_URL || !API_URL.startsWith('http')) {
-          reject(new Error('ยังไม่ได้ตั้งค่า API_URL ของ Google Apps Script Web App ในโค้ดหน้าเว็บ'));
+        if (window.google && google.script && google.script.run) {
+          const runner = google.script.run
+            .withSuccessHandler((res) => resolve(res))
+            .withFailureHandler((err) => reject(new Error(err.message || 'เกิดข้อผิดพลาดจาก Apps Script')));
+
+          if (action === 'login') {
+            runner.loginUser(payloadObj.username, payloadObj.password);
+          } else if (action === 'register') {
+            runner.registerUser(payloadObj);
+          } else if (action === 'getSchools') {
+            runner.doGet({ parameter: { action: 'getSchools' } });
+          } else if (action === 'getDashboard') {
+            runner.getDashboardByRole(payloadObj.username, payloadObj.password);
+          } else {
+            reject(new Error('ไม่รองรับคำสั่งนี้'));
+          }
           return;
         }
+
+        if (!API_URL || !API_URL.startsWith('http')) {
+          reject(new Error('ไม่พบ API_URL'));
+          return;
+        }
+
         const cbName = 'cb_' + Date.now() + '_' + Math.floor(Math.random() * 100000);
         const script = document.createElement('script');
-        const query = new URLSearchParams({ ...params, callback: cbName });
+        const params = { action, ...(payloadObj || {}), callback: cbName };
+        const query = new URLSearchParams(params);
 
         const timer = setTimeout(() => {
           cleanup();
-          reject(new Error('การเชื่อมต่อ Google Apps Script ใช้เวลานานเกินกำหนด'));
+          reject(new Error('การเชื่อมต่อใช้เวลานานเกินกำหนด'));
         }, 15000);
 
         function cleanup() {
@@ -543,7 +636,7 @@
 
         script.onerror = () => {
           cleanup();
-          reject(new Error('ไม่สามารถโหลดสคริปต์จาก Web App URL ได้ (ตรวจสอบสิทธิ์การ Deploy เป็น Anyone)'));
+          reject(new Error('ไม่สามารถเชื่อมต่อ Web App ได้ กรุณาตรวจสอบสิทธิ์การเข้าถึงเป็น Anyone'));
         };
 
         script.src = `${API_URL}?${query.toString()}`;
@@ -561,7 +654,7 @@
 
     async function loadSchoolsDropdown() {
       try {
-        const res = await callApiJsonp({ action: 'getSchools' });
+        const res = await callBackend('getSchools', {});
         const schools = (res && res.schools) || [];
         regSchoolSelect.innerHTML = '<option value="">-- เลือกโรงเรียน --</option>';
         schools.forEach((s) => {
@@ -575,8 +668,8 @@
         newOpt.value = '__NEW__';
         newOpt.textContent = '+ เพิ่มโรงเรียนใหม่ (สำหรับครู)';
         regSchoolSelect.appendChild(newOpt);
-      } catch (e) {
-        // คงตัวเลือกเริ่มต้นไว้หากยังไม่ตั้งค่า API_URL
+      } catch (err) {
+        // คงตัวเลือกเริ่มต้นไว้
       }
     }
 
@@ -588,7 +681,7 @@
         loginForm.style.display = 'block';
         registerForm.style.display = 'none';
       } else {
-        modalTitle.textContent = 'สมัครเข้าใช้ระบบ';
+        modalTitle.textContent = 'สมัครเข้าใช้';
         loginForm.style.display = 'none';
         registerForm.style.display = 'block';
         loadSchoolsDropdown();
@@ -616,13 +709,13 @@
       const password = document.getElementById('loginPass').value.trim();
 
       modalMsg.style.color = 'var(--text-muted)';
-      modalMsg.textContent = 'กำลังตรวจสอบข้อมูลในชีต ผู้มีสิทธิ์...';
+      modalMsg.textContent = 'กำลังตรวจสอบข้อมูล...';
 
       try {
-        const res = await callApiJsonp({ action: 'login', username, password });
-        if (!res.success) {
+        const res = await callBackend('login', { username, password });
+        if (!res || !res.success) {
           modalMsg.style.color = 'var(--primary)';
-          modalMsg.textContent = res.message || 'ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง';
+          modalMsg.textContent = (res && res.message) || 'ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง';
           return;
         }
 
@@ -645,23 +738,22 @@
         : regSchoolSelect.value.trim();
 
       modalMsg.style.color = 'var(--text-muted)';
-      modalMsg.textContent = 'กำลังบันทึกข้อมูลลงชีต ผู้มีสิทธิ์...';
+      modalMsg.textContent = 'กำลังบันทึกข้อมูล...';
 
       try {
-        const res = await callApiJsonp({
-          action: 'register',
+        const res = await callBackend('register', {
           roleCode: document.getElementById('regRoleCode').value,
           fullName: document.getElementById('regFullName').value.trim(),
           username: document.getElementById('regUsername').value.trim(),
           password: document.getElementById('regPassword').value.trim(),
-          isNewSchool: String(isNewSchool),
+          isNewSchool: isNewSchool,
           schoolName,
           province: document.getElementById('regProvince').value.trim()
         });
 
-        modalMsg.style.color = res.success ? '#15803D' : 'var(--primary)';
-        modalMsg.textContent = res.message;
-        if (res.success) {
+        modalMsg.style.color = (res && res.success) ? '#15803D' : 'var(--primary)';
+        modalMsg.textContent = (res && res.message) || 'เกิดข้อผิดพลาด';
+        if (res && res.success) {
           registerForm.reset();
           newSchoolGroup.style.display = 'none';
         }
@@ -674,21 +766,16 @@
     function updateSessionUI() {
       const guestActions = document.getElementById('guestActions');
       const userActions = document.getElementById('userActions');
-      const roleInfo = document.getElementById('activeRoleInfo');
 
       if (currentUser) {
         guestActions.style.display = 'none';
         userActions.style.display = 'flex';
         document.getElementById('currentUserBadge').textContent =
-          `${currentUser.fullName} · ${currentUser.roleName} (รหัสสิทธิ์ ${currentUser.roleCode})`;
-        roleInfo.innerHTML =
-          `เข้าสู่ระบบด้วยบัญชี <strong>${currentUser.username}</strong> | สิทธิ์: <strong>${currentUser.roleName} (รหัส ${currentUser.roleCode})</strong> | ขอบเขตสิทธิ์ตามชีต รหัสสิทธิ์: <strong>${currentUser.scope || '-'}</strong>`;
+          `${currentUser.fullName} · ${currentUser.roleName}`;
       } else {
         guestActions.style.display = 'flex';
         userActions.style.display = 'none';
         document.getElementById('dashboardSection').style.display = 'none';
-        roleInfo.innerHTML =
-          'สถานะ: ยังไม่ได้เข้าสู่ระบบ — กรุณาลงชื่อเข้าใช้ด้วยบัญชีที่มีในชีต <strong>ผู้มีสิทธิ์</strong>';
       }
     }
 
@@ -702,20 +789,18 @@
     async function fetchAndRenderDashboard() {
       if (!authCredentials || !currentUser) return;
       try {
-        const res = await callApiJsonp({
-          action: 'getDashboard',
+        const res = await callBackend('getDashboard', {
           username: authCredentials.username,
           password: authCredentials.password
         });
-        if (!res.success) {
-          alert(res.message || 'ไม่สามารถดึงข้อมูลแดชบอร์ดได้');
+        if (!res || !res.success) {
+          alert((res && res.message) || 'ไม่สามารถโหลดข้อมูลได้');
           return;
         }
         currentUser = res.user;
         progressRows = res.progress || [];
         document.getElementById('dashboardSection').style.display = 'block';
-        document.getElementById('dashRoleBadge').textContent =
-          `รหัสสิทธิ์ ${currentUser.roleCode} · ${currentUser.roleName} (${currentUser.scope || ''})`;
+        document.getElementById('dashRoleBadge').textContent = currentUser.roleName || 'แดชบอร์ด';
         setupFilters();
         renderTables();
       } catch (err) {
@@ -736,7 +821,6 @@
         schoolFilter.appendChild(opt);
       });
 
-      // หากเป็นรหัสสิทธิ์ 3 (ผู้ดูแลนักเรียน) ให้ล็อกเฉพาะโรงเรียนตนเองตามเงื่อนไขชีต รหัสสิทธิ์
       if (Number(currentUser.roleCode) === 3 && currentUser.school) {
         schoolFilter.value = currentUser.school;
         schoolFilter.disabled = true;
@@ -785,7 +869,6 @@
       document.getElementById('kpiAvgScore').textContent = `${avgPct}%`;
       document.getElementById('kpiPassRate').textContent = `${passRate}%`;
 
-      // รายโรงเรียน
       const schoolMap = new Map();
       rows.forEach((r) => {
         const key = r.school || 'ไม่ระบุโรงเรียน';
@@ -825,9 +908,8 @@
             </td>
           </tr>
         `;
-      }).join('') || '<tr><td colspan="7">ไม่พบข้อมูลตามขอบเขตสิทธิ์</td></tr>';
+      }).join('') || '<tr><td colspan="7">ไม่พบข้อมูล</td></tr>';
 
-      // รายบุคคล
       const studentMap = new Map();
       rows.forEach((r) => {
         const key = r.username;
@@ -869,9 +951,8 @@
             <td><span class="badge ${isPass ? 'badge-pass' : 'badge-warn'}">${st.latestStatus || '-'}</span></td>
           </tr>
         `;
-      }).join('') || '<tr><td colspan="8">ไม่พบข้อมูลตามขอบเขตสิทธิ์</td></tr>';
+      }).join('') || '<tr><td colspan="8">ไม่พบข้อมูล</td></tr>';
 
-      // รายการบันทึกคะแนน
       document.getElementById('recordsTableBody').innerHTML = rows.map((r, idx) => {
         const isPass = String(r.status).includes('ผ่าน');
         return `
@@ -887,7 +968,7 @@
             <td>${r.date}</td>
           </tr>
         `;
-      }).join('') || '<tr><td colspan="9">ไม่พบข้อมูลตามขอบเขตสิทธิ์</td></tr>';
+      }).join('') || '<tr><td colspan="9">ไม่พบข้อมูล</td></tr>';
     }
 
     function switchTab(mode) {
