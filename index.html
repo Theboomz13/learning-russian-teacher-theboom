@@ -29,19 +29,15 @@
       --radius-pill: 999px;
       --shadow-card: 0 10px 30px rgba(27, 42, 74, 0.06);
     }
-
     * { box-sizing: border-box; margin: 0; padding: 0; }
-
     body {
       font-family: 'Noto Sans Thai', 'PT Sans', sans-serif;
       color: var(--text-main);
       background-color: var(--bg-warm);
       line-height: 1.6;
     }
-
     .ru-font { font-family: 'PT Sans', 'Noto Sans Thai', sans-serif; }
     .container { max-width: 1180px; margin: 0 auto; padding: 0 20px; }
-
     .flag-icon {
       display: inline-flex;
       flex-direction: column;
@@ -57,11 +53,9 @@
     .flag-th span:nth-child(3) { flex: 2; background: #2D2A4A; }
     .flag-th span:nth-child(4) { flex: 1; background: #FFFFFF; }
     .flag-th span:nth-child(5) { flex: 1; background: #A51931; }
-
     .flag-ru span:nth-child(1) { flex: 1; background: #FFFFFF; }
     .flag-ru span:nth-child(2) { flex: 1; background: #0039A6; }
     .flag-ru span:nth-child(3) { flex: 1; background: #D52B1E; }
-
     .flag-gb {
       position: relative;
       background: #012169;
@@ -82,7 +76,6 @@
         linear-gradient(to right, transparent 44%, #C8102E 44%, #C8102E 56%, transparent 56%),
         linear-gradient(to bottom, transparent 42%, #C8102E 42%, #C8102E 58%, transparent 58%);
     }
-
     .lang-switcher {
       display: inline-flex;
       align-items: center;
@@ -92,7 +85,6 @@
       padding: 3px;
       border-radius: var(--radius-pill);
     }
-
     .lang-btn {
       display: inline-flex;
       align-items: center;
@@ -107,12 +99,10 @@
       color: var(--text-muted);
       cursor: pointer;
     }
-
     .lang-btn.active {
       background: var(--footer-bg);
       color: #FFFFFF;
     }
-
     .flag-ribbon {
       height: 5px;
       width: 100%;
@@ -128,7 +118,6 @@
         #A51931 90%, #A51931 100%
       );
     }
-
     header {
       background: rgba(255, 255, 255, 0.96);
       border-bottom: 1px solid var(--border-soft);
@@ -136,7 +125,6 @@
       top: 0;
       z-index: 40;
     }
-
     .nav-inner {
       display: flex;
       align-items: center;
@@ -146,14 +134,12 @@
       flex-wrap: wrap;
       padding: 8px 0;
     }
-
     .nav-left {
       display: flex;
       align-items: center;
       gap: 10px;
       flex-wrap: wrap;
     }
-
     .brand {
       display: flex;
       align-items: center;
@@ -163,7 +149,6 @@
       font-weight: 700;
       font-size: 1.05rem;
     }
-
     .brand-badge {
       width: 34px;
       height: 34px;
@@ -174,9 +159,7 @@
       place-items: center;
       font-weight: 700;
     }
-
     .nav-actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-
     .btn {
       display: inline-flex;
       align-items: center;
@@ -191,19 +174,17 @@
       border: 1px solid transparent;
       transition: all 0.2s ease;
     }
-
+    .btn:disabled { opacity: 0.6; cursor: not-allowed; }
     .btn-primary { background: var(--primary); color: #fff; }
-    .btn-primary:hover { background: var(--primary-hover); }
+    .btn-primary:hover:not(:disabled) { background: var(--primary-hover); }
     .btn-outline { background: var(--bg-surface); color: var(--text-main); border-color: var(--border-soft); }
-    .btn-outline:hover { border-color: var(--primary); color: var(--primary); }
+    .btn-outline:hover:not(:disabled) { border-color: var(--primary); color: var(--primary); }
     .btn-dark { background: var(--footer-bg); color: #fff; }
     .btn-sm { padding: 6px 14px; font-size: 0.82rem; }
-
     #guestHeroSection {
       padding: 40px 0;
       background: var(--bg-warm);
     }
-
     .hero-box {
       background: var(--bg-surface);
       border: 1px solid var(--border-soft);
@@ -216,7 +197,6 @@
       gap: 24px;
       flex-wrap: wrap;
     }
-
     .eyebrow {
       display: inline-flex;
       align-items: center;
@@ -229,14 +209,12 @@
       border-radius: var(--radius-pill);
       margin-bottom: 10px;
     }
-
     #workspaceSection {
       display: none;
       padding: 32px 0 64px;
       background: var(--bg-cool);
       min-height: 75vh;
     }
-
     .dash-header {
       display: flex;
       justify-content: space-between;
@@ -245,19 +223,16 @@
       flex-wrap: wrap;
       margin-bottom: 20px;
     }
-
     #lessonsSection {
       display: none;
       margin-bottom: 24px;
     }
-
     .lessons-grid {
       display: grid;
       grid-template-columns: repeat(5, 1fr);
       gap: 12px;
       margin-top: 12px;
     }
-
     .lesson-card {
       background: var(--bg-surface);
       border: 1px solid var(--border-soft);
@@ -269,7 +244,6 @@
       gap: 10px;
       box-shadow: 0 4px 12px rgba(27, 42, 74, 0.04);
     }
-
     .lesson-unit-tag {
       font-size: 0.76rem;
       font-weight: 700;
@@ -279,25 +253,21 @@
       border-radius: var(--radius-pill);
       align-self: flex-start;
     }
-
     .lesson-title {
       font-size: 0.96rem;
       font-weight: 700;
       color: var(--footer-bg);
     }
-
     .lesson-sub {
       font-size: 0.82rem;
       color: var(--text-muted);
     }
-
     .kpi-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 16px;
       margin-bottom: 22px;
     }
-
     .kpi-card {
       background: var(--bg-surface);
       border: 1px solid var(--border-soft);
@@ -305,10 +275,8 @@
       padding: 18px;
       box-shadow: 0 4px 14px rgba(27, 42, 74, 0.04);
     }
-
     .kpi-label { font-size: 0.82rem; color: var(--text-muted); }
     .kpi-value { font-size: 1.65rem; font-weight: 700; color: var(--footer-bg); margin-top: 4px; }
-
     .dash-panel {
       background: var(--bg-surface);
       border: 1px solid var(--border-soft);
@@ -316,7 +284,6 @@
       padding: 24px;
       box-shadow: var(--shadow-card);
     }
-
     .view-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 18px; }
     .tab-btn {
       padding: 8px 16px;
@@ -329,14 +296,12 @@
       cursor: pointer;
     }
     .tab-btn.active { background: var(--primary); color: #fff; border-color: var(--primary); }
-
     .filter-bar {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 12px;
       margin-bottom: 18px;
     }
-
     .filter-bar input,
     .filter-bar select {
       width: 100%;
@@ -347,7 +312,6 @@
       font-size: 0.9rem;
       background: #fff;
     }
-
     .table-wrap { overflow-x: auto; }
     table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
     th, td {
@@ -357,7 +321,6 @@
       white-space: nowrap;
     }
     th { background: var(--bg-soft-card); font-weight: 700; color: var(--footer-bg); }
-
     .progress-track {
       width: 120px;
       height: 8px;
@@ -369,7 +332,6 @@
       margin-right: 6px;
     }
     .progress-fill { height: 100%; background: var(--primary); }
-
     .badge {
       display: inline-block;
       padding: 2px 10px;
@@ -379,7 +341,6 @@
     }
     .badge-pass { background: var(--success-bg); color: var(--success-text); }
     .badge-warn { background: var(--warn-bg); color: var(--warn-text); }
-
     .modal-backdrop {
       display: none;
       position: fixed;
@@ -394,7 +355,7 @@
     .modal-card {
       background: var(--bg-surface);
       border-radius: var(--radius-lg);
-      max-width: 520px;
+      max-width: 680px;
       width: 100%;
       padding: 24px;
       box-shadow: var(--shadow-card);
@@ -403,22 +364,24 @@
     }
     .form-group { margin-bottom: 12px; }
     .form-group label { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 4px; }
-    .form-group input, .form-group select {
+    .form-group input, .form-group select, .form-group textarea {
       width: 100%;
       padding: 9px 12px;
       border-radius: 10px;
       border: 1px solid var(--border-soft);
       font-family: inherit;
       font-size: 0.9rem;
+      background: #fff;
     }
+    .form-group textarea { min-height: 82px; resize: vertical; }
     .msg-box { margin-top: 10px; font-size: 0.88rem; font-weight: 600; }
-
     .vocab-box {
       background: var(--bg-warm);
       border: 1px solid var(--border-soft);
       border-radius: var(--radius-md);
       padding: 14px;
       margin: 12px 0;
+      white-space: pre-line;
     }
     .vocab-row {
       display: flex;
@@ -430,7 +393,40 @@
       gap: 12px;
     }
     .vocab-row:last-child { border-bottom: none; }
-
+    .mode-switch-bar {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+    }
+    .question-card {
+      border: 1px solid var(--border-soft);
+      background: var(--bg-warm);
+      border-radius: var(--radius-md);
+      padding: 12px 14px;
+      margin-bottom: 12px;
+    }
+    .choice-option {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 5px 0;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+    .choice-option input { width: auto; }
+    .admin-section-box {
+      background: var(--bg-warm);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      margin-bottom: 18px;
+    }
+    .form-grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
     footer {
       background: var(--footer-bg);
       color: #E2E8F0;
@@ -445,13 +441,12 @@
       gap: 12px;
       font-size: 0.88rem;
     }
-
     @media (max-width: 1024px) {
       .lessons-grid { grid-template-columns: repeat(2, 1fr); }
     }
     @media (max-width: 900px) {
       .kpi-grid { grid-template-columns: repeat(2, 1fr); }
-      .filter-bar { grid-template-columns: 1fr; }
+      .filter-bar, .form-grid-2 { grid-template-columns: 1fr; }
     }
     @media (max-width: 600px) {
       .lessons-grid { grid-template-columns: 1fr; }
@@ -460,7 +455,6 @@
   </style>
 </head>
 <body>
-
   <div class="flag-ribbon"></div>
   <header>
     <div class="container nav-inner">
@@ -469,7 +463,6 @@
           <span class="brand-badge ru-font">Я</span>
           <span class="ru-font">Русская Дача · А1</span>
         </a>
-
         <div class="lang-switcher" role="group" aria-label="Language Switcher">
           <button type="button" class="lang-btn active" data-lang="th" title="ภาษาไทย">
             <span class="flag-icon flag-th"><span></span><span></span><span></span><span></span><span></span></span>
@@ -485,7 +478,6 @@
           </button>
         </div>
       </div>
-
       <div class="nav-actions" id="guestActions">
         <button class="btn btn-outline btn-sm" id="openLoginBtn" type="button" data-i18n="login">ลงชื่อเข้าใช้</button>
         <button class="btn btn-primary btn-sm" id="openRegisterBtn" type="button" data-i18n="register">สมัครเข้าใช้</button>
@@ -558,6 +550,7 @@
           <button class="tab-btn" id="tabByStudent" type="button" data-i18n="tabStudent">รายบุคคล</button>
           <button class="tab-btn" id="tabRawRecords" type="button" data-i18n="tabRecords">รายการคะแนน</button>
           <button class="tab-btn" id="tabManageUsers" type="button" style="display:none;" data-i18n="tabUsers">จัดการผู้มีสิทธิ์</button>
+          <button class="tab-btn" id="tabAdminContent" type="button" style="display:none;">จัดการชีทความรู้และคลังคำถาม</button>
         </div>
 
         <div class="filter-bar" id="progressFilterBar">
@@ -640,17 +633,99 @@
             <tbody id="usersManageBody"></tbody>
           </table>
         </div>
+
+        <div id="adminContentView" style="display:none;">
+          <div class="admin-section-box">
+            <h3 style="color:var(--footer-bg); margin-bottom:10px;">เพิ่มหรือแก้ไขชีทความรู้ก่อนทำข้อสอบ (ชีต: ชีทความรู้_А1)</h3>
+            <form id="adminKnowledgeForm">
+              <div class="form-grid-2">
+                <div class="form-group">
+                  <label for="ksUnitSelect">สำหรับบทที่</label>
+                  <select id="ksUnitSelect"></select>
+                </div>
+                <div class="form-group">
+                  <label for="ksTitleInput">ชื่อบท</label>
+                  <input type="text" id="ksTitleInput" required />
+                </div>
+              </div>
+              <div class="form-grid-2">
+                <div class="form-group">
+                  <label for="ksSummaryInput">สรุปความรู้</label>
+                  <textarea id="ksSummaryInput" required></textarea>
+                </div>
+                <div class="form-group">
+                  <label for="ksHighlightsInput">จุดสำคัญ/ตัวอย่าง</label>
+                  <textarea id="ksHighlightsInput"></textarea>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="ksContentInput">เนื้อหาชีทความรู้</label>
+                <textarea id="ksContentInput" style="min-height:110px;" required></textarea>
+              </div>
+              <button class="btn btn-primary btn-sm" type="submit" id="saveKnowledgeBtn">บันทึกชีทความรู้ลงชีต</button>
+              <div class="msg-box" id="adminKnowledgeMsg"></div>
+            </form>
+          </div>
+
+          <div class="admin-section-box" style="margin-bottom:0;">
+            <h3 style="color:var(--footer-bg); margin-bottom:10px;">เพิ่มคำถามใหม่ลงคลังคำถาม (ชีต: คลังคำถาม_А1 · สุ่มบทละ 20 ข้อ)</h3>
+            <form id="adminQuestionForm">
+              <div class="form-grid-2">
+                <div class="form-group">
+                  <label for="aqUnitSelect">สำหรับบทที่</label>
+                  <select id="aqUnitSelect"></select>
+                </div>
+                <div class="form-group">
+                  <label for="aqWeightInput">น้ำหนักคะแนน</label>
+                  <input type="number" id="aqWeightInput" min="1" step="1" value="1" required />
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="aqQuestionInput">คำถาม</label>
+                <input type="text" id="aqQuestionInput" required />
+              </div>
+              <div class="form-grid-2">
+                <div class="form-group">
+                  <label for="aqChoice1Input">ตัวเลือก 1</label>
+                  <input type="text" id="aqChoice1Input" required />
+                </div>
+                <div class="form-group">
+                  <label for="aqChoice2Input">ตัวเลือก 2</label>
+                  <input type="text" id="aqChoice2Input" required />
+                </div>
+                <div class="form-group">
+                  <label for="aqChoice3Input">ตัวเลือก 3</label>
+                  <input type="text" id="aqChoice3Input" required />
+                </div>
+                <div class="form-group">
+                  <label for="aqChoice4Input">ตัวเลือก 4</label>
+                  <input type="text" id="aqChoice4Input" required />
+                </div>
+              </div>
+              <div class="form-grid-2" style="align-items:end;">
+                <div class="form-group">
+                  <label for="aqAnswerInput">เฉลย (ต้องตรงกับตัวเลือก 1–4)</label>
+                  <input type="text" id="aqAnswerInput" required />
+                </div>
+                <div class="form-group" style="display:flex; gap:8px; flex-wrap:wrap;">
+                  <button class="btn btn-outline btn-sm" type="button" id="copyChoice1Btn">ใช้ตัวเลือก 1 เป็นเฉลย</button>
+                  <button class="btn btn-primary btn-sm" type="submit" id="saveQuestionBtn">เพิ่มคำถามลงชีต</button>
+                </div>
+              </div>
+              <div class="msg-box" id="adminQuestionMsg"></div>
+            </form>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
   <div class="modal-backdrop" id="authModal">
-    <div class="modal-card">
+    <div class="modal-card" style="max-width:520px;">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
         <h3 id="modalTitle">ลงชื่อเข้าใช้</h3>
         <button class="btn btn-outline btn-sm" id="closeModalBtn" type="button">✕</button>
       </div>
-
       <form id="loginForm">
         <div class="form-group">
           <label data-i18n="lblUser">ชื่อผู้ใช้ (User)</label>
@@ -662,7 +737,6 @@
         </div>
         <button class="btn btn-primary" type="submit" style="width:100%;" data-i18n="login">ลงชื่อเข้าใช้</button>
       </form>
-
       <form id="registerForm" style="display:none;">
         <div class="form-group">
           <label data-i18n="lblRoleType">ประเภทผู้สมัคร</label>
@@ -700,35 +774,50 @@
         </div>
         <button class="btn btn-primary" type="submit" style="width:100%;" data-i18n="confirmRegister">ยืนยันการสมัคร</button>
       </form>
-
       <div class="msg-box" id="modalMsg"></div>
     </div>
   </div>
 
+  <!-- หน้าต่างบทเรียน: แยกโหมด 1) ชีทความรู้ และ 2) แบบฝึกหัด (สุ่ม 20 ข้อ) -->
   <div class="modal-backdrop" id="lessonModal">
     <div class="modal-card">
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; gap:8px;">
         <span class="lesson-unit-tag" id="lessonModalUnit"></span>
         <button class="btn btn-outline btn-sm" id="closeLessonModalBtn" type="button">✕</button>
       </div>
-      <h3 id="lessonModalTitle" style="color:var(--footer-bg);"></h3>
-      <p id="lessonModalSummary" style="font-size:0.88rem; color:var(--text-muted); margin-top:4px;"></p>
+      <div class="mode-switch-bar">
+        <button type="button" class="tab-btn active" id="btnModeSheet">1. ชีทความรู้</button>
+        <button type="button" class="tab-btn" id="btnModeQuiz">2. แบบฝึกหัด (สุ่ม 20 ข้อ)</button>
+      </div>
 
-      <div class="vocab-box" id="lessonVocabList"></div>
+      <div id="lessonSheetStage">
+        <h3 id="lessonModalTitle" style="color:var(--footer-bg);"></h3>
+        <p id="lessonModalSummary" style="font-size:0.9rem; color:var(--text-muted); margin-top:4px;"></p>
+        <div class="vocab-box" id="lessonSheetContent"></div>
+        <div class="vocab-box" id="lessonSheetHighlights"></div>
+        <div id="lessonVocabList" style="display:none;"></div>
+        <button class="btn btn-primary" type="button" style="width:100%;" id="proceedToQuizBtn">
+          อ่านชีทความรู้เสร็จแล้ว → เข้าสู่แบบฝึกหัด
+        </button>
+      </div>
 
-      <form id="quizSubmitForm">
-        <div class="form-group">
-          <label id="quizQuestionLabel"></label>
-          <select id="quizAnswerSelect" required></select>
+      <div id="lessonQuizStage" style="display:none;">
+        <div style="display:flex; justify-content:space-between; align-items:center; gap:8px; margin-bottom:10px; flex-wrap:wrap;">
+          <button class="btn btn-outline btn-sm" type="button" id="backToSheetBtn">← กลับไปอ่านชีทความรู้</button>
+          <button class="btn btn-outline btn-sm" type="button" id="reshuffleQuizBtn">↻ สุ่มคำถามใหม่</button>
         </div>
-        <button class="btn btn-primary" type="submit" style="width:100%;" id="submitQuizBtn"></button>
-      </form>
+        <form id="quizSubmitForm">
+          <div id="randomQuizContainer"></div>
+          <button class="btn btn-primary" type="submit" style="width:100%;" id="submitQuizBtn"></button>
+        </form>
+      </div>
+
       <div class="msg-box" id="lessonMsg"></div>
     </div>
   </div>
 
   <div class="modal-backdrop" id="editUserModal">
-    <div class="modal-card">
+    <div class="modal-card" style="max-width:520px;">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
         <h3 data-i18n="editUserTitle">แก้ไขข้อมูลและรหัสสิทธิ์</h3>
         <button class="btn btn-outline btn-sm" id="closeEditUserBtn" type="button">✕</button>
@@ -784,7 +873,6 @@
 
   <script>
     const API_URL = 'https://script.google.com/macros/s/AKfycbwYWUqzGEftT4yRQceF_Hu2dUAkD5ZC93vlRbJC7dr-4teTpgBJwAJ9si5Uttg72JsC/exec';
-
     const I18N = {
       th: {
         login: 'ลงชื่อเข้าใช้',
@@ -795,7 +883,7 @@
         dashTitle: 'ความก้าวหน้าของนักเรียน',
         refresh: '↻ รีเฟรชข้อมูล',
         lessonsHeading: 'บทเรียนภาษารัสเซียระดับ А1 (10 หน่วย)',
-        startLesson: 'เข้าเรียน / ทำแบบฝึกหัด',
+        startLesson: 'อ่านชีทความรู้ / ทำแบบฝึกหัด',
         doneBadge: 'เรียนแล้ว',
         pendingBadge: 'ยังไม่ทำ',
         unitPrefix: 'หน่วยที่',
@@ -837,13 +925,13 @@
         lblNewSchool: 'ชื่อโรงเรียนใหม่ (สำหรับครูหรือ ผอ.)',
         confirmRegister: 'ยืนยันการสมัคร',
         submitQuiz: 'ส่งคำตอบและบันทึกคะแนน',
-        lessonSummary: 'อ่านคำศัพท์สำคัญและเลือกคำตอบที่ถูกต้องเพื่อบันทึกคะแนน (20 คะแนน)',
+        lessonSummary: 'อ่านชีทความรู้ของหน่วยนี้ให้เข้าใจก่อน แล้วกดเข้าสู่แบบฝึกหัด (สุ่มจากคลังคำถามบทละ 20 ข้อ)',
         choosePrompt: '-- เลือกคำตอบ --',
         noData: 'ยังไม่มีคะแนนที่บันทึก',
         scope1: 'รหัสสิทธิ์ 1: จัดการและดูข้อมูลได้ทุกโรงเรียน',
         scope2: 'รหัสสิทธิ์ 2: ดูข้อมูลความก้าวหน้าได้ทุกโรงเรียน',
         scope3: 'รหัสสิทธิ์ 3: ดูข้อมูลได้เฉพาะโรงเรียนตนเอง',
-        scope4: 'รหัสสิทธิ์ 4: เรียนบทเรียน А1 ทำแบบฝึกหัด และดูข้อมูลของตนเอง'
+        scope4: 'รหัสสิทธิ์ 4: เรียนบทเรียน А1 ทำแบบฝึกหัด และดูเฉพาะคะแนนของตนเองเท่านั้น'
       },
       en: {
         login: 'Sign In',
@@ -854,7 +942,7 @@
         dashTitle: 'Student Progress',
         refresh: '↻ Refresh',
         lessonsHeading: 'Russian А1 Lessons (10 Units)',
-        startLesson: 'Lesson & Quiz',
+        startLesson: 'Study Sheet & Quiz',
         doneBadge: 'Completed',
         pendingBadge: 'Not Yet',
         unitPrefix: 'Unit',
@@ -896,13 +984,13 @@
         lblNewSchool: 'New School Name (Teacher / Director)',
         confirmRegister: 'Confirm Registration',
         submitQuiz: 'Submit & Save Score',
-        lessonSummary: 'Read key vocabulary and select the best answer to record your score (20 pts).',
+        lessonSummary: 'Read the knowledge sheet first, then start the quiz (randomly sampled up to 20 questions per unit).',
         choosePrompt: '-- Select Answer --',
         noData: 'No score records yet',
         scope1: 'Role Code 1: Full management & access across all schools',
         scope2: 'Role Code 2: View progress across all schools',
         scope3: 'Role Code 3: View records for your own school only',
-        scope4: 'Role Code 4: Study А1 units, take quizzes, and view your own records'
+        scope4: 'Role Code 4: Study А1 units, take quizzes, and view only your own scores'
       },
       ru: {
         login: 'Войти',
@@ -913,7 +1001,7 @@
         dashTitle: 'Прогресс учеников',
         refresh: '↻ Обновить',
         lessonsHeading: 'Уроки русского языка А1 (10 тем)',
-        startLesson: 'Урок и тест',
+        startLesson: 'Материал и тест',
         doneBadge: 'Пройдено',
         pendingBadge: 'Не пройдено',
         unitPrefix: 'Тема',
@@ -955,13 +1043,13 @@
         lblNewSchool: 'Новая школа (для учителя / директора)',
         confirmRegister: 'Подтвердить регистрацию',
         submitQuiz: 'Отправить и сохранить',
-        lessonSummary: 'Изучите слова и выберите правильный ответ для сохранения результата (20 баллов).',
+        lessonSummary: 'Сначала изучите материал урока, затем перейдите к тесту (случайная выборка до 20 вопросов на тему).',
         choosePrompt: '-- Выберите ответ --',
         noData: 'Пока нет записей об оценках',
         scope1: 'Код роли 1: Полное управление и доступ ко всем школам',
         scope2: 'Код роли 2: Просмотр прогресса по всем школам',
         scope3: 'Код роли 3: Просмотр данных только своей школы',
-        scope4: 'Код роли 4: Изучение тем А1, тесты и просмотр своих результатов'
+        scope4: 'Код роли 4: Изучение тем А1, тесты и просмотр только своих результатов'
       }
     };
 
@@ -971,6 +1059,9 @@
         ru: 'Алфавит и приветствие',
         th: 'อักษรซีริลลิกและการทักทาย',
         en: 'Alphabet & Greetings',
+        summary: 'รู้จักตัวอักษรซีริลลิก การออกเสียงสระและพยัญชนะพื้นฐาน และคำทักทาย/อำลา',
+        content: 'Привет! — Здравствуйте! — Доброе утро — Добрый день — Добрый вечер — До свидания — Пока — Спасибо — Пожалуйста',
+        highlights: 'ใช้ Здравствуйте เมื่อทักทายผู้ใหญ่หรือสถานการณ์ทางการ ใช้ Привет และ Пока กับเพื่อนสนิท',
         vocab: [
           ['Привет!', { th: 'สวัสดี (กันเอง)', en: 'Hi (informal)', ru: 'Приветствие (неформальное)' }],
           ['Здравствуйте!', { th: 'สวัสดีครับ/ค่ะ (สุภาพ)', en: 'Hello (formal)', ru: 'Приветствие (вежливое)' }]
@@ -988,6 +1079,9 @@
         ru: 'Знакомство',
         th: 'การแนะนำตัว',
         en: 'Introductions',
+        summary: 'การถามชื่อ ถามอายุ การบอกสภาพความเป็นอยู่ และการใช้สรรพนาม',
+        content: 'Как тебя зовут? / Как вас зовут? — Меня зовут...\nКак дела? — Хорошо / Нормально / Спасибо.\nСколько тебе лет? — Мне ... лет / год / года.',
+        highlights: 'เลขลงท้าย 1 ใช้ год, เลขลงท้าย 2–4 ใช้ года และเลข 5–20 รวมถึงเลขลงท้าย 0, 5–9 ใช้ лет',
         vocab: [
           ['Меня зовут...', { th: 'ฉันชื่อ...', en: 'My name is...', ru: 'Представление имени' }],
           ['Как вас зовут?', { th: 'คุณชื่ออะไร', en: 'What is your name?', ru: 'Вопрос об имени' }]
@@ -1005,6 +1099,9 @@
         ru: 'Семья и друзья',
         th: 'ครอบครัวและเพื่อน',
         en: 'Family & Friends',
+        summary: 'คำเรียกสมาชิกในครอบครัวและการเลือกใช้สรรพนามแสดงความเป็นเจ้าของ',
+        content: 'семья, мама, папа, брат, сестра, друг, подруга\nмой, моя, моё, мои',
+        highlights: 'เลือกสรรพนามตามเพศและจำนวนของคำนาม: мой (เพศชาย), моя (เพศหญิง), моё (เพศกลาง), мои (พหูพจน์)',
         vocab: [
           ['семья', { th: 'ครอบครัว', en: 'Family', ru: 'Семья' }],
           ['друг / подруга', { th: 'เพื่อน', en: 'Friend', ru: 'Друг / подруга' }]
@@ -1022,6 +1119,9 @@
         ru: 'Профессии',
         th: 'อาชีพต่าง ๆ',
         en: 'Professions',
+        summary: 'การบอกอาชีพ สถานที่ทำงาน และการใช้กริยาพื้นฐาน',
+        content: 'учитель, врач, студент, инженер, работать',
+        highlights: 'ใช้คำนามบอกอาชีพคู่กับสรรพนามหรือคำกริยา работать ในประโยคแนะนำตัว',
         vocab: [
           ['учитель', { th: 'ครู', en: 'Teacher', ru: 'Учитель' }],
           ['врач', { th: 'แพทย์', en: 'Doctor', ru: 'Врач' }]
@@ -1039,6 +1139,9 @@
         ru: 'В городе',
         th: 'สถานที่ในเมือง',
         en: 'In the City',
+        summary: 'คำศัพท์สถานที่ในเมืองและคำบุพบทบอกสถานที่',
+        content: 'школа, магазин, университет, театр, банк, где, куда',
+        highlights: 'ใช้ где เมื่อถามหรือบอกว่าอยู่ที่ไหน และใช้ куда เมื่อถามหรือบอกว่าไปที่ไหน',
         vocab: [
           ['школа', { th: 'โรงเรียน', en: 'School', ru: 'Школа' }],
           ['магазин', { th: 'ร้านค้า', en: 'Shop', ru: 'Магазин' }]
@@ -1056,6 +1159,9 @@
         ru: 'Время и дни недели',
         th: 'เวลาและวันในสัปดาห์',
         en: 'Time & Days of Week',
+        summary: 'การบอกเวลา ชื่อวันในสัปดาห์ และคำบอกเวลา',
+        content: 'сегодня, завтра, вчера, понедельник, вторник, среда, четверг, пятница, суббота, воскресенье',
+        highlights: 'บอกวันที่ทำกิจกรรมใช้ в + การกกรรมตรง เช่น в понедельник, в пятницу',
         vocab: [
           ['сегодня', { th: 'วันนี้', en: 'Today', ru: 'Сегодня' }],
           ['завтра', { th: 'พรุ่งนี้', en: 'Tomorrow', ru: 'Завтра' }]
@@ -1073,6 +1179,9 @@
         ru: 'Еда и напитки',
         th: 'อาหารและเครื่องดื่ม',
         en: 'Food & Drinks',
+        summary: 'คำศัพท์อาหาร เครื่องดื่ม และสำนวนการสั่งอาหาร/ซื้อของ',
+        content: 'вода, хлеб, чай, кофе, молоко, суп, мясо, сколько стоит?',
+        highlights: 'ใช้ Сколько стоит? เมื่อต้องการถามราคาสิ่งของ',
         vocab: [
           ['вода', { th: 'น้ำ', en: 'Water', ru: 'Вода' }],
           ['хлеб', { th: 'ขนมปัง', en: 'Bread', ru: 'Хлеб' }]
@@ -1090,6 +1199,9 @@
         ru: 'Мой день',
         th: 'กิจวัตรประจำวัน',
         en: 'My Day',
+        summary: 'การเล่ากิจวัตรประจำวันและคำกริยาที่พบบ่อย',
+        content: 'читать, писать, вставать, завтракать, обедать, ужинать, отдыхать',
+        highlights: 'ผันคำกริยาให้สอดคล้องกับประธาน я / ты / он / она / мы / вы / они',
         vocab: [
           ['читать', { th: 'อ่าน', en: 'To read', ru: 'Читать' }],
           ['писать', { th: 'เขียน', en: 'To write', ru: 'Писать' }]
@@ -1107,6 +1219,9 @@
         ru: 'Погода и времена года',
         th: 'อากาศและฤดูกาล',
         en: 'Weather & Seasons',
+        summary: 'คำศัพท์เกี่ยวกับสภาพอากาศ ฤดูกาล และธรรมชาติ',
+        content: 'солнце, дождь, снег, ветер, зима, весна, лето, осень',
+        highlights: 'ใช้คำนามและคำคุณศัพท์บรรยายสภาพอากาศในแต่ละวันและแต่ละฤดู',
         vocab: [
           ['солнце', { th: 'ดวงอาทิตย์', en: 'Sun', ru: 'Солнце' }],
           ['дождь', { th: 'ฝน', en: 'Rain', ru: 'Дождь' }]
@@ -1124,6 +1239,9 @@
         ru: 'Путешествие в Россию',
         th: 'การเดินทางไปรัสเซีย',
         en: 'Trip to Russia',
+        summary: 'คำศัพท์และการสื่อสารพื้นฐานสำหรับการเดินทาง',
+        content: 'билет, вокзал, аэропорт, гостиница, паспорт, поезд, самолёт',
+        highlights: 'ทบทวนคำศัพท์และสำนวนพื้นฐานที่ใช้บ่อยในการเดินทางและการท่องเที่ยว',
         vocab: [
           ['билет', { th: 'ตั๋ว', en: 'Ticket', ru: 'Билет' }],
           ['вокзал', { th: 'สถานีรถไฟ', en: 'Railway station', ru: 'Вокзал' }]
@@ -1143,13 +1261,31 @@
     let currentUser = null;
     let progressRows = [];
     let usersList = [];
+    let knowledgeSheets = [];
     let activeLesson = null;
+    let activeRandomQuestions = [];
     let activeTab = 'school';
+    let isRefreshing = false;
     let cachedSchools = [{ schoolName: 'โรงเรียนกมลาไสย', province: 'กาฬสินธุ์' }];
 
+    function getMergedKnowledgeByUnit(unitNum) {
+      const base = LESSONS_A1.find((l) => Number(l.unit) === Number(unitNum)) || {};
+      const sheetItem = knowledgeSheets.find((k) => Number(k.unit) === Number(unitNum));
+      if (!sheetItem) return base;
+      return {
+        ...base,
+        unit: Number(unitNum),
+        th: sheetItem.title || base.th,
+        summary: sheetItem.summary || base.summary,
+        content: sheetItem.content || base.content,
+        highlights: sheetItem.highlights || base.highlights
+      };
+    }
+
     function getLessonSubtitle(item) {
-      if (currentLang === 'en') return item.en;
-      return item.th;
+      const merged = getMergedKnowledgeByUnit(item.unit);
+      if (currentLang === 'en') return merged.en || merged.th;
+      return merged.th;
     }
 
     function applyLanguage(lang) {
@@ -1158,16 +1294,13 @@
       document.querySelectorAll('.lang-btn').forEach((btn) => {
         btn.classList.toggle('active', btn.dataset.lang === currentLang);
       });
-
       const dict = I18N[currentLang];
       document.querySelectorAll('[data-i18n]').forEach((el) => {
         const key = el.getAttribute('data-i18n');
         if (dict[key]) el.textContent = dict[key];
       });
-
       document.getElementById('searchInput').placeholder = dict.searchPlaceholder;
       document.getElementById('submitQuizBtn').textContent = dict.submitQuiz;
-
       if (currentUser) {
         updateSessionUI();
         renderLessonsSection();
@@ -1187,15 +1320,22 @@
           const runner = google.script.run
             .withSuccessHandler((res) => resolve(res))
             .withFailureHandler((err) => reject(new Error(err.message || 'เกิดข้อผิดพลาดจาก Apps Script')));
-
           if (action === 'login') {
             runner.loginUser(payloadObj.username, payloadObj.password);
           } else if (action === 'register') {
             runner.registerUser(payloadObj);
           } else if (action === 'getSchools') {
-            runner.doGet({ parameter: { action: 'getSchools' } });
+            runner.getSchools();
           } else if (action === 'getDashboard') {
             runner.getDashboardByRole(payloadObj.username, payloadObj.password);
+          } else if (action === 'getKnowledgeSheets') {
+            runner.getKnowledgeSheets(payloadObj.unit || null);
+          } else if (action === 'getRandomQuiz') {
+            runner.getRandomQuestionsByUnit(payloadObj.unit, payloadObj.count || 20);
+          } else if (action === 'saveKnowledgeSheet') {
+            runner.saveKnowledgeSheet(payloadObj.username, payloadObj.password, payloadObj.knowledge);
+          } else if (action === 'addQuestionToBank') {
+            runner.addQuestionToBank(payloadObj.username, payloadObj.password, payloadObj.question);
           } else if (action === 'saveProgress') {
             runner.saveStudentProgress(payloadObj.username, payloadObj.password, payloadObj.record);
           } else if (action === 'adminUpdateUser') {
@@ -1205,12 +1345,10 @@
           }
           return;
         }
-
         if (!API_URL || !API_URL.startsWith('http')) {
           reject(new Error('ไม่พบ API_URL'));
           return;
         }
-
         const cbName = 'cb_' + Date.now() + '_' + Math.floor(Math.random() * 100000);
         const script = document.createElement('script');
         const params = { action };
@@ -1218,30 +1356,26 @@
           const val = payloadObj[k];
           params[k] = typeof val === 'object' && val !== null ? JSON.stringify(val) : val;
         });
+        params._ts = Date.now();
         params.callback = cbName;
         const query = new URLSearchParams(params);
-
         const timer = setTimeout(() => {
           cleanup();
           reject(new Error('การเชื่อมต่อใช้เวลานานเกินกำหนด'));
         }, 15000);
-
         function cleanup() {
           clearTimeout(timer);
           if (script.parentNode) script.parentNode.removeChild(script);
           delete window[cbName];
         }
-
         window[cbName] = (data) => {
           cleanup();
           resolve(data);
         };
-
         script.onerror = () => {
           cleanup();
           reject(new Error('ไม่สามารถเชื่อมต่อ Web App ได้ กรุณาตรวจสอบสิทธิ์การเข้าถึงเป็น Anyone'));
         };
-
         script.src = `${API_URL}?${query.toString()}`;
         document.body.appendChild(script);
       });
@@ -1263,7 +1397,6 @@
       const list = (schools && schools.length)
         ? schools
         : [{ schoolName: 'โรงเรียนกมลาไสย', province: 'กาฬสินธุ์' }];
-
       regSchoolSelect.innerHTML = '';
       list.forEach((s) => {
         const opt = document.createElement('option');
@@ -1272,14 +1405,12 @@
         opt.dataset.province = s.province;
         regSchoolSelect.appendChild(opt);
       });
-
       if (canAddSchool) {
         const newOpt = document.createElement('option');
         newOpt.value = '__NEW__';
         newOpt.textContent = '+ เพิ่มโรงเรียนใหม่';
         regSchoolSelect.appendChild(newOpt);
       }
-
       handleSchoolChange();
     }
 
@@ -1340,10 +1471,8 @@
       e.preventDefault();
       const username = document.getElementById('loginUser').value.trim();
       const password = document.getElementById('loginPass').value.trim();
-
       modalMsg.style.color = 'var(--text-muted)';
       modalMsg.textContent = '...';
-
       try {
         const res = await callBackend('login', { username, password });
         if (!res || !res.success) {
@@ -1351,7 +1480,6 @@
           modalMsg.textContent = (res && res.message) || 'Invalid credentials';
           return;
         }
-
         authCredentials = { username, password };
         currentUser = res.user;
         authModal.classList.remove('open');
@@ -1369,10 +1497,8 @@
       const schoolName = isNewSchool
         ? document.getElementById('regNewSchoolName').value.trim()
         : regSchoolSelect.value.trim();
-
       modalMsg.style.color = 'var(--text-muted)';
       modalMsg.textContent = '...';
-
       try {
         const res = await callBackend('register', {
           roleCode: regRoleCode.value,
@@ -1383,7 +1509,6 @@
           schoolName,
           province: regProvince.value.trim()
         });
-
         modalMsg.style.color = (res && res.success) ? '#15803D' : 'var(--primary)';
         modalMsg.textContent = (res && res.message) || 'Error';
         if (res && res.success) {
@@ -1396,13 +1521,117 @@
       }
     };
 
+    function populateAdminUnitDropdowns() {
+      const html = LESSONS_A1.map((l) => `<option value="${l.unit}">บทที่ ${l.unit} — ${l.ru}</option>`).join('');
+      const ksSel = document.getElementById('ksUnitSelect');
+      const aqSel = document.getElementById('aqUnitSelect');
+      const prevKs = ksSel.value || '1';
+      const prevAq = aqSel.value || '1';
+      ksSel.innerHTML = html;
+      aqSel.innerHTML = html;
+      ksSel.value = prevKs;
+      aqSel.value = prevAq;
+      fillAdminKnowledgeEditor(Number(ksSel.value || 1));
+    }
+
+    function fillAdminKnowledgeEditor(unitNum) {
+      const m = getMergedKnowledgeByUnit(unitNum);
+      document.getElementById('ksTitleInput').value = m.th || '';
+      document.getElementById('ksSummaryInput').value = m.summary || '';
+      document.getElementById('ksContentInput').value = m.content || '';
+      document.getElementById('ksHighlightsInput').value = m.highlights || '';
+    }
+
+    document.getElementById('ksUnitSelect').onchange = (e) => {
+      fillAdminKnowledgeEditor(Number(e.target.value));
+    };
+
+    document.getElementById('copyChoice1Btn').onclick = () => {
+      document.getElementById('aqAnswerInput').value = document.getElementById('aqChoice1Input').value.trim();
+    };
+
+    document.getElementById('adminKnowledgeForm').onsubmit = async (e) => {
+      e.preventDefault();
+      if (!authCredentials || !currentUser || Number(currentUser.roleCode) !== 1) return;
+      const msgEl = document.getElementById('adminKnowledgeMsg');
+      const btnEl = document.getElementById('saveKnowledgeBtn');
+      const payload = {
+        unit: Number(document.getElementById('ksUnitSelect').value),
+        title: document.getElementById('ksTitleInput').value.trim(),
+        summary: document.getElementById('ksSummaryInput').value.trim(),
+        content: document.getElementById('ksContentInput').value.trim(),
+        highlights: document.getElementById('ksHighlightsInput').value.trim()
+      };
+      btnEl.disabled = true;
+      msgEl.style.color = 'var(--text-muted)';
+      msgEl.textContent = '...';
+      try {
+        const res = await callBackend('saveKnowledgeSheet', {
+          username: authCredentials.username,
+          password: authCredentials.password,
+          knowledge: payload
+        });
+        msgEl.style.color = (res && res.success) ? '#15803D' : 'var(--primary)';
+        msgEl.textContent = (res && res.message) || 'Error';
+        if (res && res.success) {
+          await fetchAndRenderDashboard();
+        }
+      } catch (err) {
+        msgEl.style.color = 'var(--primary)';
+        msgEl.textContent = err.message;
+      } finally {
+        btnEl.disabled = false;
+      }
+    };
+
+    document.getElementById('adminQuestionForm').onsubmit = async (e) => {
+      e.preventDefault();
+      if (!authCredentials || !currentUser || Number(currentUser.roleCode) !== 1) return;
+      const msgEl = document.getElementById('adminQuestionMsg');
+      const btnEl = document.getElementById('saveQuestionBtn');
+      const qPayload = {
+        unit: Number(document.getElementById('aqUnitSelect').value),
+        question: document.getElementById('aqQuestionInput').value.trim(),
+        choice1: document.getElementById('aqChoice1Input').value.trim(),
+        choice2: document.getElementById('aqChoice2Input').value.trim(),
+        choice3: document.getElementById('aqChoice3Input').value.trim(),
+        choice4: document.getElementById('aqChoice4Input').value.trim(),
+        answer: document.getElementById('aqAnswerInput').value.trim(),
+        weight: Number(document.getElementById('aqWeightInput').value || 1)
+      };
+      btnEl.disabled = true;
+      msgEl.style.color = 'var(--text-muted)';
+      msgEl.textContent = '...';
+      try {
+        const res = await callBackend('addQuestionToBank', {
+          username: authCredentials.username,
+          password: authCredentials.password,
+          question: qPayload
+        });
+        msgEl.style.color = (res && res.success) ? '#15803D' : 'var(--primary)';
+        msgEl.textContent = (res && res.message) || 'Error';
+        if (res && res.success) {
+          document.getElementById('aqQuestionInput').value = '';
+          document.getElementById('aqChoice1Input').value = '';
+          document.getElementById('aqChoice2Input').value = '';
+          document.getElementById('aqChoice3Input').value = '';
+          document.getElementById('aqChoice4Input').value = '';
+          document.getElementById('aqAnswerInput').value = '';
+        }
+      } catch (err) {
+        msgEl.style.color = 'var(--primary)';
+        msgEl.textContent = err.message;
+      } finally {
+        btnEl.disabled = false;
+      }
+    };
+
     function updateSessionUI() {
       const guestActions = document.getElementById('guestActions');
       const userActions = document.getElementById('userActions');
       const guestHero = document.getElementById('guestHeroSection');
       const workspace = document.getElementById('workspaceSection');
       const dict = I18N[currentLang];
-
       if (currentUser) {
         guestActions.style.display = 'none';
         userActions.style.display = 'flex';
@@ -1410,15 +1639,15 @@
         workspace.style.display = 'block';
         document.getElementById('currentUserBadge').textContent =
           `${currentUser.fullName} · ${currentUser.roleName}`;
-
         const code = Number(currentUser.roleCode);
         document.getElementById('lessonsSection').style.display = code === 4 ? 'block' : 'none';
         document.getElementById('tabManageUsers').style.display = code === 1 ? 'inline-block' : 'none';
-
-        if (code !== 1 && activeTab === 'users') {
+        document.getElementById('tabAdminContent').style.display = code === 1 ? 'inline-block' : 'none';
+        if (code !== 1 && (activeTab === 'users' || activeTab === 'adminContent')) {
           switchTab('school');
+        } else if (code === 1) {
+          populateAdminUnitDropdowns();
         }
-
         const scopeEl = document.getElementById('scopeNotice');
         if (code === 1) {
           scopeEl.textContent = dict.scope1;
@@ -1429,7 +1658,6 @@
         } else {
           scopeEl.textContent = `${dict.scope4} — ${currentUser.school || ''}`;
         }
-
         if (code === 4) {
           renderLessonsSection();
         }
@@ -1446,7 +1674,6 @@
       const grid = document.getElementById('lessonsGrid');
       const doneUnits = new Set(progressRows.map((r) => r.unit));
       const dict = I18N[currentLang];
-
       grid.innerHTML = LESSONS_A1.map((item) => {
         const unitLabel = `หน่วยที่ ${item.unit}`;
         const displayUnit = `${dict.unitPrefix} ${item.unit}`;
@@ -1468,70 +1695,132 @@
     }
 
     const lessonModal = document.getElementById('lessonModal');
+
+    function setLessonStage(stage) {
+      const isSheet = stage === 'sheet';
+      document.getElementById('lessonSheetStage').style.display = isSheet ? 'block' : 'none';
+      document.getElementById('lessonQuizStage').style.display = isSheet ? 'none' : 'block';
+      document.getElementById('btnModeSheet').classList.toggle('active', isSheet);
+      document.getElementById('btnModeQuiz').classList.toggle('active', !isSheet);
+      if (!isSheet && activeLesson) {
+        loadRandomQuestionsForUnit(activeLesson.unit, 20);
+      }
+    }
+
+    function buildFallbackUnitQuestions(unitItem) {
+      const choicesArr = unitItem.choices[currentLang] || unitItem.choices.th;
+      const ansText = choicesArr[unitItem.ansIndex] || choicesArr[0];
+      return [{
+        id: 'FALLBACK_' + unitItem.unit,
+        unit: unitItem.unit,
+        question: unitItem.q[currentLang] || unitItem.q.th,
+        choices: choicesArr,
+        answer: ansText,
+        weight: 20
+      }];
+    }
+
+    function renderRandomQuestions(questions) {
+      const container = document.getElementById('randomQuizContainer');
+      const dict = I18N[currentLang];
+      if (!questions || !questions.length) {
+        container.innerHTML = `<p style="margin-bottom:12px;">${dict.noData}</p>`;
+        return;
+      }
+      container.innerHTML = questions.map((q, idx) => `
+        <div class="question-card">
+          <div style="font-weight:700; margin-bottom:6px; color:var(--footer-bg);">
+            ${idx + 1}. ${q.question} <span style="font-size:0.8rem; color:var(--text-muted);">(${q.weight} คะแนน)</span>
+          </div>
+          ${q.choices.map((c, cIdx) => `
+            <label class="choice-option">
+              <input type="radio" name="rq_${idx}" value="${c.replace(/"/g, '&quot;')}" ${cIdx === 0 ? 'required' : ''} />
+              <span class="ru-font">${c}</span>
+            </label>
+          `).join('')}
+        </div>
+      `).join('');
+    }
+
+    async function loadRandomQuestionsForUnit(unitNum, count) {
+      const baseItem = LESSONS_A1.find((l) => Number(l.unit) === Number(unitNum));
+      const container = document.getElementById('randomQuizContainer');
+      container.innerHTML = '<p style="margin-bottom:12px;">กำลังสุ่มคำถามจากคลัง...</p>';
+      try {
+        const res = await callBackend('getRandomQuiz', { unit: unitNum, count: count || 20 });
+        if (res && res.success && Array.isArray(res.questions) && res.questions.length > 0) {
+          activeRandomQuestions = res.questions.slice(0, 20);
+          renderRandomQuestions(activeRandomQuestions);
+          return;
+        }
+      } catch (err) {}
+      activeRandomQuestions = baseItem ? buildFallbackUnitQuestions(baseItem) : [];
+      renderRandomQuestions(activeRandomQuestions);
+    }
+
     window.openLessonModal = function(unitNum) {
       const item = LESSONS_A1.find((l) => l.unit === unitNum);
       if (!item) return;
+      const merged = getMergedKnowledgeByUnit(unitNum);
       activeLesson = item;
       const dict = I18N[currentLang];
-
       document.getElementById('lessonModalUnit').textContent = `${dict.unitPrefix} ${item.unit}`;
       document.getElementById('lessonModalTitle').textContent = `${item.ru} — ${getLessonSubtitle(item)}`;
-      document.getElementById('lessonModalSummary').textContent = dict.lessonSummary;
-
-      document.getElementById('lessonVocabList').innerHTML = item.vocab.map((v) => {
-        const meaning = (v[1] && v[1][currentLang]) ? v[1][currentLang] : (v[1] && v[1].th) || '';
-        return `
-          <div class="vocab-row">
-            <strong class="ru-font">${v[0]}</strong>
-            <span>${meaning}</span>
-          </div>
-        `;
-      }).join('');
-
-      document.getElementById('quizQuestionLabel').textContent = item.q[currentLang] || item.q.th;
-      const choicesArr = item.choices[currentLang] || item.choices.th;
-      const selectEl = document.getElementById('quizAnswerSelect');
-      selectEl.innerHTML = `<option value="">${dict.choosePrompt}</option>` +
-        choicesArr.map((c, idx) => `<option value="${idx}">${c}</option>`).join('');
-
+      document.getElementById('lessonModalSummary').textContent = merged.summary || dict.lessonSummary;
+      document.getElementById('lessonSheetContent').textContent = merged.content || '';
+      document.getElementById('lessonSheetHighlights').textContent = merged.highlights ? `จุดสำคัญ/ตัวอย่าง: ${merged.highlights}` : '';
       document.getElementById('lessonMsg').textContent = '';
+      setLessonStage('sheet');
       lessonModal.classList.add('open');
     };
 
+    document.getElementById('btnModeSheet').onclick = () => setLessonStage('sheet');
+    document.getElementById('btnModeQuiz').onclick = () => setLessonStage('quiz');
+    document.getElementById('proceedToQuizBtn').onclick = () => setLessonStage('quiz');
+    document.getElementById('backToSheetBtn').onclick = () => setLessonStage('sheet');
+    document.getElementById('reshuffleQuizBtn').onclick = () => {
+      if (activeLesson) loadRandomQuestionsForUnit(activeLesson.unit, 20);
+    };
     document.getElementById('closeLessonModalBtn').onclick = () => lessonModal.classList.remove('open');
 
     document.getElementById('quizSubmitForm').onsubmit = async (e) => {
       e.preventDefault();
-      if (!activeLesson || !authCredentials) return;
+      if (!activeLesson || !authCredentials || !activeRandomQuestions.length) return;
+      let earnedScore = 0;
+      let totalWeight = 0;
 
-      const selectedIdx = Number(document.getElementById('quizAnswerSelect').value);
-      const score = selectedIdx === activeLesson.ansIndex ? 20 : 10;
-      const status = score >= 12 ? 'ผ่าน' : 'กำลังปรับปรุง';
+      activeRandomQuestions.forEach((q, idx) => {
+        const w = Number(q.weight || 1);
+        totalWeight += w;
+        const checked = document.querySelector(`input[name="rq_${idx}"]:checked`);
+        if (checked && String(checked.value).trim() === String(q.answer).trim()) {
+          earnedScore += w;
+        }
+      });
+
+      const pct = totalWeight > 0 ? (earnedScore / totalWeight) * 100 : 0;
+      const status = pct >= 60 ? 'ผ่าน' : 'กำลังปรับปรุง';
       const msgEl = document.getElementById('lessonMsg');
-
       msgEl.style.color = 'var(--text-muted)';
       msgEl.textContent = '...';
-
       try {
         const res = await callBackend('saveProgress', {
           username: authCredentials.username,
           password: authCredentials.password,
           record: {
             unit: `หน่วยที่ ${activeLesson.unit}`,
-            score: score,
-            maxScore: 20,
+            score: earnedScore,
+            maxScore: totalWeight,
             status: status
           }
         });
-
         if (!res || !res.success) {
           msgEl.style.color = 'var(--primary)';
           msgEl.textContent = (res && res.message) || 'Error';
           return;
         }
-
         msgEl.style.color = '#15803D';
-        msgEl.textContent = `${score}/20 (${status})`;
+        msgEl.textContent = `${earnedScore}/${totalWeight} (${status})`;
         await fetchAndRenderDashboard();
       } catch (err) {
         msgEl.style.color = 'var(--primary)';
@@ -1562,7 +1851,6 @@
       const msgEl = document.getElementById('editUserMsg');
       msgEl.style.color = 'var(--text-muted)';
       msgEl.textContent = '...';
-
       try {
         const res = await callBackend('adminUpdateUser', {
           username: authCredentials.username,
@@ -1577,13 +1865,11 @@
             roleCode: Number(document.getElementById('editRoleCode').value)
           }
         });
-
         if (!res || !res.success) {
           msgEl.style.color = 'var(--primary)';
           msgEl.textContent = (res && res.message) || 'Error';
           return;
         }
-
         msgEl.style.color = '#15803D';
         msgEl.textContent = res.message;
         await fetchAndRenderDashboard();
@@ -1616,11 +1902,17 @@
       currentUser = null;
       progressRows = [];
       usersList = [];
+      knowledgeSheets = [];
       updateSessionUI();
     };
 
     async function fetchAndRenderDashboard() {
-      if (!authCredentials || !currentUser) return;
+      if (!authCredentials || !currentUser || isRefreshing) return;
+      const refreshBtn = document.getElementById('refreshDashBtn');
+      const prevLabel = refreshBtn.textContent;
+      isRefreshing = true;
+      refreshBtn.disabled = true;
+      refreshBtn.textContent = '↻ ...';
       try {
         const res = await callBackend('getDashboard', {
           username: authCredentials.username,
@@ -1635,8 +1927,18 @@
           return;
         }
         currentUser = res.user || currentUser;
-        progressRows = res.progress || [];
+        const rawProg = res.progress || [];
+        // กรองฝั่งหน้าเว็บซ้ำอีกชั้น: ผู้เรียน (roleCode === 4) เห็นเฉพาะคะแนนของตนเองเท่านั้น
+        if (Number(currentUser.roleCode) === 4) {
+          progressRows = rawProg.filter((r) => String(r.username).trim() === String(currentUser.username).trim());
+        } else {
+          progressRows = rawProg;
+        }
         usersList = res.users || [];
+        knowledgeSheets = Array.isArray(res.knowledge) ? res.knowledge : [];
+        if (Array.isArray(res.schools) && res.schools.length > 0) {
+          cachedSchools = res.schools;
+        }
         document.getElementById('dashRoleBadge').textContent = currentUser.roleName;
         updateSessionUI();
         setupFilters();
@@ -1646,6 +1948,10 @@
         updateSessionUI();
         setupFilters();
         renderTables();
+      } finally {
+        isRefreshing = false;
+        refreshBtn.disabled = false;
+        refreshBtn.textContent = prevLabel;
       }
     }
 
@@ -1654,12 +1960,10 @@
       const unitFilter = document.getElementById('unitFilter');
       const dict = I18N[currentLang];
       const roleCode = Number(currentUser && currentUser.roleCode);
-
       const schools = [...new Set([
         ...progressRows.map((r) => r.school).filter(Boolean),
         ...(currentUser && currentUser.school ? [currentUser.school] : [])
       ])];
-
       schoolFilter.innerHTML = `<option value="">${dict.allSchools}</option>`;
       schools.forEach((sc) => {
         const opt = document.createElement('option');
@@ -1667,14 +1971,12 @@
         opt.textContent = sc;
         schoolFilter.appendChild(opt);
       });
-
       if ((roleCode === 3 || roleCode === 4) && currentUser && currentUser.school) {
         schoolFilter.value = currentUser.school;
         schoolFilter.disabled = true;
       } else {
         schoolFilter.disabled = false;
       }
-
       unitFilter.innerHTML = `<option value="">${dict.allUnits}</option>`;
       for (let u = 1; u <= 10; u++) {
         const val = `หน่วยที่ ${u}`;
@@ -1689,8 +1991,11 @@
       const q = document.getElementById('searchInput').value.trim().toLowerCase();
       const sc = document.getElementById('schoolFilter').value;
       const un = document.getElementById('unitFilter').value;
-
+      const roleCode = Number(currentUser && currentUser.roleCode);
       return progressRows.filter((r) => {
+        if (roleCode === 4 && currentUser && String(r.username).trim() !== String(currentUser.username).trim()) {
+          return false;
+        }
         const matchSchool = !sc || r.school === sc;
         const matchUnit = !un || r.unit === un;
         const matchQuery = !q ||
@@ -1705,7 +2010,6 @@
       const rows = getFilteredProgress();
       const dict = I18N[currentLang];
       const roleCode = Number(currentUser && currentUser.roleCode);
-
       const uniqueStudents = new Set(rows.map((r) => r.username));
       if (roleCode === 4 && uniqueStudents.size === 0 && currentUser) {
         uniqueStudents.add(currentUser.username);
@@ -1714,12 +2018,10 @@
       if ((roleCode === 3 || roleCode === 4) && uniqueSchools.size === 0 && currentUser && currentUser.school) {
         uniqueSchools.add(currentUser.school);
       }
-
       const pctSumAll = rows.reduce((acc, r) => acc + ((Number(r.score) / (Number(r.maxScore) || 20)) * 100), 0);
       const avgPct = rows.length ? (pctSumAll / rows.length).toFixed(1) : '0.0';
       const passCount = rows.filter((r) => String(r.status).includes('ผ่าน')).length;
       const passRate = rows.length ? ((passCount / rows.length) * 100).toFixed(1) : '0.0';
-
       document.getElementById('kpiStudents').textContent = `${uniqueStudents.size}`;
       document.getElementById('kpiSchools').textContent = `${uniqueSchools.size}`;
       document.getElementById('kpiAvgScore').textContent = `${avgPct}%`;
@@ -1833,24 +2135,25 @@
       document.getElementById('tabByStudent').classList.toggle('active', mode === 'student');
       document.getElementById('tabRawRecords').classList.toggle('active', mode === 'records');
       document.getElementById('tabManageUsers').classList.toggle('active', mode === 'users');
-
+      document.getElementById('tabAdminContent').classList.toggle('active', mode === 'adminContent');
       document.getElementById('schoolView').style.display = mode === 'school' ? 'block' : 'none';
       document.getElementById('studentView').style.display = mode === 'student' ? 'block' : 'none';
       document.getElementById('recordsView').style.display = mode === 'records' ? 'block' : 'none';
       document.getElementById('usersManageView').style.display = mode === 'users' ? 'block' : 'none';
-      document.getElementById('progressFilterBar').style.display = mode === 'users' ? 'none' : 'grid';
+      document.getElementById('adminContentView').style.display = mode === 'adminContent' ? 'block' : 'none';
+      const showFilters = (mode === 'school' || mode === 'student' || mode === 'records');
+      document.getElementById('progressFilterBar').style.display = showFilters ? 'grid' : 'none';
     }
 
     document.getElementById('tabBySchool').onclick = () => switchTab('school');
     document.getElementById('tabByStudent').onclick = () => switchTab('student');
     document.getElementById('tabRawRecords').onclick = () => switchTab('records');
     document.getElementById('tabManageUsers').onclick = () => switchTab('users');
-
+    document.getElementById('tabAdminContent').onclick = () => switchTab('adminContent');
     document.getElementById('searchInput').oninput = renderTables;
     document.getElementById('schoolFilter').onchange = renderTables;
     document.getElementById('unitFilter').onchange = renderTables;
     document.getElementById('refreshDashBtn').onclick = fetchAndRenderDashboard;
-
     applyLanguage('th');
   </script>
 </body>
