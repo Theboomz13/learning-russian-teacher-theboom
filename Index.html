@@ -215,7 +215,7 @@
       settled = true;
       cleanup();
       onComplete(new Error('JSONP timeout'), null);
-    }, 15000);
+    }, 20000);
 
     function cleanup() {
       clearTimeout(timer);
@@ -289,7 +289,7 @@
     const action = actionMap[methodName];
     const payload = Object.assign({}, args || {});
 
-    function extractValue_(raw) {
+    function unwrap_(raw) {
       if (methodName === 'getQuestionBankStats') return raw && raw.stats;
       if (methodName === 'getSchools') return raw && raw.schools;
       if (methodName === 'getRandomQuestions') return raw && raw.quiz;
@@ -299,7 +299,7 @@
 
     requestJsonp_(action, payload, (errJsonp, dataJsonp) => {
       if (!errJsonp && dataJsonp) {
-        cb(null, extractValue_(dataJsonp));
+        cb(null, unwrap_(dataJsonp));
         return;
       }
 
@@ -313,7 +313,7 @@
           if (!r.ok) throw new Error('HTTP ' + r.status);
           return r.json();
         })
-        .then(dataPost => cb(null, extractValue_(dataPost)))
+        .then(dataPost => cb(null, unwrap_(dataPost)))
         .catch(errPost => cb(errPost || errJsonp, null));
     });
   }
