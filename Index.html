@@ -186,6 +186,53 @@
   let schoolCache = [];
   let quizList = [];
 
+  function callJsonp_(action, payloadObj, onDone) {
+    const cbName = 'cb_' + action + '_' + Date.now() + '_' + Math.floor(Math.random() * 10000);
+    const script = document.createElement('script');
+    let settled = false;
+
+    const timer = setTimeout(() => {
+      if (settled) return;
+      settled = true;
+      cleanup();
+      onDone(new Error('JSONP timeout'), null);
+    }, 15000);
+
+    function cleanup() {
+      clearTimeout(timer);
+      try { delete window[cbName]; } catch (e) { window[cbName] = undefined; }
+      if (script && script.parentNode) script.parentNode.removeChild(script);
+    }
+
+    window[cbName] = function(data) {
+      if (settled) return;
+      settled = true;
+      cleanup();
+      onDone(null, data);
+    };
+
+    const qs = new URLSearchParams();
+    qs.set('action', action);
+    qs.set('callback', cbName);
+    if (payloadObj && typeof payloadObj === 'object') {
+      Object.keys(payloadObj).forEach(k => {
+        const v = payloadObj[k];
+        if (v !== undefined && v !== null) {
+          qs.set(k, typeof v === 'object' ? JSON.stringify(v) : String(v));
+        }
+      });
+    }
+
+    script.src = WEB_APP_URL + (WEB_APP_URL.includes('?') ? '&' : '?') + qs.toString();
+    script.onerror = function() {
+      if (settled) return;
+      settled = true;
+      cleanup();
+      onDone(new Error('Script load error'), null);
+    };
+    document.body.appendChild(script);
+  }
+
   function callServer(fnName, argsObj, cb) {
     if (window.google && google.script && google.script.run && window.location.hostname.includes('googleusercontent.com')) {
       const runner = google.script.run
@@ -214,25 +261,34 @@
       getLearningHistory: 'history'
     };
 
-    const payload = Object.assign({ action: actionMap[fnName] }, argsObj || {});
+    const action = actionMap[fnName];
+    const payload = Object.assign({}, argsObj || {});
+
+    function unwrap_(data) {
+      if (fnName === 'getQuestionBankStats') return data && data.stats;
+      if (fnName === 'getSchools') return data && data.schools;
+      if (fnName === 'getRandomQuestions') return data && data.quiz;
+      if (fnName === 'getLearningHistory') return data && data.records;
+      return data;
+    }
+
     fetch(WEB_APP_URL, {
       method: 'POST',
       redirect: 'follow',
       headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-      body: JSON.stringify(payload)
+      body: JSON.stringify(Object.assign({ action: action }, payload))
     })
       .then(r => {
         if (!r.ok) throw new Error('HTTP ' + r.status);
         return r.json();
       })
-      .then(data => {
-        if (fnName === 'getQuestionBankStats') cb(null, data.stats);
-        else if (fnName === 'getSchools') cb(null, data.schools);
-        else if (fnName === 'getRandomQuestions') cb(null, data.quiz);
-        else if (fnName === 'getLearningHistory') cb(null, data.records);
-        else cb(null, data);
-      })
-      .catch(err => cb(err, null));
+      .then(data => cb(null, unwrap_(data)))
+      .catch(() => {
+        callJsonp_(action, payload, (err2, data2) => {
+          if (err2 || !data2) return cb(err2 || new Error('Connection failed'), null);
+          cb(null, unwrap_(data2));
+        });
+      });
   }
 
   window.onload = function() {
