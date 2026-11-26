@@ -10,10 +10,13 @@
       font-family: "Roboto", "Noto Sans Thai", sans-serif;
       background: #f1f5f9;
       margin: 0;
-      padding: 20px;
+      padding: 20px 20px 0 20px;
       color: #0f172a;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
-    .wrap { max-width: 980px; margin: 0 auto; }
+    .wrap { max-width: 980px; width: 100%; margin: 0 auto; flex: 1; }
     .card {
       background: #ffffff;
       border-radius: 14px;
@@ -73,6 +76,18 @@
     table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 13px; }
     th, td { border: 1px solid #e2e8f0; padding: 8px 10px; text-align: left; }
     th { background: #f8fafc; font-weight: 700; }
+
+    .bottom-credit-bar {
+      width: calc(100% + 40px);
+      margin-left: -20px;
+      margin-top: 24px;
+      background: #1d4ed8;
+      color: #ffffff;
+      text-align: center;
+      padding: 12px 16px;
+      font-size: 13px;
+      font-weight: 500;
+    }
   </style>
 </head>
 <body>
@@ -178,6 +193,10 @@
 
 </div>
 
+<footer class="bottom-credit-bar">
+  ออกแบบโดย นายกัมพล วรรณลักษณ์ ประยูรรัตนวงศ์
+</footer>
+
 <script>
   const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwYWUqzGEftT4yRQceF_Hu2dUAkD5ZC93vlRbJC7dr-4teTpgBJwAJ9si5Uttg72JsC/exec";
 
@@ -187,15 +206,15 @@
   let quizList = [];
 
   function requestJsonp_(action, payload, onComplete) {
-    const callbackName = '__app_cb_' + action + '_' + Date.now() + '_' + Math.floor(Math.random() * 100000);
+    const callbackName = '__cb_' + action + '_' + Date.now() + '_' + Math.floor(Math.random() * 100000);
     const scriptEl = document.createElement('script');
-    let done = false;
+    let settled = false;
 
     const timer = setTimeout(() => {
-      if (done) return;
-      done = true;
+      if (settled) return;
+      settled = true;
       cleanup();
-      onComplete(new Error('หมดเวลาการเชื่อมต่อกับ Web App'), null);
+      onComplete(new Error('JSONP timeout'), null);
     }, 15000);
 
     function cleanup() {
@@ -206,34 +225,34 @@
       }
     }
 
-    window[callbackName] = function(responseData) {
-      if (done) return;
-      done = true;
+    window[callbackName] = function(data) {
+      if (settled) return;
+      settled = true;
       cleanup();
-      onComplete(null, responseData);
+      onComplete(null, data);
     };
 
-    const query = new URLSearchParams();
-    query.set('action', action);
-    query.set('callback', callbackName);
-    query.set('_ts', String(Date.now()));
+    const qs = new URLSearchParams();
+    qs.set('action', action);
+    qs.set('callback', callbackName);
+    qs.set('_t', String(Date.now()));
 
     if (payload && typeof payload === 'object') {
       Object.keys(payload).forEach(key => {
-        const val = payload[key];
-        if (val !== undefined && val !== null) {
-          query.set(key, typeof val === 'object' ? JSON.stringify(val) : String(val));
+        const v = payload[key];
+        if (v !== undefined && v !== null) {
+          qs.set(key, typeof v === 'object' ? JSON.stringify(v) : String(v));
         }
       });
     }
 
-    const sep = WEB_APP_URL.indexOf('?') >= 0 ? '&' : '?';
-    scriptEl.src = WEB_APP_URL + sep + query.toString();
+    const joiner = WEB_APP_URL.indexOf('?') >= 0 ? '&' : '?';
+    scriptEl.src = WEB_APP_URL + joiner + qs.toString();
     scriptEl.onerror = function() {
-      if (done) return;
-      done = true;
+      if (settled) return;
+      settled = true;
       cleanup();
-      onComplete(new Error('โหลดสคริปต์จาก Web App ไม่สำเร็จ'), null);
+      onComplete(new Error('Script load error'), null);
     };
 
     document.body.appendChild(scriptEl);
@@ -270,7 +289,7 @@
     const action = actionMap[methodName];
     const payload = Object.assign({}, args || {});
 
-    function extractValue_(raw) {
+    function unwrap_(raw) {
       if (methodName === 'getQuestionBankStats') return raw && raw.stats;
       if (methodName === 'getSchools') return raw && raw.schools;
       if (methodName === 'getRandomQuestions') return raw && raw.quiz;
@@ -280,7 +299,7 @@
 
     requestJsonp_(action, payload, (errJsonp, dataJsonp) => {
       if (!errJsonp && dataJsonp) {
-        cb(null, extractValue_(dataJsonp));
+        cb(null, unwrap_(dataJsonp));
         return;
       }
 
@@ -294,7 +313,7 @@
           if (!r.ok) throw new Error('HTTP ' + r.status);
           return r.json();
         })
-        .then(dataPost => cb(null, extractValue_(dataPost)))
+        .then(dataPost => cb(null, unwrap_(dataPost)))
         .catch(errPost => cb(errPost || errJsonp, null));
     });
   }
