@@ -82,12 +82,12 @@
     <h1>Русский сезон А1 — คลังข้อสอบและแบบฝึกหัด</h1>
 
     <div id="authBox">
-      <div class="row" style="margin-bottom: 10px;">
-        <input id="loginUser" type="text" placeholder="ชื่อผู้ใช้ (User)" />
-        <input id="loginPass" type="password" placeholder="รหัสผ่าน (Password)" />
-        <button onclick="onLogin()">ลงชื่อเข้าใช้</button>
-        <button class="secondary" onclick="toggleRegister()">สมัครผู้เรียนใหม่</button>
-      </div>
+      <form class="row" style="margin-bottom: 10px;" onsubmit="onLogin(event)">
+        <input id="loginUser" type="text" placeholder="ชื่อผู้ใช้ (User)" autocomplete="username" />
+        <input id="loginPass" type="password" placeholder="รหัสผ่าน (Password)" autocomplete="current-password" />
+        <button type="submit">ลงชื่อเข้าใช้</button>
+        <button type="button" class="secondary" onclick="toggleRegister()">สมัครผู้เรียนใหม่</button>
+      </form>
       <div id="authMsg"></div>
 
       <div id="registerPanel" style="display:none; margin-top:12px; padding-top:12px; border-top:1px dashed #cbd5e1;">
@@ -104,14 +104,14 @@
         </div>
         <div class="row">
           <input id="regContact" type="text" style="flex:1;" placeholder="อีเมลหรือเบอร์ติดต่อ" />
-          <button onclick="onRegister()">ยืนยันสมัครสมาชิก</button>
+          <button type="button" onclick="onRegister()">ยืนยันสมัครสมาชิก</button>
         </div>
       </div>
     </div>
 
     <div id="sessionBar" style="display:none;" class="row">
       <span id="sessionInfo"></span>
-      <button class="secondary" onclick="onLogout()">ออกจากระบบ</button>
+      <button type="button" class="secondary" onclick="onLogout()">ออกจากระบบ</button>
     </div>
 
     <div class="grid-3" style="margin-top:16px;">
@@ -131,9 +131,9 @@
   </div>
 
   <div class="tabs">
-    <button class="tab-btn active" id="btnTabQuiz" onclick="openTab('quiz')">ทำแบบฝึกหัด (สุ่ม 20 ข้อ)</button>
-    <button class="tab-btn" id="btnTabHistory" onclick="openTab('history')">ประวัติผลการเรียน</button>
-    <button class="tab-btn" id="btnTabAdmin" style="display:none;" onclick="openTab('admin')">เพิ่มข้อสอบ (Admin)</button>
+    <button type="button" class="tab-btn active" id="btnTabQuiz" onclick="openTab('quiz')">ทำแบบฝึกหัด (สุ่ม 20 ข้อ)</button>
+    <button type="button" class="tab-btn" id="btnTabHistory" onclick="openTab('history')">ประวัติผลการเรียน</button>
+    <button type="button" class="tab-btn" id="btnTabAdmin" style="display:none;" onclick="openTab('admin')">เพิ่มข้อสอบ (Admin)</button>
   </div>
 
   <div class="card" id="secQuiz">
@@ -141,7 +141,7 @@
     <div class="row">
       <label for="chapterSelect">เลือกบทที่:</label>
       <select id="chapterSelect" onchange="updateChapterStat()"></select>
-      <button onclick="startChapterQuiz()">สุ่มข้อสอบ (20 ข้อ)</button>
+      <button type="button" onclick="startChapterQuiz()">สุ่มข้อสอบ (20 ข้อ)</button>
     </div>
     <div id="quizMeta" class="muted" style="margin-top:8px;"></div>
     <form id="quizForm" onsubmit="submitQuiz(event)" style="margin-top:12px;"></form>
@@ -150,7 +150,7 @@
 
   <div class="card" id="secHistory" style="display:none;">
     <h2>ประวัติผลการเรียนและแบบฝึกหัด</h2>
-    <div class="row"><button class="secondary" onclick="loadHistory()">รีเฟรชข้อมูล</button></div>
+    <div class="row"><button type="button" class="secondary" onclick="loadHistory()">รีเฟรชข้อมูล</button></div>
     <div id="historyContent">กรุณาลงชื่อเข้าใช้ก่อนดูประวัติ</div>
   </div>
 
@@ -171,7 +171,7 @@
     </div>
     <div class="row">
       <input id="addAnswer" type="text" style="flex:1;" placeholder="เฉลย (ระบุให้ตรงกับตัวเลือกที่ถูก)" />
-      <button onclick="saveNewQuestion()">บันทึกเข้าคลังข้อสอบ</button>
+      <button type="button" onclick="saveNewQuestion()">บันทึกเข้าคลังข้อสอบ</button>
     </div>
     <div id="addMsg" style="margin-top:10px;"></div>
   </div>
@@ -186,67 +186,73 @@
   let schoolCache = [];
   let quizList = [];
 
-  function callJsonp_(action, payloadObj, onDone) {
-    const cbName = 'cb_' + action + '_' + Date.now() + '_' + Math.floor(Math.random() * 10000);
-    const script = document.createElement('script');
-    let settled = false;
+  function requestJsonp_(action, payload, onComplete) {
+    const callbackName = '__app_cb_' + action + '_' + Date.now() + '_' + Math.floor(Math.random() * 100000);
+    const scriptEl = document.createElement('script');
+    let done = false;
 
     const timer = setTimeout(() => {
-      if (settled) return;
-      settled = true;
+      if (done) return;
+      done = true;
       cleanup();
-      onDone(new Error('JSONP timeout'), null);
+      onComplete(new Error('หมดเวลาการเชื่อมต่อกับ Web App'), null);
     }, 15000);
 
     function cleanup() {
       clearTimeout(timer);
-      try { delete window[cbName]; } catch (e) { window[cbName] = undefined; }
-      if (script && script.parentNode) script.parentNode.removeChild(script);
+      try { delete window[callbackName]; } catch (e) { window[callbackName] = undefined; }
+      if (scriptEl && scriptEl.parentNode) {
+        scriptEl.parentNode.removeChild(scriptEl);
+      }
     }
 
-    window[cbName] = function(data) {
-      if (settled) return;
-      settled = true;
+    window[callbackName] = function(responseData) {
+      if (done) return;
+      done = true;
       cleanup();
-      onDone(null, data);
+      onComplete(null, responseData);
     };
 
-    const qs = new URLSearchParams();
-    qs.set('action', action);
-    qs.set('callback', cbName);
-    if (payloadObj && typeof payloadObj === 'object') {
-      Object.keys(payloadObj).forEach(k => {
-        const v = payloadObj[k];
-        if (v !== undefined && v !== null) {
-          qs.set(k, typeof v === 'object' ? JSON.stringify(v) : String(v));
+    const query = new URLSearchParams();
+    query.set('action', action);
+    query.set('callback', callbackName);
+    query.set('_ts', String(Date.now()));
+
+    if (payload && typeof payload === 'object') {
+      Object.keys(payload).forEach(key => {
+        const val = payload[key];
+        if (val !== undefined && val !== null) {
+          query.set(key, typeof val === 'object' ? JSON.stringify(val) : String(val));
         }
       });
     }
 
-    script.src = WEB_APP_URL + (WEB_APP_URL.includes('?') ? '&' : '?') + qs.toString();
-    script.onerror = function() {
-      if (settled) return;
-      settled = true;
+    const sep = WEB_APP_URL.indexOf('?') >= 0 ? '&' : '?';
+    scriptEl.src = WEB_APP_URL + sep + query.toString();
+    scriptEl.onerror = function() {
+      if (done) return;
+      done = true;
       cleanup();
-      onDone(new Error('Script load error'), null);
+      onComplete(new Error('โหลดสคริปต์จาก Web App ไม่สำเร็จ'), null);
     };
-    document.body.appendChild(script);
+
+    document.body.appendChild(scriptEl);
   }
 
-  function callServer(fnName, argsObj, cb) {
+  function callBackend_(methodName, args, cb) {
     if (window.google && google.script && google.script.run && window.location.hostname.includes('googleusercontent.com')) {
-      const runner = google.script.run
+      const api = google.script.run
         .withSuccessHandler(res => cb(null, res))
         .withFailureHandler(err => cb(err, null));
 
-      if (fnName === 'verifyLogin') runner.verifyLogin(argsObj.username, argsObj.password);
-      else if (fnName === 'registerUser') runner.registerUser(argsObj);
-      else if (fnName === 'getSchools') runner.getSchools();
-      else if (fnName === 'getQuestionBankStats') runner.getQuestionBankStats();
-      else if (fnName === 'getRandomQuestions') runner.getRandomQuestions(argsObj.chapter, argsObj.limit);
-      else if (fnName === 'submitQuizResult') runner.submitQuizResult(argsObj);
-      else if (fnName === 'addQuestion') runner.addQuestion(argsObj.user, argsObj.questionData);
-      else if (fnName === 'getLearningHistory') runner.getLearningHistory(argsObj.user);
+      if (methodName === 'verifyLogin') api.verifyLogin(args.username, args.password);
+      else if (methodName === 'registerUser') api.registerUser(args);
+      else if (methodName === 'getSchools') api.getSchools();
+      else if (methodName === 'getQuestionBankStats') api.getQuestionBankStats();
+      else if (methodName === 'getRandomQuestions') api.getRandomQuestions(args.chapter, args.limit);
+      else if (methodName === 'submitQuizResult') api.submitQuizResult(args);
+      else if (methodName === 'addQuestion') api.addQuestion(args.user, args.questionData);
+      else if (methodName === 'getLearningHistory') api.getLearningHistory(args.user);
       return;
     }
 
@@ -261,20 +267,20 @@
       getLearningHistory: 'history'
     };
 
-    const action = actionMap[fnName];
-    const payload = Object.assign({}, argsObj || {});
+    const action = actionMap[methodName];
+    const payload = Object.assign({}, args || {});
 
-    function unwrap_(data) {
-      if (fnName === 'getQuestionBankStats') return data && data.stats;
-      if (fnName === 'getSchools') return data && data.schools;
-      if (fnName === 'getRandomQuestions') return data && data.quiz;
-      if (fnName === 'getLearningHistory') return data && data.records;
-      return data;
+    function extractValue_(raw) {
+      if (methodName === 'getQuestionBankStats') return raw && raw.stats;
+      if (methodName === 'getSchools') return raw && raw.schools;
+      if (methodName === 'getRandomQuestions') return raw && raw.quiz;
+      if (methodName === 'getLearningHistory') return raw && raw.records;
+      return raw;
     }
 
-    callJsonp_(action, payload, (errJsonp, dataJsonp) => {
+    requestJsonp_(action, payload, (errJsonp, dataJsonp) => {
       if (!errJsonp && dataJsonp) {
-        cb(null, unwrap_(dataJsonp));
+        cb(null, extractValue_(dataJsonp));
         return;
       }
 
@@ -288,8 +294,8 @@
           if (!r.ok) throw new Error('HTTP ' + r.status);
           return r.json();
         })
-        .then(data => cb(null, unwrap_(data)))
-        .catch(errFetch => cb(errFetch || errJsonp || new Error('Connection failed'), null));
+        .then(dataPost => cb(null, extractValue_(dataPost)))
+        .catch(errPost => cb(errPost || errJsonp, null));
     });
   }
 
@@ -298,24 +304,24 @@
     loadSchools();
   };
 
-  function openTab(tab) {
+  function openTab(tabName) {
     ['quiz', 'history', 'admin'].forEach(name => {
-      const capName = name.charAt(0).toUpperCase() + name.slice(1);
-      document.getElementById('sec' + capName).style.display = (name === tab) ? 'block' : 'none';
-      const btn = document.getElementById('btnTab' + capName);
-      if (btn) btn.classList.toggle('active', name === tab);
+      const upper = name.charAt(0).toUpperCase() + name.slice(1);
+      document.getElementById('sec' + upper).style.display = (name === tabName) ? 'block' : 'none';
+      const btn = document.getElementById('btnTab' + upper);
+      if (btn) btn.classList.toggle('active', name === tabName);
     });
-    if (tab === 'history') loadHistory();
+    if (tabName === 'history') loadHistory();
   }
 
   function toggleRegister() {
-    const el = document.getElementById('registerPanel');
-    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+    const panel = document.getElementById('registerPanel');
+    panel.style.display = (panel.style.display === 'none') ? 'block' : 'none';
   }
 
   function loadSchools() {
-    callServer('getSchools', {}, (err, list) => {
-      if (err || !list) return;
+    callBackend_('getSchools', {}, (err, list) => {
+      if (err || !Array.isArray(list)) return;
       schoolCache = list;
       const sel = document.getElementById('regSchool');
       sel.innerHTML = '<option value="">-- เลือกโรงเรียน --</option>';
@@ -336,17 +342,26 @@
     }
   }
 
-  function onLogin() {
-    const username = document.getElementById('loginUser').value;
-    const password = document.getElementById('loginPass').value;
-    callServer('verifyLogin', { username, password }, (err, res) => {
-      const msg = document.getElementById('authMsg');
+  function onLogin(event) {
+    if (event) event.preventDefault();
+    const username = document.getElementById('loginUser').value.trim();
+    const password = document.getElementById('loginPass').value.trim();
+    const msg = document.getElementById('authMsg');
+
+    if (!username || !password) {
+      msg.innerHTML = '<span class="err-text">กรุณากรอกชื่อผู้ใช้และรหัสผ่าน</span>';
+      return;
+    }
+
+    msg.innerHTML = '<span class="muted">กำลังตรวจสอบข้อมูลเข้าสู่ระบบ...</span>';
+
+    callBackend_('verifyLogin', { username: username, password: password }, (err, res) => {
       if (err) {
-        msg.innerHTML = '<span class="err-text">ไม่สามารถเชื่อมต่อ Web App ได้ กรุณาตรวจสอบสิทธิ์การเข้าถึงเป็น Anyone</span>';
+        msg.innerHTML = '<span class="err-text">เชื่อมต่อ Web App ไม่สำเร็จ กรุณาตรวจสอบการ Deploy และสิทธิ์ Anyone</span>';
         return;
       }
-      if (!res || !res.ok) {
-        msg.innerHTML = `<span class="err-text">${(res && res.message) || 'เข้าสู่ระบบไม่สำเร็จ'}</span>`;
+      if (!res || res.ok !== true || !res.user) {
+        msg.innerHTML = `<span class="err-text">${(res && res.message) || 'Invalid credentials'}</span>`;
         return;
       }
       msg.innerHTML = '';
@@ -356,16 +371,17 @@
 
   function onRegister() {
     const payload = {
-      username: document.getElementById('regUser').value,
-      password: document.getElementById('regPass').value,
-      fullName: document.getElementById('regName').value,
-      school: document.getElementById('regSchool').value,
-      province: document.getElementById('regProvince').value,
-      levelOrPos: document.getElementById('regLevel').value,
-      contact: document.getElementById('regContact').value
+      username: document.getElementById('regUser').value.trim(),
+      password: document.getElementById('regPass').value.trim(),
+      fullName: document.getElementById('regName').value.trim(),
+      school: document.getElementById('regSchool').value.trim(),
+      province: document.getElementById('regProvince').value.trim(),
+      levelOrPos: document.getElementById('regLevel').value.trim(),
+      contact: document.getElementById('regContact').value.trim()
     };
-    callServer('registerUser', payload, (err, res) => {
-      const msg = document.getElementById('authMsg');
+    const msg = document.getElementById('authMsg');
+
+    callBackend_('registerUser', payload, (err, res) => {
       if (err || !res || !res.ok) {
         msg.innerHTML = `<span class="err-text">${(res && res.message) || 'สมัครสมาชิกไม่สำเร็จ'}</span>`;
         return;
@@ -383,7 +399,7 @@
     document.getElementById('sessionInfo').innerHTML =
       `<b>${user.fullName}</b> (@${user.username}) · สิทธิ์: <b>${user.role}</b> · ${user.school || '-'}`;
 
-    const isAdmin = (user.role === 'Admin' || Number(user.roleId) === 1);
+    const isAdmin = (String(user.role).trim() === 'Admin' || Number(user.roleId) === 1);
     document.getElementById('btnTabAdmin').style.display = isAdmin ? 'inline-block' : 'none';
     if (!isAdmin) openTab('quiz');
     loadHistory();
@@ -391,6 +407,7 @@
 
   function onLogout() {
     currentUser = null;
+    document.getElementById('loginPass').value = '';
     document.getElementById('authBox').style.display = 'block';
     document.getElementById('sessionBar').style.display = 'none';
     document.getElementById('btnTabAdmin').style.display = 'none';
@@ -399,7 +416,7 @@
   }
 
   function refreshStats() {
-    callServer('getQuestionBankStats', {}, (err, stats) => {
+    callBackend_('getQuestionBankStats', {}, (err, stats) => {
       if (err || !stats) return;
       currentStats = stats;
       document.getElementById('statTotal').textContent = stats.totalQuestions + ' ข้อ';
@@ -408,7 +425,7 @@
       const prev = sel.value;
       sel.innerHTML = '';
 
-      stats.chapters.forEach(c => {
+      (stats.chapters || []).forEach(c => {
         const opt = document.createElement('option');
         opt.value = c.chapter;
         opt.textContent = `บทที่ ${c.chapter} (ในคลัง ${c.availableCount} ข้อ · สุ่ม ${c.quizCount} ข้อ)`;
@@ -421,7 +438,7 @@
   }
 
   function updateChapterStat() {
-    if (!currentStats) return;
+    if (!currentStats || !Array.isArray(currentStats.chapters)) return;
     const ch = Number(document.getElementById('chapterSelect').value);
     const found = currentStats.chapters.find(item => item.chapter === ch);
     document.getElementById('statChapter').textContent = (found ? found.availableCount : 0) + ' ข้อ';
@@ -432,8 +449,11 @@
     document.getElementById('quizResult').innerHTML = '';
     document.getElementById('quizMeta').textContent = 'กำลังสุ่มคำถาม 20 ข้อ...';
 
-    callServer('getRandomQuestions', { chapter: ch, limit: 20 }, (err, data) => {
-      if (err || !data) return;
+    callBackend_('getRandomQuestions', { chapter: ch, limit: 20 }, (err, data) => {
+      if (err || !data) {
+        document.getElementById('quizMeta').textContent = 'ไม่สามารถดึงข้อสอบได้';
+        return;
+      }
       quizList = data.questions || [];
       document.getElementById('quizMeta').textContent =
         `บทที่ ${data.chapter} — มีข้อสอบในคลังทั้งหมด ${data.availableInBank} ข้อ | สุ่มมาใช้รอบนี้ ${quizList.length} ข้อ`;
@@ -449,16 +469,16 @@
       quizList.forEach(q => {
         const div = document.createElement('div');
         div.className = 'q-box';
-        let htmlChoices = '';
-        q.choices.forEach((choice, idx) => {
-          const safeChoice = choice.replace(/"/g, '&quot;');
-          htmlChoices += `
+        let choicesHtml = '';
+        (q.choices || []).forEach((choice, idx) => {
+          const safeVal = choice.replace(/"/g, '&quot;');
+          choicesHtml += `
             <label class="choice">
-              <input type="radio" name="q_${q.rowNumber}" value="${safeChoice}" />
+              <input type="radio" name="q_${q.rowNumber}" value="${safeVal}" />
               ${idx + 1}. ${choice}
             </label>`;
         });
-        div.innerHTML = `<div><b>ข้อที่ ${q.index}:</b> ${q.question}</div>${htmlChoices}`;
+        div.innerHTML = `<div><b>ข้อที่ ${q.index}:</b> ${q.question}</div>${choicesHtml}`;
         form.appendChild(div);
       });
 
@@ -478,7 +498,7 @@
       answers[q.rowNumber] = checked ? checked.value : '';
     });
 
-    callServer('submitQuizResult', { user: currentUser, chapter: ch, answers: answers }, (err, res) => {
+    callBackend_('submitQuizResult', { user: currentUser, chapter: ch, answers: answers }, (err, res) => {
       if (err || !res) return;
       document.getElementById('quizResult').innerHTML = `
         <div class="kpi">
@@ -501,7 +521,7 @@
       answer: document.getElementById('addAnswer').value
     };
 
-    callServer('addQuestion', { user: currentUser, questionData }, (err, res) => {
+    callBackend_('addQuestion', { user: currentUser, questionData: questionData }, (err, res) => {
       const msg = document.getElementById('addMsg');
       if (err || !res || !res.ok) {
         msg.innerHTML = `<span class="err-text">${(res && res.message) || 'เพิ่มข้อสอบไม่สำเร็จ'}</span>`;
@@ -521,14 +541,17 @@
       wrap.innerHTML = 'กรุณาลงชื่อเข้าใช้ก่อนดูประวัติ';
       return;
     }
-    callServer('getLearningHistory', { user: currentUser }, (err, records) => {
-      if (err || !records || records.length === 0) {
+
+    callBackend_('getLearningHistory', { user: currentUser }, (err, records) => {
+      if (err || !Array.isArray(records) || records.length === 0) {
         wrap.innerHTML = '<p>ยังไม่มีประวัติการทำแบบฝึกหัด</p>';
         return;
       }
+
       let html = `<table><thead><tr>
         <th>User</th><th>ชื่อผู้ใช้</th><th>โรงเรียน</th><th>หน่วยที่</th><th>คะแนน</th><th>สถานะ</th><th>วันที่บันทึก</th>
       </tr></thead><tbody>`;
+
       records.forEach(r => {
         html += `<tr>
           <td>${r.username}</td>
@@ -540,6 +563,7 @@
           <td>${r.recordedAt}</td>
         </tr>`;
       });
+
       html += '</tbody></table>';
       wrap.innerHTML = html;
     });
